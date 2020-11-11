@@ -28,9 +28,10 @@ public class Patients {
 		 String surname = input.next();
 		 System.out.print("Enter the id number: ");
 		 int id = input.nextInt();
+		 input.nextLine();
 		 Patients patient = new Patients(name, surname, id);
 		 toStringPatient();
-		 //καλώ μέθοδο η οποία εκτελεί την ιχνηλάτηση
+		 //οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
 	 }
 	    
 	 public static void toStringPatient() {
@@ -38,7 +39,7 @@ public class Patients {
 	 }
 	 
 	 public static void tracking() {
-		 // Σύμφωνα με το σχεδιάγραμμα
+		 // οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
 	 }
 
 }
