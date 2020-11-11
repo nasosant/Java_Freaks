@@ -1,2 +1,2 @@
-public class Communication {git
+public class Communication {
 }
