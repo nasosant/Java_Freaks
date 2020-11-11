@@ -1,20 +1,20 @@
-package Ergasia;
+
 
 import java.util.Scanner;
 
-public class Patients {
+public class AllPeople {
 	
-	 private Patients patient;
+	 private AllPeople person;
 	 private static String name;
 	 private static String surname;
 	 private static int id;
 	 
-	 public Patients() {
+	 public AllPeople() {
 	    	
 	 }
 	    
-	 public Patients(String name, String surname, int id) {
-		 this.patient = this;
+	 public AllPeople(String name, String surname, int id) {
+		 this.person = this;
 		 this.name = name;
 		 this.surname = surname;
 		 this.id = id;
@@ -29,12 +29,12 @@ public class Patients {
 		 System.out.print("Enter the id number: ");
 		 int id = input.nextInt();
 		 input.nextLine();
-		 Patients patient = new Patients(name, surname, id);
-		 toStringPatient();
+		 AllPeople patient = new AllPeople(name, surname, id);
+		 toStringAllPeople();
 		 //���� ������ � ����� ������� ��� ����������
 	 }
 	    
-	 public static void toStringPatient() {
+	 public static void toStringAllPeople() {
 		 System.out.printf("Name : %s \nSurname : %s \nid : %d \n", name, surname, id);   
 	 }
 	 
