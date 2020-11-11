@@ -2,7 +2,7 @@ package Ergasia;
 
 import java.util.Scanner;
 
-public class TrackingCovid19 {
+public class TrackingCovid {
 
     private static int suspiciousCases = 0;
     private static int allHealthyPeople = 10430106;
