@@ -1,3 +1,3 @@
-public class HighDanger extends VictimContact {
+//public class HighDanger extends VictimContact {
 
-}
+//}

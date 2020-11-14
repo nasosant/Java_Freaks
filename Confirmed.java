@@ -6,7 +6,7 @@ public class Confirmed extends AllPeople {
 	private static int counter = 0;
 
 	public Confirmed(String name, String surname) {
-		super(name, surname);
+		//super(name, surname);
 		// oti allh plhroforia zhtao na dinetai kata thn epikoinonia
 		confTable[counter] = this;
 		counter++;

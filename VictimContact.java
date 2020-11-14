@@ -6,7 +6,7 @@ public class VictimContact extends AllPeople {
 	private static int counter = 0;
 
 	public VictimContact(String name, String surname) {
-		super(name, surname);
+		//super(name, surname);
 		// oti allh plhroforia zhtao na dinetai kata thn epikoinonia
 		victimContactTable[counter] = this;
 		counter++ ;
@@ -24,7 +24,7 @@ public class VictimContact extends AllPeople {
 	public void classifyContact () {
 		//diaxorismos upsilou-xamhlou kindunou
 		String result;
-		if () {
+		if (true) {
 			result="υψηλού";
 		} else {
 			result="χαμηλού";
