@@ -21,7 +21,7 @@ public class VictimContact extends AllPeople {
 		VictimContact possiblepatient = new VictimContact(name, surname);
 	}
 
-	public void classifyContact () {
+	/*public void classifyContact () {
 		//diaxorismos upsilou-xamhlou kindunou
 		String result;
 		if (true) {
@@ -29,7 +29,7 @@ public class VictimContact extends AllPeople {
 		} else {
 			result="χαμηλού";
 		}
-	}
+	}*/
 
 }
 
