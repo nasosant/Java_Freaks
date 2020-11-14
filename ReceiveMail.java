@@ -7,10 +7,10 @@ import java.util.Properties;
 public class ReceiveMail {
 
     public static void main(String args[]) throws Exception {
-        try {
+
             //1) get the session object
             Properties properties = System.getProperties();
-            properties.setProperty("mai.store.protocol", "imaps");
+            properties.setProperty("mail.store.protocol", "imaps");
 
             Session emailSession = Session.getDefaultInstance(properties, null);
 
@@ -19,20 +19,20 @@ public class ReceiveMail {
             store.connect("imap.gmail.com","javafreaks.dmst@gmail.com","javafreaks");
 
             //3) create folder??
-            Folder inbox = store.getFolder("inbox");
-            inbox.open(Folder.READ_ONLY);
+            Folder emailFolder = store.getFolder("INBOX");
+            emailFolder.open(Folder.READ_ONLY);
 
             //4)find the message
-            Message messages [] = inbox.getMessages();
+            Message[] messages = emailFolder.getMessages();
+            int c=0;
             for (Message message : messages){
-                System.out.println(message.getSubject());
+                c=c+1;
+                System.out.println("email's subject #"+ c +" " + message.getSubject());
             }
 
 
-        } catch (Exception e){
-            System.out.println(e.getMessage());
         }
 
 
     }
-}
+

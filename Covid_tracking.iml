@@ -10,5 +10,9 @@
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
     <orderEntry type="library" name="j2ee" level="project" />
     <orderEntry type="library" name="mail" level="project" />
+    <orderEntry type="library" name="mail-3.0.2-sources" level="project" />
+    <orderEntry type="library" name="activation" level="project" />
+    <orderEntry type="library" name="j2ee-0.51.0" level="project" />
+    <orderEntry type="library" name="javax.mail" level="project" />
   </component>
 </module>
