@@ -2,6 +2,8 @@
 
 import java.util.Scanner;
 
+import javax.naming.CommunicationException;
+
 public class TrackingCovid {
 
     private static int suspiciousCases = 0;
@@ -32,6 +34,7 @@ public class TrackingCovid {
                 break;
         }
     }
+    
 
     public static void printMenu() {
         System.out.println("1. Add a patient.");
@@ -41,4 +44,5 @@ public class TrackingCovid {
         System.out.println("5. Show all the results until now.");
         System.out.print("Choose an option: ");
     }
+  
 }
