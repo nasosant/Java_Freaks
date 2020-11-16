@@ -1,8 +1,7 @@
 import java.util.Scanner;
 
-public class VictimContact extends AllPeople {
+	public class VictimContact extends AllPeople {
 
-<<<<<<< HEAD
 	        protected static VictimContact victimContactTable[] = new VictimContact[100];
 	        protected static VictimContact HighDanger[] = new VictimContact[100];
 	        protected static VictimContact LowDanger[] = new VictimContact[100];
@@ -34,48 +33,19 @@ public class VictimContact extends AllPeople {
 	                victimContactTable[counter] = this;
 	                counter++;
 	        }
-
-		public static void addVictimContact() {
-=======
-	protected static VictimContact victimContactTable[] = new VictimContact[1];
-	protected static VictimContact HighDanger[] = new VictimContact[1];
-	protected static VictimContact LowDanger[] = new VictimContact[1];
-	protected static int counter = 0;
-
-	public VictimContact(String name, String surname, String address, String email, int phonenumber, int AMKA) {
-		super(name, surname, address, email, phonenumber, AMKA);
-		// oti allh plhroforia zhtao na dinetai kata thn epikoinonia
-		if (counter == victimContactTable.length) {
-			victimContactTable = (VictimContact[]) duplicateTable(victimContactTable.length, victimContactTable);
-		}
-		victimContactTable[counter] = this;
-		counter++;
-	}
-
-	public static void addVictimContact() {
->>>>>>> 79207a49e2ca4073de9663c0dccf067638b66dd2
-		Scanner input = new Scanner(System.in);
-		System.out.print("Enter the patient's personal details");
-		System.out.print("Enter the name: ");
-		String name = input.next();
-		System.out.print("Enter the surname: ");
-		String surname = input.next();
-		System.out.print("Enter the address: ");
-		String address = input.next();
-		System.out.print("Enter the email: ");
-		String email = input.next();
-		System.out.print("Enter the phonenumber: ");
-		int phonenumber = input.nextInt();
-		System.out.print("Enter the AMKA: ");
-		int AMKA = input.nextInt();
-<<<<<<< HEAD
-		possiblepatient = new VictimContact(name, surname, address,
-				email, phonenumber, AMKA);
-=======
-		new VictimContact(name, surname, address, email, phonenumber, AMKA);
->>>>>>> 79207a49e2ca4073de9663c0dccf067638b66dd2
-	}
-		    public void highdanger() {
+	       
+	        /*  public static void addVictimContact() {
+                Scanner input = new Scanner(System.in);
+                String name = input.next();
+                String surname = input.next();
+                String address = input.next();
+                String email = input.next();
+                int phonenumber = input.nextInt();
+                int AMKA = input.nextInt();
+                VictimContact possiblepatient = new VictimContact(name, surname, address, email, phonenumber, AMKA);
+        } */
+	        
+	    public void highdanger() {
 	    	
 	    	System.out.println("The contact should abide by the following orders.");
 	    	System.out.println("Firstly, staying indoors and have health supervision.");
@@ -104,5 +74,71 @@ public class VictimContact extends AllPeople {
                 }
                 
         }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	    	
+
+
+
+	    	
+
+	    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
