@@ -38,14 +38,13 @@ public class AllPeople {
 	}
 
 	public static void destructor(AllPeople person) {
-		person.finalize(person);
+		person.finalize();
 		person = null;
 		System.gc();
 	}
 
-	protected void finalize(AllPeople person) {
-		System.out.println("The patient " + person.name + " " + person.surname + " with id=" + person.id
-				+ " has been cured from Covid19");
+	protected void finalize() {
+		System.out.println("The patient has been cured from Covid19");
 	}
 
 }

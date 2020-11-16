@@ -31,14 +31,14 @@ public class Confirmed extends AllPeople {
 				VictimContact.victimContactTable[pos].phonenumber, VictimContact.victimContactTable[pos].AMKA);
 
 		AllPeople.counter_for_id = temp;
-		destructor(VictimContact.victimContactTable[pos]);
+		AllPeople.destructor(VictimContact.victimContactTable[pos]);
 		VictimContact.counter = VictimContact.counter - 1;
 		VictimContact.victimContactTable[pos] = VictimContact.victimContactTable[VictimContact.counter];
 	}
 
 	public static void addPatient() {
 		Scanner input = new Scanner(System.in);
-		System.out.print("Enter the patient's personal details");
+		System.out.println("Enter the patient's personal details");
 		System.out.print("Enter the name: ");
 		String name = input.next();
 		System.out.print("Enter the surname: ");

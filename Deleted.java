@@ -28,7 +28,7 @@ public class Deleted extends AllPeople {
 				Confirmed.confTable[pos].email, Confirmed.confTable[pos].phonenumber, Confirmed.confTable[pos].AMKA);
 
 		AllPeople.counter_for_id = temp;
-		destructor(Confirmed.confTable[pos]);
+		AllPeople.destructor(Confirmed.confTable[pos]);
 		Confirmed.counter = Confirmed.counter - 1;
 		Confirmed.confTable[pos] = Confirmed.confTable[Confirmed.counter];
 	}
