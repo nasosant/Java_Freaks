@@ -40,13 +40,10 @@ public class VictimContact extends AllPeople {
 		int phonenumber = input.nextInt();
 		System.out.print("Enter the AMKA: ");
 		int AMKA = input.nextInt();
-		VictimContact possiblepatient = new VictimContact(name, surname, address, email, phonenumber, AMKA);
+		possiblepatient = new VictimContact(name, surname, address, email, phonenumber, AMKA);
 	}
 
 	// diaxorismos upsilou-xamhlou kindunou
-
-	// Xen ama den soy aresei to if pou exo kanei svisto kai ksekina to apo tin
-	// arxh!!!!!!!
 
 	/*public void classifyContact() {
 		String result;

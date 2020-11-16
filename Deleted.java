@@ -6,6 +6,9 @@ public class Deleted extends AllPeople {
 	public Deleted(String name, String surname, String address, String email, int phonenumber, int AMKA) {
 		super(name, surname, address, email, phonenumber, AMKA);
 		// oti allh plhroforia zhtao na dinetai kata thn epikoinonia
+		if (counter == delTable.length) {
+			delTable = duplicateTable(delTable.length, delTable);
+		}
 		delTable[counter] = this;
 		counter++;
 	}

@@ -40,7 +40,7 @@ public class Confirmed extends AllPeople {
 		int phonenumber = input.nextInt();
 		System.out.print("Enter the AMKA: ");
 		int AMKA = input.nextInt();
-		Confirmed patient = new Confirmed(name, surname, address, email, phonenumber, AMKA);
+		new Confirmed(name, surname, address, email, phonenumber, AMKA);
 	}
 
 }

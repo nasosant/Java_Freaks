@@ -33,13 +33,5 @@ public class AllPeople {
 		System.out.println("The patient " + person.name + " " + person.surname + " with id=" + person.id + " has gotten over from Covid19");
 	}
 
-	public static AllPeople[] duplicateTable(int length, AllPeople[] table) {
-		AllPeople newTable[] = new AllPeople[2 * length];
-		for (int i = 0; i < length; i++) {
-			newTable[i] = table[i];
-		}
-		return newTable;
-	}
-
 }
 
