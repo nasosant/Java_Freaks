@@ -40,7 +40,7 @@ public class VictimContact extends AllPeople {
 		int phonenumber = input.nextInt();
 		System.out.print("Enter the AMKA: ");
 		int AMKA = input.nextInt();
-		possiblepatient = new VictimContact(name, surname, address, email, phonenumber, AMKA);
+		new VictimContact(name, surname, address, email, phonenumber, AMKA);
 	}
 
 	// diaxorismos upsilou-xamhlou kindunou

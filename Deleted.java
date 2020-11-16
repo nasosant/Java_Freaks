@@ -32,14 +32,14 @@ public class Deleted extends AllPeople {
 		int temp = AllPeople.counter_for_id;
 		AllPeople.counter_for_id = id - 1;
 
-		Deleted lucky = new Deleted(Confirmed.confTable[pos].name, Confirmed.confTable[pos].surname,
+		new Deleted(Confirmed.confTable[pos].name, Confirmed.confTable[pos].surname,
 				Confirmed.confTable[pos].address, Confirmed.confTable[pos].email, Confirmed.confTable[pos].phonenumber,
 				Confirmed.confTable[pos].AMKA);
 
 		AllPeople.counter_for_id = temp;
 		destructor(Confirmed.confTable[pos]);
-		Confirmed.confTable[pos] = Confirmed.confTable[Confirmed.counter];
 		Confirmed.counter = Confirmed.counter - 1;
+		Confirmed.confTable[pos] = Confirmed.confTable[Confirmed.counter];
 	}
 
 	public static void destructor(AllPeople person) {

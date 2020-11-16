@@ -30,7 +30,7 @@ public class AllPeople {
 	}
 
 	protected void finalize(AllPeople person) {
-		System.out.println("The patient " + person.name + " " + person.surname + " with id=" + person.id + " has gotten over from Covid19");
+		System.out.println("The patient " + person.name + " " + person.surname + " with id=" + person.id + " has been cured from Covid19");
 	}
 
 }
