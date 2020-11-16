@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class VictimContact extends AllPeople {
 
+<<<<<<< HEAD
 	        protected static VictimContact victimContactTable[] = new VictimContact[100];
 	        protected static VictimContact HighDanger[] = new VictimContact[100];
 	        protected static VictimContact LowDanger[] = new VictimContact[100];
@@ -35,6 +36,24 @@ public class VictimContact extends AllPeople {
 	        }
 
 		public static void addVictimContact() {
+=======
+	protected static VictimContact victimContactTable[] = new VictimContact[1];
+	protected static VictimContact HighDanger[] = new VictimContact[1];
+	protected static VictimContact LowDanger[] = new VictimContact[1];
+	protected static int counter = 0;
+
+	public VictimContact(String name, String surname, String address, String email, int phonenumber, int AMKA) {
+		super(name, surname, address, email, phonenumber, AMKA);
+		// oti allh plhroforia zhtao na dinetai kata thn epikoinonia
+		if (counter == victimContactTable.length) {
+			victimContactTable = (VictimContact[]) duplicateTable(victimContactTable.length, victimContactTable);
+		}
+		victimContactTable[counter] = this;
+		counter++;
+	}
+
+	public static void addVictimContact() {
+>>>>>>> 79207a49e2ca4073de9663c0dccf067638b66dd2
 		Scanner input = new Scanner(System.in);
 		System.out.print("Enter the patient's personal details");
 		System.out.print("Enter the name: ");
@@ -49,8 +68,12 @@ public class VictimContact extends AllPeople {
 		int phonenumber = input.nextInt();
 		System.out.print("Enter the AMKA: ");
 		int AMKA = input.nextInt();
+<<<<<<< HEAD
 		possiblepatient = new VictimContact(name, surname, address,
 				email, phonenumber, AMKA);
+=======
+		new VictimContact(name, surname, address, email, phonenumber, AMKA);
+>>>>>>> 79207a49e2ca4073de9663c0dccf067638b66dd2
 	}
 		    public void highdanger() {
 	    	
