@@ -2,27 +2,19 @@ import java.util.Scanner;
 
 public class VictimContact extends AllPeople {
 
-	protected static VictimContact victimContactTable[] = new VictimContact[100];
-	protected static VictimContact HighDanger[] = new VictimContact[100];
-	protected static VictimContact LowDanger[] = new VictimContact[100];
-	private static int counter = 0;
+	protected static VictimContact victimContactTable[] = new VictimContact[1];
+	protected static VictimContact HighDanger[] = new VictimContact[1];
+	protected static VictimContact LowDanger[] = new VictimContact[1];
+	protected static int counter = 0;
 
 	public VictimContact(String name, String surname, String address, String email, int phonenumber, int AMKA) {
 		super(name, surname, address, email, phonenumber, AMKA);
 		// oti allh plhroforia zhtao na dinetai kata thn epikoinonia
 		if (counter == victimContactTable.length) {
-			victimContactTable = duplicateTable(victimContactTable.length, victimContactTable);
+			victimContactTable = (VictimContact[]) duplicateTable(victimContactTable.length, victimContactTable);
 		}
 		victimContactTable[counter] = this;
 		counter++;
-	}
-
-	public static VictimContact[] duplicateTable(int length, VictimContact[] victimContactTable) {
-		VictimContact newvictimContactTable[] = new VictimContact[2 * length];
-		for (int i = 0; i < length; i++) {
-			newvictimContactTable[i] = victimContactTable[i];
-		}
-		return newvictimContactTable;
 	}
 
 	public static void addVictimContact() {
