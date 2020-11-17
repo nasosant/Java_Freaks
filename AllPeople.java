@@ -37,15 +37,17 @@ public class AllPeople {
 		return this.id;
 	}
 
-	public static void destructor(AllPeople person) {
-		person.finalize();
-		person = null;
-		System.gc();
+	public static void destructor(int pos, AllPeople[] Table) {
+		// Table[pos].finalize();
+		System.out.println("The patient has been cured from Covid19");
+		Table[pos] = null;
+		// System.gc();
 	}
 
-	protected void finalize() {
-		System.out.println("The patient has been cured from Covid19");
-	}
+	/*
+	 * protected void finalize() {
+	 * System.out.println("The patient has been cured from Covid19"); }
+	 */
 
 }
 

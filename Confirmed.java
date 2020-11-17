@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Confirmed extends AllPeople {
 
-	protected static Confirmed confTable[] = new Confirmed[1];
+	protected static Confirmed confTable[] = new Confirmed[2];
 	protected static int counter = 0;
 
 	public Confirmed(String name, String surname, String address, String email, int phonenumber, int AMKA) {
@@ -31,7 +31,7 @@ public class Confirmed extends AllPeople {
 				VictimContact.victimContactTable[pos].phonenumber, VictimContact.victimContactTable[pos].AMKA);
 
 		AllPeople.counter_for_id = temp;
-		AllPeople.destructor(VictimContact.victimContactTable[pos]);
+		AllPeople.destructor(pos, VictimContact.victimContactTable);
 		VictimContact.counter = VictimContact.counter - 1;
 		VictimContact.victimContactTable[pos] = VictimContact.victimContactTable[VictimContact.counter];
 	}
