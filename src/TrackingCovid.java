@@ -18,7 +18,7 @@ public class TrackingCovid {
 
         switch (answer) {
             case 1:
-                AllPeople.addPatient();
+                //AllPeople.addPatient();
                 break;
             case 2:
                 //add a suspicious case-method

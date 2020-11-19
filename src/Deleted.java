@@ -26,6 +26,7 @@ public class Deleted extends AllPeople {
 				break;
 			}
 		}
+
 		int temp = AllPeople.counter_for_id;
 		AllPeople.counter_for_id = id - 1;
 

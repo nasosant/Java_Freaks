@@ -20,26 +20,34 @@ public class AllPeople {
 		id = counter_for_id;
 	}
 
+	public static AllPeople[] duplicateTable(int length, AllPeople[] Table) {
+		AllPeople newTable[] = new AllPeople[2 * length];
+		for (int i = 0; i < length; i++) {
+			newTable[i] = Table[i];
+		}
+		return newTable;
+	}
+
 	@Override
 	public String toString() {
-		return "name=" + name + ", surname=" + surname + ", id=" + id;
+		return "name=" + name + ", surname=" + surname + ", id=" + id; // na balo ta alla pedia
 	}
 
 	public int getId() {
 		return this.id;
 	}
 
-	protected void finalize(AllPeople person) {
-		System.out.println("The patient " + person.name + " " + person.surname + " with id=" + person.id + " has gotten over from Covid19");
+	public static void destructor(int pos, AllPeople[] Table) {
+		// Table[pos].finalize();
+		System.out.println("The patient has been cured from Covid19");
+		Table[pos] = null;
+		// System.gc();
 	}
 
-	public static AllPeople[] duplicateTable(int length, AllPeople[] table) {
-		AllPeople newTable[] = new AllPeople[2 * length];
-		for (int i = 0; i < length; i++) {
-			newTable[i] = table[i];
-		}
-		return newTable;
-	}
+	/*
+	 * protected void finalize() {
+	 * System.out.println("The patient has been cured from Covid19"); }
+	 */
 
 }
 
