@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Confirmed extends AllPeople {
 
-	protected static Confirmed confTable[] = new Confirmed[2];
+	protected static Confirmed confTable[] = new Confirmed[3];
 	protected static int counter = 0;
 
 	public Confirmed(String name, String surname, String address, String email, int phonenumber, int AMKA) {
