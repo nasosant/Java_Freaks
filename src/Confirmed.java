@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Confirmed extends AllPeople {
 
-	protected static Confirmed confTable[] = new Confirmed[3];
+	protected static Arraylist<Confirmed> confirmed = new Arraylist<>();
 	protected static int counter = 0;
 
 	public Confirmed(String name, String surname, String address, String email, int phonenumber, int AMKA) {
@@ -35,6 +35,15 @@ public class Confirmed extends AllPeople {
 		VictimContact.counter = VictimContact.counter - 1;
 		VictimContact.victimContactTable[pos] = VictimContact.victimContactTable[VictimContact.counter];
 	}
+	
+	public static boolean findId(int id) {
+		for( int i = 0; i < confirmed.size(); i++) {
+			if(confirmed.get(i).getId == id) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public static void addPatient() {
 		Scanner input = new Scanner(System.in);
@@ -49,10 +58,15 @@ public class Confirmed extends AllPeople {
 		String email = input.next();
 		System.out.print("Enter the phonenumber: ");
 		int phonenumber = input.nextInt();
+		input.nextLine(); // to clear buffer.
 		System.out.print("Enter the AMKA: ");
 		int AMKA = input.nextInt();
-		new Confirmed(name, surname, address, email, phonenumber, AMKA);
+		
+		confirmed.add(new Confirmed(name, surname, address, email, phonenumber, AMKA));
+		
 	}
+	
+	
 
 }
 
