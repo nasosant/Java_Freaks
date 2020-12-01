@@ -1,7 +1,7 @@
 public class Deleted extends AllPeople {
 
-	protected static Deleted delTable[] = new Deleted[1];
-	protected static int counter = 0;
+	protected static Deleted delTable[] = new Deleted[100];
+	private static int counter = 0;
 
 	public Deleted(String name, String surname, String address, String email, int phonenumber, int AMKA) {
 		super(name, surname, address, email, phonenumber, AMKA);
@@ -21,6 +21,7 @@ public class Deleted extends AllPeople {
 				break;
 			}
 		}
+
 		int temp = AllPeople.counter_for_id;
 		AllPeople.counter_for_id = id - 1;
 
@@ -28,10 +29,9 @@ public class Deleted extends AllPeople {
 				Confirmed.confTable[pos].email, Confirmed.confTable[pos].phonenumber, Confirmed.confTable[pos].AMKA);
 
 		AllPeople.counter_for_id = temp;
-		destructor(Confirmed.confTable[pos]);
-		Confirmed.counter = Confirmed.counter - 1;
+		destructor(pos, VictimContact.victimContactTable);
 		Confirmed.confTable[pos] = Confirmed.confTable[Confirmed.counter];
+		Confirmed.counter = Confirmed.counter - 1;
 	}
 
 }
-
