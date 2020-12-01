@@ -1,3 +1,5 @@
+package Covid_tracking;
+
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -144,6 +146,76 @@ public class Communication {
 					"</body>\r\n" + 
 					"</html>\r\n" + 
 					"";
+
+			message.setContent(htmlCode,"text/html");
+			return message;
+		} catch (Exception ex) {
+			Logger.getLogger(Communication.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+}
+	public static void sendMailToConfirmedCases(String recepient) throws Exception {
+		System.out.println("Preparing to send email");
+		Properties properties = new Properties();
+		
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", "587");
+
+		String myAccountEmail = "javafreaks.dmst@gmail.com";
+		String password = "javafreaks";
+		
+		Session session = Session.getInstance(properties, new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(myAccountEmail, password);
+			}
+		});
+		
+		Message message  = prepareMessage3(session, myAccountEmail, recepient);
+		
+		Transport.send(message);
+		System.out.println("Message sent successfully");
+	}
+	
+	private static Message prepareMessage3(Session session, String myAccountEmail, String recepient) {
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(myAccountEmail));
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
+			message.setSubject("National Public Health Agency");
+			String htmlCode = "<html>\r\n" + 
+					"<head>\r\n" + 
+					"<title>National Public Health Agency</title>\r\n" + 
+					"</head>\r\n" + 
+					"<body>\r\n" + 
+					"\r\n" + 
+					"<h1>COVID-19 contact tracking procedure</h1>\r\n" + 
+					"<p>According to renent information, you were found positive in the test of COVID-19. This email is a way of tracking the contacts of COVID-19 cases so as to reduce the spreading of COVID-19. </p>\r\n" + 
+					"<p> To make it easier to locate your contacts we will need you to provide us with some specific information about them and classify them into one of the following categories: High Risk or Low Risk.<p>\r\n" + 
+					"<p>The following are considered high risk contacts:<p>\r\n" + 
+					"<ul>\r\n" + 
+					"<li>Person living in the same area as the COVID-19 case</li>\r\n" + 
+					"<li>Person who had direct physical contact with COVID-19 (such as by handshake)</li>\r\n" + 
+					"<li>A person who came into contact without protective equipment with infectious secretions of the COVID-19 case (eg being in a short range when the patient coughed, coming in contact with used tissues without wearing protective gloves)</li>\r\n" + 
+					"<li>Person who had face-to-face contact with a COVID-19 case and at a distance of less than 2 meters more than 15 ' </li>\r\n" + 
+					"<li>Person indoors (eg classroom, conference room, hospital waiting room, etc.) with a COVID-19 case of 15 'or more and less than 2 meters</li>\r\n" + 
+					"<li>A health care worker or other caregiver who has provided care COVID-19 without using the recommended personal protective equipment (PPE) or in the event of a PPE failure</li>\r\n" + 
+					"<li>A person in the cockpit of an aircraft sitting at a distance of two seats (in each direction) from a COVID-19 case, fellow passengers or caregivers and cabin crew in the compartment of the aircraft where the patient was sitting (if the severity of the symptoms or movements of the case indicate a higher exposure rate, all passengers in this part of the aircraft can be considered close contacts).</li>\r\n" + 
+					"</ul>\r\n" + 
+					"<p>The following are considered low risk contacts:<p>\r\n" + 
+					"<ul>\r\n" + 
+					"<li>Person (s) found indoors with COVID-19 case for less than 15 'or more than 2 meters</li>\r\n" + 
+					"<li>Person (s) who had face-to-face contact with COVID-19 at a distance of less than 2 meters but less than 15 '</li>\r\n" + 
+					"<li>Companions of the COVID-19 case in other means of transport</li>\r\n" + 
+					"</ul>\r\n" + 
+					"<p>Based on the above, you are called to write to us the people you were in contact with as well as their phone number  and Email. You will send an email back to this as a reply with COVID-19 tracking procedure as the subject in the following way: <p>\r\n" + 
+					"<p>Code space fullname space phone space email , code space fullname ....etc.<p>\r\n" + 
+					"<p>In code you write either H or L depends on if the contact is High danger or Low Danger.<p>\r\n" + 
+					"\r\n" + 
+					"</body>\r\n" + 
+					"</html>";
 
 			message.setContent(htmlCode,"text/html");
 			return message;
