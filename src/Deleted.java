@@ -1,6 +1,7 @@
 public class Deleted extends AllPeople {
 
-	protected static Deleted delTable[] = new Deleted[100];
+	protected static Arraylist<Deleted> deleted = new Arraylist<>();
+	//protected static Deleted delTable[] = new Deleted[100];
 	private static int counter = 0;
 
 	public Deleted(String name, String surname, String address, String email, int phonenumber, int AMKA) {
@@ -13,7 +14,13 @@ public class Deleted extends AllPeople {
 		counter++;
 	}
 
-	public static void cure(int id) {
+	public static boolean cure(int id) {
+// 		for (int i = 0; i <  deleted.size(); i++) {
+// 			if (deleted(i).getId() == id) {
+// 				System.out.println("The patient :" + deleted.get(i).getName() +" "+deleted.get(i).getsurname() + " has already been deleted");
+// 				return false;
+// 			}
+// 		}
 		int pos = -1;
 		for (int i = 0; i < Confirmed.confTable.length; i++) {
 			if (Confirmed.confTable[i].getId() == id) {
