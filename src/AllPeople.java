@@ -1,4 +1,4 @@
-public class AllPeople {
+public abstract class AllPeople { //can be renamed to Patient
 
 	protected String name;
 	protected String surname;
@@ -10,7 +10,7 @@ public class AllPeople {
 	protected static int counter_for_id = 0;
 
 	public AllPeople(String name, String surname, String address, String email, int phonenumber, int AMKA) {
-		++counter_for_id;
+		counter_for_id++;
 		this.name = name;
 		this.surname = surname;
 		this.address = address;
@@ -20,13 +20,13 @@ public class AllPeople {
 		id = counter_for_id;
 	}
 
-	public static AllPeople[] duplicateTable(int length, AllPeople[] Table) {
-		AllPeople newTable[] = new AllPeople[2 * length];
-		for (int i = 0; i < length; i++) {
-			newTable[i] = Table[i];
-		}
-		return newTable;
-	}
+// 	public static AllPeople[] duplicateTable(int length, AllPeople[] Table) {
+// 		AllPeople newTable[] = new AllPeople[2 * length];
+// 		for (int i = 0; i < length; i++) {
+// 			newTable[i] = Table[i];
+// 		}
+// 		return newTable;
+// 	}
 
 	@Override
 	public String toString() {
@@ -35,6 +35,14 @@ public class AllPeople {
 
 	public int getId() {
 		return this.id;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public String getSurname() {
+		return this.surname;
 	}
 
 	public static void destructor(int pos, AllPeople[] Table) {
