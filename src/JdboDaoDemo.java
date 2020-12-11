@@ -23,8 +23,10 @@ public class PersonDao {
 	public void connect() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			// Connection connection = DriverManager.getConnection(String url,String user,String password);
-			// Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=test.db","covidusr","C0v1dusr!")
+			// Connection connection = DriverManager.getConnection(String url,String
+			// user,String password);
+			// Connection connection =
+			// DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=test.db","covidusr","C0v1dusr!")
 			connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=test.db");
 		} catch (Exception e) {
 			System.out.println(e);
@@ -35,17 +37,17 @@ public class PersonDao {
 	public Person getPerson(int id) {
 		try {
 			String query = "SELECT name FROM Person WHERE id=" + id;
-			Person person = new Person(id);
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("query");
 			resultSet.next();
 			String name = resultSet.getString(1);
-			person.name = name;
+			Person person = new Person(id, name);
 			return person;
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return null;
+		statement.close();
 		Connection.close();
 	}
 
@@ -57,8 +59,10 @@ public class PersonDao {
 			Pstatement.setInt(1, person.id);
 			Pstatement.setString(2, person.name);
 			Pstatement.executeUpdate();
-			int count = Pstatement.executeUpdate();
-			System.out.println(count + "row/s affected");
+			int rows = Pstatement.executeUpdate();
+			if (rows > 0) {
+				System.out.println(rows + "row/s affected");
+			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -70,10 +74,6 @@ public class PersonDao {
 public class Person {
 	int id;
 	String name;
-
-	public Person(int id) {
-		this.id = id;
-	}
 
 	public Person(int id, String name) {
 		this.id = id;
