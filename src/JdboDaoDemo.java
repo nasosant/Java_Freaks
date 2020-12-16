@@ -21,9 +21,7 @@ public class PersonDao {
 	public void connect() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			// Connection connection = DriverManager.getConnection(String url,String user,String password);
-			// Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=test.db","covidusr","C0v1dusr!");
-			connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=test.db");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://140.238.84.59:3306/COVID tracking","katerina","K@ter1n@");
 			if (connection != null) {
 				System.out.println("Successfully connected to the database")
 			}
@@ -54,12 +52,12 @@ public class PersonDao {
 	public void addPerson(Person person) {
 		try {
 			dao.connect();
-			String query = "insert into Person (?,?)";
+			String query = "insert into Person values (?,?)";
 			PreparedStatement pstatement;
 			pstatement = connection.prepareStatement(query);
 			Pstatement.setInt(1, person.id);
 			Pstatement.setString(2, person.name);
-			int rows = Pstatement.executeUpdate();
+			int rows = pstatement.executeUpdate();
 			if (rows > 0) {
 				System.out.println(rows + "row/s affected");
 				System.out.println("A new Person has been inserted successfully")
