@@ -1,72 +1,20 @@
 import java.util.Scanner;
 
 public class Confirmed extends AllPeople {
-
-	protected static Arraylist<Confirmed> confirmed = new Arraylist<>();
-	protected static int counter = 0;
-
-	public Confirmed(String name, String surname, String address, String email, int phonenumber, int AMKA) {
-		super(name, surname, address, email, phonenumber, AMKA);
-		// oti allh plhroforia zhtao na dinetai kata thn epikoinonia
-		if (counter == confTable.length) {
-			confTable = (Confirmed[]) duplicateTable(confTable.length, confTable);
-		}
-		confTable[counter] = this;
-		counter++;
-	}
-
-	public static void getSick(int id) {
-		int pos = -1;
-		for (int i = 0; i < VictimContact.victimContactTable.length; i++) {
-			if (VictimContact.victimContactTable[i].getId() == id) {
-				pos = i;
-				break;
-			}
-		}
-		int temp = AllPeople.counter_for_id;
-		AllPeople.counter_for_id = id - 1;
-
-		new Confirmed(VictimContact.victimContactTable[pos].name, VictimContact.victimContactTable[pos].surname,
-				VictimContact.victimContactTable[pos].address, VictimContact.victimContactTable[pos].email,
-				VictimContact.victimContactTable[pos].phonenumber, VictimContact.victimContactTable[pos].AMKA);
-
-		AllPeople.counter_for_id = temp;
-		AllPeople.destructor(pos, VictimContact.victimContactTable);
-		VictimContact.counter = VictimContact.counter - 1;
-		VictimContact.victimContactTable[pos] = VictimContact.victimContactTable[VictimContact.counter];
-	}
 	
-	public static boolean findId(int id) {
-		for( int i = 0; i < confirmed.size(); i++) {
-			if(confirmed.get(i).getId == id) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static void addPatient() {
-		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the patient's personal details");
-		System.out.print("Enter the name: ");
-		String name = input.next();
-		System.out.print("Enter the surname: ");
-		String surname = input.next();
-		System.out.print("Enter the address: ");
-		String address = input.next();
-		System.out.print("Enter the email: ");
-		String email = input.next();
-		System.out.print("Enter the phonenumber: ");
-		int phonenumber = input.nextInt();
-		input.nextLine(); // to clear buffer.
-		System.out.print("Enter the AMKA: ");
-		int AMKA = input.nextInt();
-		
-		confirmed.add(new Confirmed(name, surname, address, email, phonenumber, AMKA));
-		
-	}
+	protected String area;
+	protected String street;
+	protected int street_number;
+	protected int zip;
+	protected boolean active_status;
 	
-	
+	public Confirmed(String confirmed_name, String surname, String email, int phonenumber, int AMKA, String area, String street, int street_number, int zip, boolean active_status) {
+		super(name, surname, email, phonenumber, AMKA);
+		this.area = area;
+		this.street = street;
+		this.street_number = street_number;
+		this.zip = zip;
+		this.active_status = active_status;
+	}
 
 }
-
