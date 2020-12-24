@@ -5,7 +5,8 @@ public class VictimContact extends AllPeople {
 	protected String danger;
 	protected int confirmed_id;
 
-	public VictimContact(String name, String surname, String email, int phonenumber, int AMKA, String victim_relationship, String danger, int confirmed_id) {
+	public VictimContact(String name, String surname, int confirmed_id, int AMKA, String email,
+			String victim_relationship, String danger, int phonenumber) {
 		super(name, surname, email, phonenumber, AMKA);
 		this.victim_relationship = victim_relationship;
 		this.danger = classifyContact(victim_relationship);
