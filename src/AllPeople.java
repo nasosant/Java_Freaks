@@ -3,11 +3,11 @@ public class AllPeople {
 	protected String name;
 	protected String surname;
 	protected String email;
-	protected int phonenumber;
+	protected int phonenumber[];
 	protected int AMKA;
-	private int id;
+	protected int id;
 
-	public AllPeople(String name, String surname, String email, int phonenumber, int AMKA) {
+	public AllPeople(String name, String surname, String email, int phonenumber[], int AMKA) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;

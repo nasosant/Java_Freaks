@@ -4,7 +4,7 @@ public class VictimContact extends AllPeople {
 	protected String danger;
 	protected int confirmed_id;
 
-	public VictimContact(String name, String surname, String email, int phonenumber, int AMKA, int confirmed_id,
+	public VictimContact(String name, String surname, String email, int phonenumber[], int AMKA, int confirmed_id,
 			String victim_relationship, String danger) {
 		super(name, surname, email, phonenumber, AMKA);
 		this.victim_relationship = victim_relationship;
@@ -12,20 +12,20 @@ public class VictimContact extends AllPeople {
 		this.confirmed_id = confirmed_id;
 	}
 
-	public void getSick(int id, String area, String street, int street_number, int zip, boolean active_status)
+	public static void getSick(int id, String area, String street, int street_number, int zip)
 			throws Exception {
 		PersonJdbo persondao = new PersonJdbo();
 
 		// Get the person from DataBase
-		VictimContact victimContact = (VictimContact) persondao.getPerson(id, "VictimContact");
+		VictimContact victimContact = (VictimContact) persondao.getPerson(id, "victim_contacts");
 
 		// Create the patient to DataBase
 		Confirmed patient = new Confirmed(victimContact.name, victimContact.surname, victimContact.email,
-				victimContact.phonenumber, victimContact.AMKA, area, street, street_number, zip, active_status);
+				victimContact.phonenumber, victimContact.AMKA, area, street, street_number, zip, true);
 		persondao.addConfirmed(patient);
 
 		// Remove a Person from DataBase
-		persondao.removePerson(id, "VictimContact");
+		persondao.removePerson(id, "victim_contacts");
 	}
 
 	public static String classifyContact(String victim_relationship) {
