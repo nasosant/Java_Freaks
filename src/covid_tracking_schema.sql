@@ -55,13 +55,14 @@ CREATE TABLE deceased(
 );
 
 CREATE TABLE victim_contacts(
-	contact_id INT PRIMARY KEY AUTO_INCREMENT,
+	id INT PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(30) NOT NULL,
 	surname VARCHAR(20) NOT NULL,
 	confirmed_id INT NOT NULL,
 	AMKA INT NOT NULL, -- Το πιο πιθανό είναι να μην το ξέρει
 	email VARCHAR(50),
 	victim_relationship VARCHAR(20) NOT NULL,
+    danger VARCHAR(4) NOT NULL,
 	CONSTRAINT FK_victim_contacts_confirmed_id FOREIGN KEY (confirmed_id) REFERENCES confirmed (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE

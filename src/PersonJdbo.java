@@ -9,7 +9,6 @@ public class PersonJdbo {
 
 	public void connect() throws Exception {
 		try {
-			// Class.forName("com.mysql.jdbc.Driver"); Δεν νομίζω οτι χρειάζεται
 			String url = "jdbc:mysql://140.238.84.59:3306/";
 			String db = "covid_tracking";
 			String user = "katerina";
@@ -24,18 +23,38 @@ public class PersonJdbo {
 
 	}
 
-	public Person getPerson(int id) throws Exception {
+	public AllPeople getPerson(int id, String fromClass) throws Exception {
 		try {
 			connect();
-			String query = "SELECT name FROM Person WHERE id = " + id;
+			String query = "SELECT * FROM " + fromClass + " WHERE id = " + id;
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
 			resultSet.next();
-			String name = resultSet.getString(1);
-			Person person = new Person(id, name);
-			statement.close();
-			connection.close();
-			return person;
+			String name = resultSet.getString("name");
+			String surname = resultSet.getString("surname");
+			int AMKA = resultSet.getInt("AMKA");
+			String email = resultSet.getString("email");
+			int phonenumber = resultSet.getInt("phonenumber");
+			if (fromClass == "VictimContact") {
+				int confirmed_id = resultSet.getInt("confirmed_id");
+				String victim_relationship = resultSet.getString("victim_relationship");
+				String danger = resultSet.getString("danger");
+				VictimContact victimContact = new VictimContact(name, surname, email, phonenumber, AMKA, confirmed_id, victim_relationship, danger);
+				statement.close();
+				connection.close();
+				return victimContact;
+			} else {
+				String area = resultSet.getString("area");
+				String street = resultSet.getString("street");
+				int street_number = resultSet.getInt("street_number");
+				int zip = resultSet.getInt("zip");
+				boolean active_status = resultSet.getBoolean("active_status");
+				Confirmed confirmed = new Confirmed(name, surname, email, phonenumber, AMKA, area, street, street_number, zip, active_status);
+				statement.close();
+				connection.close();
+				return confirmed;
+			}
+
 		} catch (Exception e) {
 			System.out.println("In Method: getPerson\nException: " + e.getMessage());
 			return null;
@@ -43,14 +62,20 @@ public class PersonJdbo {
 
 	}
 
-	public void addPerson(Person person) throws Exception {
+	public void addVictimContact(VictimContact victimContact) throws Exception {
 		try {
 			connect();
-			String query = "insert into Person values (?,?)";
+			String query = "insert into VictimContact values (?,?,?,?,?,?,?,?)";
 			PreparedStatement pstatement;
 			pstatement = connection.prepareStatement(query);
-			pstatement.setInt(1, person.id);
-			pstatement.setString(2, person.name);
+			pstatement.setString(1, victimContact.name);
+			pstatement.setString(2, victimContact.surname);
+			pstatement.setString(3, victimContact.email);
+			pstatement.setInt(4, victimContact.phonenumber);
+			pstatement.setInt(5, victimContact.AMKA);
+			pstatement.setInt(6, victimContact.confirmed_id);
+			pstatement.setString(7, victimContact.victim_relationship);
+			pstatement.setString(8, victimContact.danger);
 			int rows = pstatement.executeUpdate();
 			if (rows > 0) {
 				System.out.println(rows + " row/s affected");
@@ -62,11 +87,39 @@ public class PersonJdbo {
 			System.out.println("In Method: addPerson\nException: " + e.getMessage());
 		}
 	}
-
-	public void removePerson(int id) throws Exception {
+	
+	public void addConfirmed(Confirmed confirmed) throws Exception {
 		try {
 			connect();
-			String query = "DELETE FROM Person WHERE id = " + id;
+			String query = "insert into VictimContact values (?,?,?,?,?,?,?,?,?,?)";
+			PreparedStatement pstatement;
+			pstatement = connection.prepareStatement(query);
+			pstatement.setString(1, confirmed.name);
+			pstatement.setString(2, confirmed.surname);
+			pstatement.setString(3, confirmed.email);
+			pstatement.setInt(4, confirmed.phonenumber);
+			pstatement.setInt(5, confirmed.AMKA);
+			pstatement.setString(6, confirmed.area);
+			pstatement.setString(7, confirmed.street);
+			pstatement.setInt(8, confirmed.street_number);
+			pstatement.setInt(9, confirmed.zip);
+			pstatement.setBoolean(10, confirmed.active_status);
+			int rows = pstatement.executeUpdate();
+			if (rows > 0) {
+				System.out.println(rows + " row/s affected");
+				System.out.println("A new Person has been inserted successfully");
+			}
+			pstatement.close();
+			connection.close();
+		} catch (Exception e) {
+			System.out.println("In Method: addPerson\nException: " + e.getMessage());
+		}
+	}
+	
+	public void removePerson(int id, String fromClass) throws Exception {
+		try {
+			connect();
+			String query = "DELETE FROM " + fromClass + " WHERE id = " + id;
 			PreparedStatement pstatement;
 			pstatement = connection.prepareStatement(query);
 			int rows = pstatement.executeUpdate();
@@ -77,8 +130,7 @@ public class PersonJdbo {
 				connection.close();
 			}
 		} catch (Exception e) {
-			System.out.println("In Method: removePerson\nException: " + e.getMessage());
+			System.out.println("In Method: removeCustomer\nException: " + e.getMessage());
 		}
 	}
 }
-

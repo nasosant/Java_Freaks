@@ -1,4 +1,4 @@
-public abstract class AllPeople { // can be renamed to Patient
+public class AllPeople {
 
 	protected String name;
 	protected String surname;
@@ -13,7 +13,7 @@ public abstract class AllPeople { // can be renamed to Patient
 		this.email = email;
 		this.phonenumber = phonenumber;
 		this.AMKA = AMKA;
-		id = null;
+		id = 0;
 	}
 
 	@Override
