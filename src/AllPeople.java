@@ -5,7 +5,6 @@ public class AllPeople {
 	protected String email;
 	protected int phonenumber[];
 	protected int AMKA;
-	protected int id;
 
 	public AllPeople(String name, String surname, String email, int phonenumber[], int AMKA) {
 		this.name = name;
@@ -13,23 +12,19 @@ public class AllPeople {
 		this.email = email;
 		this.phonenumber = phonenumber;
 		this.AMKA = AMKA;
-		id = 0;
 	}
 
 	@Override
 	public String toString() {
-		return "name=" + name + ", surname=" + surname + ", id=" + id;
+		String s = "\nname = " + name + "\nsurname = " + surname + "\nemail = " + email + "\nphonenumber = ";
+		for (int i = 0; i < phonenumber.length; i++) {
+			if (i > 0) {
+				s += ", ";
+			}
+			s += phonenumber[i];
+		}
+		s += "\nAMKA = " + AMKA;
+		return s;
 	}
 
-	public int getId() {
-		return this.id;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public String getSurname() {
-		return this.surname;
-	}
 }

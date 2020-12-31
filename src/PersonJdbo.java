@@ -106,14 +106,13 @@ public class PersonJdbo {
 			pstatement.setString(6, victimContact.victim_relationship);
 			pstatement.setString(7, victimContact.danger);
 			int rows = pstatement.executeUpdate();
-			String query2 = "insert into confirmed_phone(id,phone) values (?,?)";
+			String query2 = "insert into contact_phone(id,phone) values (?,?)";
 			PreparedStatement pstatement2 = connection.prepareStatement(query2);
 			for (int i = 0; i < victimContact.phonenumber.length; i++) {
-//------------------------------------------// ΠΟΙΟ ID ΘΑ ΠΑΡΕΙ? //---------------------------------------------//
-				pstatement2.setInt(1, 1); // victimContact.id);
+				pstatement2.setInt(1, victimContact.vid);
 				pstatement2.setInt(2, victimContact.phonenumber[i]);
+				rows += pstatement2.executeUpdate();
 			}
-			rows += pstatement2.executeUpdate();
 			if (rows > 0) {
 				System.out.println(rows + " row/s affected");
 				System.out.println("A new Person has been inserted successfully");
@@ -143,11 +142,10 @@ public class PersonJdbo {
 			String query2 = "insert into confirmed_phone(id,phone) values (?,?)";
 			PreparedStatement pstatement2 = connection.prepareStatement(query2);
 			for (int i = 0; i < confirmed.phonenumber.length; i++) {
-//------------------------------------------// ΠΟΙΟ ID ΘΑ ΠΑΡΕΙ? //---------------------------------------------//
-				pstatement2.setInt(1, 1); // confirmed.id);
+				pstatement2.setInt(1, confirmed.cid);
 				pstatement2.setInt(2, confirmed.phonenumber[i]);
+				rows += pstatement2.executeUpdate();
 			}
-			rows += pstatement2.executeUpdate();
 			if (rows > 0) {
 				System.out.println(rows + " row/s affected");
 				System.out.println("A new Person has been inserted successfully");
@@ -174,6 +172,33 @@ public class PersonJdbo {
 			}
 		} catch (Exception e) {
 			System.out.println("In Method: removePerson\nException: " + e.getMessage());
+		}
+	}
+
+	public void showAll(String fromClass) throws Exception {
+		try {
+			connect();
+			String query = "SELECT * FROM " + fromClass;
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(query);
+			int i = 0;
+			while (resultSet.next()) {
+				i++;
+				if (fromClass == "victim_contacts") {
+					VictimContact victimContact = (VictimContact) getPerson(i, fromClass);
+					victimContact.victimContacttoString();
+					System.out.println();
+				} else {
+					Confirmed patient = (Confirmed) getPerson(i, fromClass);
+					patient.confirmedtoString();
+					System.out.println();
+				}
+			}
+			if (i == 0) {
+				System.out.println("None has been inserted yet");
+			}
+		} catch (Exception e) {
+			System.out.println("In Method: showAll\nException: " + e.getMessage());
 		}
 	}
 }

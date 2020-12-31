@@ -21,18 +21,18 @@ CREATE TABLE confirmed(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(20) NOT NULL,
 	surname VARCHAR(20) NOT NULL,
+	email VARCHAR(20),
 	AMKA VARCHAR(9) UNIQUE,
 	area VARCHAR(20) NOT NULL,
 	street VARCHAR(50) NOT NULL,
 	street_number INT NOT NULL,
 	zip INT NOT NULL,
-	email VARCHAR(20),
 	active_status BOOLEAN NOT NULL
 );
 
  CREATE TABLE confirmed_phone(
 	id INT PRIMARY KEY,
-	phone VARCHAR(20) NOT NULL,
+	phone INT NOT NULL,
 	CONSTRAINT FK_confirmed_phone_id FOREIGN KEY (id) REFERENCES confirmed (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
@@ -58,9 +58,9 @@ CREATE TABLE victim_contacts(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(30) NOT NULL,
 	surname VARCHAR(20) NOT NULL,
-	confirmed_id INT NOT NULL,
+    email VARCHAR(50),
 	AMKA INT NOT NULL, -- Το πιο πιθανό είναι να μην το ξέρει
-	email VARCHAR(50),
+	confirmed_id INT NOT NULL,
 	victim_relationship VARCHAR(20) NOT NULL,
     danger VARCHAR(4) NOT NULL,
 	CONSTRAINT FK_victim_contacts_confirmed_id FOREIGN KEY (confirmed_id) REFERENCES confirmed (id)
@@ -70,22 +70,22 @@ CREATE TABLE victim_contacts(
 
 CREATE TABLE contact_phone(
 	id INT PRIMARY KEY,
-	phone VARCHAR(20) NOT NULL,
-	CONSTRAINT FK_contact_phone_id FOREIGN KEY (id) REFERENCES victim_contacts (contact_id)
+	phone INT NOT NULL,
+	CONSTRAINT FK_contact_phone_id FOREIGN KEY (id) REFERENCES victim_contacts (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
  
 CREATE TABLE high_danger(
 	id INT PRIMARY KEY,
-	CONSTRAINT FK_high_danger_id FOREIGN KEY (id) REFERENCES victim_contacts (contact_id)
+	CONSTRAINT FK_high_danger_id FOREIGN KEY (id) REFERENCES victim_contacts (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
  
 CREATE TABLE low_danger(
 	id INT PRIMARY KEY,
-	CONSTRAINT FK_low_danger_id FOREIGN KEY (id) REFERENCES victim_contacts (contact_id)
+	CONSTRAINT FK_low_danger_id FOREIGN KEY (id) REFERENCES victim_contacts (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
