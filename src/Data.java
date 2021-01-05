@@ -22,12 +22,26 @@ import javax.swing.SwingConstants;
 
 public class Data extends JFrame {
 
+	protected static JLabel labelOkey;
 	protected JPanel contentPane;
 	protected JTable table;
 	protected static DefaultTableModel model;
 	protected Object[] column = {"Name", "Surname", "Address", "Email", "Phone Number", "SSN"};
 	protected final static Object[] row = new Object[6];
 
+	public static void main(String[] args) throws Exception {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Data frame = new Data();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	public Data() throws Exception {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1087, 642);
@@ -55,12 +69,12 @@ public class Data extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = table.getSelectedRow();
-				Confirmed1.nameText.setText(model.getValueAt(i, 0).toString());
-				Confirmed1.surnameText.setText(model.getValueAt(i, 1).toString());
-				Confirmed1.addressText.setText(model.getValueAt(i, 2).toString());
-				Confirmed1.emailText.setText(model.getValueAt(i, 3).toString());
-				Confirmed1.phoneNumberText.setText(model.getValueAt(i, 4).toString());
-				Confirmed1.ssnText.setText(model.getValueAt(i, 5).toString());
+				Platform.nameText.setText(model.getValueAt(i, 0).toString());
+				Platform.surnameText.setText(model.getValueAt(i, 1).toString());
+				Platform.addressText.setText(model.getValueAt(i, 2).toString());
+				Platform.emailText.setText(model.getValueAt(i, 3).toString());
+				Platform.phoneNumberText.setText(model.getValueAt(i, 4).toString());
+				Platform.ssnText.setText(model.getValueAt(i, 5).toString());
 			}
 		});
 		scrollPane.setViewportView(table);
@@ -84,7 +98,7 @@ public class Data extends JFrame {
 		
 		
 		
-		JLabel labelOkey = new JLabel("");
+		labelOkey = new JLabel("");
 		Image imgOkey = new ImageIcon(this.getClass().getResource("okey.png")).getImage();
 		labelOkey.setBounds(373, 529, 48, 48);//panel.add(labelOkey);
 		
