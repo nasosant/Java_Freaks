@@ -101,6 +101,3 @@ public class Registration implements ActionListener {
 	    
 }
 
-
-
-

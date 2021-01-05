@@ -41,10 +41,10 @@ public class Message extends JFrame implements ActionListener{
 		//labelHomePageImg.setIcon(new ImageIcon(imgPhone));
 		labelHomePageImg.setBounds(155, 80, 25, 25);
 		
-		Confirmed1.labelChangeUserImg = new JLabel("");
+		Platform.labelChangeUserImg = new JLabel("");
 		Image imgChangeUser = new ImageIcon(this.getClass().getResource("changeUser.png")).getImage();
 		//Confirmed.labelChangeUserImg.setIcon(new ImageIcon(imgChangeUser));
-		Confirmed1.labelChangeUserImg.setBounds(305, 80, 25, 25);
+		Platform.labelChangeUserImg.setBounds(305, 80, 25, 25);
 		
 		PrintMenu.labelExit = new JLabel("");
 		Image imgExit = new ImageIcon(this.getClass().getResource("exit.png")).getImage();
@@ -91,15 +91,15 @@ public class Message extends JFrame implements ActionListener{
 		this.add(success);
 		//this.add(Confirmed.labelCancelImg);		
 		this.add(labelHomePageImg);
-		this.add(Confirmed1.labelChangeUserImg);
+		this.add(Platform.labelChangeUserImg);
 		this.add(PrintMenu.labelExit);
 		this.add(buttonHomePageNew);
 		this.add(buttonChangeUserNew);
 		this.add(buttonExitNew);
 		//this.add(buttonCancel);
 		this.getContentPane().add(label);
-	
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == buttonHomePageNew) {

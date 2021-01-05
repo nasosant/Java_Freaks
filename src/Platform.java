@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Confirmed1 extends JFrame {
+public class Platform extends JFrame {
 
 	protected static JButton buttonSub;
 	protected static JTextField nameText;
@@ -36,13 +36,14 @@ public class Confirmed1 extends JFrame {
 	protected static String ssn;
 	protected JPanel contentPane;
 	protected JTable table;
+	protected static JLabel labelChangeUserImg;
 	protected static DefaultTableModel model;
 	//protected static JTextField[][] details = new JTextField[100][6];
 	final static Object[] row = new Object[6];
 	static Object[] column = { "Name", "Surname", "Address", "Email", "Phone Number", "SSN" };
 	protected static int number = -1;
 
-	public Confirmed1() {
+	public Platform() {
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setBounds(100, 100, 1098, 481);
 			setTitle("Personal information");
@@ -317,7 +318,7 @@ public class Confirmed1 extends JFrame {
 			buttonCancel.setIcon(new ImageIcon(imgCancel));
 			panel.add(buttonCancel);
 
-			JLabel labelChangeUserImg = new JLabel("");
+			labelChangeUserImg = new JLabel("");
 			Image imgChangeUser = new ImageIcon(this.getClass().getResource("changeUser.png")).getImage();
 			labelChangeUserImg.setIcon(new ImageIcon(imgChangeUser));
 			labelChangeUserImg.setBounds(325, 240, 25, 25);
