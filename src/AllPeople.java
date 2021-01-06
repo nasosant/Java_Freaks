@@ -27,4 +27,25 @@ public class AllPeople {
 		return s;
 	}
 
+	public static String setName(String name) {
+		String s = " SET name = '" + name + "'";
+		return s;
+	}
+
+	public void setSurname(String surname) {
+
+	}
+
+	public void setEmail(String email) {
+
+	}
+
+	public void setPhonenumber(int[] phonenumber) {
+
+	}
+
+	public void setAMKA(int ΑMKA) {
+
+	}
+
 }

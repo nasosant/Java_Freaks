@@ -18,9 +18,26 @@ public class PersonJdbo {
 				System.out.println("Successfully connected to the database");
 			}
 		} catch (Exception e) {
-			System.out.println("In Method: connect\nException: " + e.getMessage());
+			System.out.println("In Method: PersonJdbo.connect\nException: " + e.getMessage());
 		}
 
+	}
+
+	public void alterTables(int id, String fromClass) throws Exception {
+		try {
+			connect();
+			String query = "UPDATE " + fromClass + AllPeople.setName("Nikos") + " WHERE id = " + id;
+			PreparedStatement pstatement;
+			pstatement = connection.prepareStatement(query);
+			int rows = pstatement.executeUpdate();
+			if (rows > 0) {
+				System.out.println(rows + " row/s affected");
+				pstatement.close();
+				connection.close();
+			}
+		} catch (Exception e) {
+			System.out.println("In Method: PersonJdbo.alterTables\nException: " + e.getMessage());
+		}
 	}
 
 	public AllPeople getPerson(int id, String fromClass) throws Exception {
@@ -87,7 +104,7 @@ public class PersonJdbo {
 			}
 
 		} catch (Exception e) {
-			System.out.println("In Method: getPerson\nException: " + e.getMessage());
+			System.out.println("In Method: PersonJdbo.getPerson\nException: " + e.getMessage());
 			return null;
 		}
 
@@ -120,7 +137,7 @@ public class PersonJdbo {
 				connection.close();
 			}
 		} catch (Exception e) {
-			System.out.println("In Method: addVictimContact\nException: " + e.getMessage());
+			System.out.println("In Method: PersonJdbo.addVictimContact\nException: " + e.getMessage());
 		}
 	}
 
@@ -153,7 +170,7 @@ public class PersonJdbo {
 				connection.close();
 			}
 		} catch (Exception e) {
-			System.out.println("In Method: addConfirmed\nException: " + e.getMessage());
+			System.out.println("In Method: PersonJdbo.addConfirmed\nException: " + e.getMessage());
 		}
 	}
 
@@ -171,11 +188,11 @@ public class PersonJdbo {
 				connection.close();
 			}
 		} catch (Exception e) {
-			System.out.println("In Method: removePerson\nException: " + e.getMessage());
+			System.out.println("In Method: PersonJdbo.removePerson\nException: " + e.getMessage());
 		}
 	}
 
-	public void showAll(String fromClass) throws Exception {
+	public AllPeople showAll(String fromClass, int count) throws Exception {
 		try {
 			connect();
 			String query = "SELECT * FROM " + fromClass;
@@ -186,19 +203,38 @@ public class PersonJdbo {
 				i++;
 				if (fromClass == "victim_contacts") {
 					VictimContact victimContact = (VictimContact) getPerson(i, fromClass);
-					victimContact.victimContacttoString();
-					System.out.println();
+					if (i == count) {
+						return victimContact;
+					}
 				} else {
 					Confirmed patient = (Confirmed) getPerson(i, fromClass);
-					patient.confirmedtoString();
-					System.out.println();
+					if (i == count) {
+						return patient;
+					}
 				}
 			}
 			if (i == 0) {
 				System.out.println("None has been inserted yet");
 			}
 		} catch (Exception e) {
-			System.out.println("In Method: showAll\nException: " + e.getMessage());
+			System.out.println("In Method: PersonJdbo.showAll\nException: " + e.getMessage());
 		}
+		return null;
+	}
+
+	public int check(String fromClass) throws Exception {
+		int i = 0;
+		try {
+			connect();
+			String query = "SELECT * FROM " + fromClass;
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(query);
+			while (resultSet.next()) {
+				i++;
+			}
+		} catch (Exception e) {
+			System.out.println("In Method: PersonJdbo.check\nException: " + e.getMessage());
+		}
+		return i;
 	}
 }
