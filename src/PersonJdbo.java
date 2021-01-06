@@ -69,7 +69,7 @@ public class PersonJdbo {
 				int confirmed_id = resultSet.getInt("id");
 				String victim_relationship = resultSet.getString("victim_relationship");
 				String danger = resultSet.getString("danger");
-				VictimContact victimContact = new VictimContact(name, surname, email, phonenumber, AMKA, confirmed_id,
+				VictimContact victimContact = new VictimContact(id, name, surname, email, phonenumber, AMKA, confirmed_id,
 						victim_relationship, danger);
 				statement.close();
 				connection.close();
@@ -95,7 +95,7 @@ public class PersonJdbo {
 				int street_number = resultSet.getInt("street_number");
 				int zip = resultSet.getInt("zip");
 				boolean active_status = resultSet.getBoolean("active_status");
-				Confirmed confirmed = new Confirmed(name, surname, email, phonenumber, AMKA, area, street,
+				Confirmed confirmed = new Confirmed(id, name, surname, email, phonenumber, AMKA, area, street,
 						street_number, zip, active_status);
 				statement.close();
 				connection.close();
