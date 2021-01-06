@@ -29,7 +29,8 @@ public class Data extends JFrame {
 	protected Object[] column = { "Id", "Name", "Surname", "Email", "Phone Number", "SSN", "Address", "Has Covid" };
 	protected final static Object[] row = new Object[8];
 	protected static DefaultTableModel model_1;
-	protected Object[] column_1 = { "Id", "Name", "Surname", "Email", "Phone Number", "SSN", "Confirmed Id", "Victim Relationship", "Danger" };
+	protected Object[] column_1 = { "Id", "Name", "Surname", "Email", "Phone Number", "SSN", "Confirmed Id",
+			"Victim Relationship", "Danger" };
 	protected final static Object[] row_1 = new Object[9];
 	private JTable table_1;
 
@@ -84,18 +85,22 @@ public class Data extends JFrame {
 		int count = persondao.check("confirmed");
 		for (int i = 1; i <= count; i++) {
 			Confirmed patient = (Confirmed) persondao.showAll("confirmed", i);
-			row[0] = patient.cid;
-			row[1] = patient.name;
-			row[2] = patient.surname;
-			row[3] = patient.email;
-			row[4] = patient.phonenumber[0];
-			for (int j = 1; j < patient.phonenumber.length; j++) {
-				row[4] += ", " + patient.phonenumber[j];
+			if (patient == null) {
+				count++;
+			} else {
+				row[0] = patient.cid;
+				row[1] = patient.name;
+				row[2] = patient.surname;
+				row[3] = patient.email;
+				row[4] = patient.phonenumber[0];
+				for (int j = 1; j < patient.phonenumber.length; j++) {
+					row[4] += ", " + patient.phonenumber[j];
+				}
+				row[5] = patient.AMKA;
+				row[6] = patient.street + " " + patient.street_number + ", " + patient.area + " " + patient.zip;
+				row[7] = patient.active_status;
+				model.addRow(row);
 			}
-			row[5] = patient.AMKA;
-			row[6] = patient.street + " " + patient.street_number + ", " + patient.area + " " + patient.zip;
-			row[7] = patient.active_status;
-			model.addRow(row);
 		}
 
 		labelOkey = new JLabel("");
@@ -113,7 +118,7 @@ public class Data extends JFrame {
 		});
 		btnNewButton.setBounds(629, 690, 223, 54);
 		panel.add(btnNewButton);
-		
+
 		JButton btnNewButton_1 = new JButton("Edit a Confirmed Case");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -133,14 +138,13 @@ public class Data extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_1.setBounds(275, 690, 223, 54);
 		panel.add(btnNewButton_1);
-		
+
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(780, 49, 660, 630);
 		panel.add(scrollPane_1);
-		
-		
+
 		// Victim Contact
-		
+
 		table_1 = new JTable();
 		scrollPane_1.setViewportView(table_1);
 		table_1.setBackground(new Color(211, 211, 211));
@@ -148,27 +152,31 @@ public class Data extends JFrame {
 		model_1.setColumnIdentifiers(column_1);
 		table_1.setModel(model_1);
 		scrollPane_1.setViewportView(table_1);
-		//"Name", "Surname", "Email", "Phone Number", "SSN", "Confirmed Id", "Victim Relationship", "Danger" 
-		
+		// "Name", "Surname", "Email", "Phone Number", "SSN", "Confirmed Id", "Victim
+		// Relationship", "Danger"
+
 		int count_1 = persondao.check("victim_contacts");
 		for (int i = 1; i <= count_1; i++) {
 			VictimContact victim = (VictimContact) persondao.showAll("victim_contacts", i);
-			row_1[0] = victim.vid;
-			row_1[1] = victim.name;
-			row_1[2] = victim.surname;
-			row_1[3] = victim.email;
-			row_1[4] = victim.phonenumber[0];
-			for (int j = 1; j < victim.phonenumber.length; j++) {
-				row_1[4] += ", " + victim.phonenumber[j];
+			if (victim == null) {
+				count_1++;
+			} else {
+				row_1[0] = victim.vid;
+				row_1[1] = victim.name;
+				row_1[2] = victim.surname;
+				row_1[3] = victim.email;
+				row_1[4] = victim.phonenumber[0];
+				for (int j = 1; j < victim.phonenumber.length; j++) {
+					row_1[4] += ", " + victim.phonenumber[j];
+				}
+				row_1[5] = victim.AMKA;
+				row_1[6] = victim.confirmed_id;
+				row_1[7] = victim.victim_relationship;
+				row_1[8] = victim.danger;
+				model_1.addRow(row_1);
 			}
-			row_1[5] = victim.AMKA;
-			row_1[6] = victim.confirmed_id;
-			row_1[7] = victim.victim_relationship;
-			row_1[8] = victim.danger;
-			model_1.addRow(row_1);
 		}
 
-		
 		JButton btnNewButton_1_1 = new JButton("Edit a Victim Contact");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -188,7 +196,7 @@ public class Data extends JFrame {
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_1_1.setBounds(961, 690, 223, 54);
 		panel.add(btnNewButton_1_1);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Victim Contact");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_1.setBounds(994, 11, 146, 26);

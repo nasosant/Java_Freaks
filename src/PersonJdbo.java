@@ -69,8 +69,8 @@ public class PersonJdbo {
 				int confirmed_id = resultSet.getInt("id");
 				String victim_relationship = resultSet.getString("victim_relationship");
 				String danger = resultSet.getString("danger");
-				VictimContact victimContact = new VictimContact(id, name, surname, email, phonenumber, AMKA, confirmed_id,
-						victim_relationship, danger);
+				VictimContact victimContact = new VictimContact(id, name, surname, email, phonenumber, AMKA,
+						confirmed_id, victim_relationship, danger);
 				statement.close();
 				connection.close();
 				System.out.println("Successfully got the person with the id=" + id + " from " + fromClass);
@@ -202,15 +202,11 @@ public class PersonJdbo {
 			while (resultSet.next()) {
 				i++;
 				if (fromClass == "victim_contacts") {
-					VictimContact victimContact = (VictimContact) getPerson(i, fromClass);
-					if (i == count) {
-						return victimContact;
-					}
+					VictimContact victimContact = (VictimContact) getPerson(count, fromClass);
+					return victimContact;
 				} else {
-					Confirmed patient = (Confirmed) getPerson(i, fromClass);
-					if (i == count) {
-						return patient;
-					}
+					Confirmed patient = (Confirmed) getPerson(count, fromClass);
+					return patient;
 				}
 			}
 			if (i == 0) {
