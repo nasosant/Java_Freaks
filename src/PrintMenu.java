@@ -116,7 +116,7 @@ public class PrintMenu extends JFrame implements ActionListener {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						Platform frame = new Platform();
+						Platform frame = new Platform("null");
 						frame.setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();

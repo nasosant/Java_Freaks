@@ -53,12 +53,6 @@ public class Cured_PassedAway extends JFrame {
 			panel.setBounds(0, 0, 1092, 452);
 			contentPane.add(panel);
 			panel.setLayout(null);
-			Image imgName = new ImageIcon(this.getClass().getResource("name.png")).getImage();
-			Image imgSurName = new ImageIcon(this.getClass().getResource("name.png")).getImage();
-			Image imgAddress = new ImageIcon(this.getClass().getResource("address.png")).getImage();
-			Image imgEmail = new ImageIcon(this.getClass().getResource("email.png")).getImage();
-			Image imgPhone = new ImageIcon(this.getClass().getResource("phone.png")).getImage();
-			Image imgAmka = new ImageIcon(this.getClass().getResource("amka.png")).getImage();
 
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setBounds(10, 55, 1053, 315);
@@ -183,4 +177,3 @@ public class Cured_PassedAway extends JFrame {
 			panel.add(labelIdImg);
 		}
 }
-

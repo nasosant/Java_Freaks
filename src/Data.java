@@ -115,6 +115,21 @@ public class Data extends JFrame {
 		panel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Edit a Confirmed Case");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							Platform frame = new Platform("c");
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_1.setBounds(275, 690, 223, 54);
 		panel.add(btnNewButton_1);
@@ -155,6 +170,21 @@ public class Data extends JFrame {
 
 		
 		JButton btnNewButton_1_1 = new JButton("Edit a Victim Contact");
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							Platform frame = new Platform("v");
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_1_1.setBounds(961, 690, 223, 54);
 		panel.add(btnNewButton_1_1);

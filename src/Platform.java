@@ -3,6 +3,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
+import java.awt.EventQueue;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Font;
@@ -42,7 +44,7 @@ public class Platform extends JFrame {
 	private JTextField zipText;
 	boolean flag = false;
 
-	public Platform() {
+	public Platform(String who) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1315, 535);
 		setTitle("Personal information");
@@ -184,7 +186,7 @@ public class Platform extends JFrame {
 		panel.add(checkBoxNo);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(298, 56, 1001, 318);
+		scrollPane.setBounds(300, 56, 1000, 318);
 		panel.add(scrollPane);
 
 		table = new JTable();
@@ -259,7 +261,7 @@ public class Platform extends JFrame {
 
 			}
 		});
-		btnNewButton.setBounds(298, 387, 110, 25);
+		btnNewButton.setBounds(300, 385, 230, 25);
 		panel.add(btnNewButton);
 
 		JButton btnUpdate = new JButton("Update");
@@ -291,7 +293,7 @@ public class Platform extends JFrame {
 
 			}
 		});
-		btnUpdate.setBounds(418, 387, 110, 25);
+		btnUpdate.setBounds(560, 385, 230, 25);
 		panel.add(btnUpdate);
 
 		JButton btnClear = new JButton("Clear");
@@ -309,7 +311,7 @@ public class Platform extends JFrame {
 				zipText.setText("");
 			}
 		});
-		btnClear.setBounds(658, 387, 110, 25);
+		btnClear.setBounds(1070, 385, 230, 25);
 		panel.add(btnClear);
 
 		JButton btnDelete = new JButton("Delete");
@@ -325,7 +327,7 @@ public class Platform extends JFrame {
 
 			}
 		});
-		btnDelete.setBounds(538, 387, 110, 25);
+		btnDelete.setBounds(814, 385, 230, 25);
 		panel.add(btnDelete);
 
 		JLabel labelSubmitImg = new JLabel("");
@@ -358,7 +360,7 @@ public class Platform extends JFrame {
 
 			}
 		});
-		buttonSub.setBounds(58, 435, 245, 45);
+		buttonSub.setBounds(10, 439, 245, 45);
 		buttonSub.setIcon(new ImageIcon(imgSubmit));
 		panel.add(buttonSub);
 
@@ -370,11 +372,26 @@ public class Platform extends JFrame {
 		JButton buttonCancel = new JButton("Cancel");
 		buttonCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new PrintMenu();
+				if (who == "c" || who == "v") {
+					dispose();
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+							try {
+								Data frame = new Data();
+								frame.setVisible(true);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					});
+				} else {
+					dispose();
+					new PrintMenu();
+				}
+				
 			}
 		});
-		buttonCancel.setBounds(347, 435, 240, 45);
+		buttonCancel.setBounds(279, 439, 240, 45);
 		buttonCancel.setIcon(new ImageIcon(imgCancel));
 		panel.add(buttonCancel);
 
@@ -385,19 +402,19 @@ public class Platform extends JFrame {
 
 		JLabel lblNewLabel_1 = new JLabel("Enter the personal information as it appears on the police ID.");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(244, 11, 502, 20);
+		lblNewLabel_1.setBounds(387, 20, 502, 20);
 		panel.add(lblNewLabel_1);
 
 		JLabel labelIdImg = new JLabel("");
 		Image imgId = new ImageIcon(this.getClass().getResource("id.png")).getImage();
 		labelIdImg.setIcon(new ImageIcon(imgId));
-		labelIdImg.setBounds(756, 5, 48, 36);
+		labelIdImg.setBounds(899, 9, 48, 36);
 		panel.add(labelIdImg);
 
 		JLabel lblNewLabel_2 = new JLabel(
 				"If you press submit you will have no more accessibility to the information that you have entered.");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2.setBounds(10, 412, 607, 24);
+		lblNewLabel_2.setBounds(529, 448, 607, 24);
 		panel.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("Area");
