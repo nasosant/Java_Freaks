@@ -1,21 +1,13 @@
 -- CREATE database covid_tracking;
 -- DROP DATABASE covid_tracking;
 USE covid_tracking;
-/*
-DROP TABLE Person;
+
 DROP TABLE low_danger;
 DROP TABLE high_danger;
-DROP TABLE contact_phone;
 DROP TABLE victim_contacts;
 DROP TABLE deceased;
 DROP TABLE cured;
-DROP TABLE confirmed_phone;
 DROP TABLE confirmed;
-*/
-CREATE TABLE Person (
-	id INT PRIMARY KEY,
-	name VARCHAR(20)
-);
 
 CREATE TABLE confirmed(
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -23,19 +15,12 @@ CREATE TABLE confirmed(
 	surname VARCHAR(20) NOT NULL,
 	email VARCHAR(20),
 	AMKA VARCHAR(9) UNIQUE,
+    phonenumber INT NOT NULL,
 	area VARCHAR(20) NOT NULL,
 	street VARCHAR(50) NOT NULL,
 	street_number INT NOT NULL,
 	zip INT NOT NULL,
 	active_status BOOLEAN NOT NULL
-);
-
- CREATE TABLE confirmed_phone(
-	id INT PRIMARY KEY,
-	phone INT NOT NULL,
-	CONSTRAINT FK_confirmed_phone_id FOREIGN KEY (id) REFERENCES confirmed (id)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE
 );
  
 CREATE TABLE cured(
@@ -59,19 +44,12 @@ CREATE TABLE victim_contacts(
 	name VARCHAR(30) NOT NULL,
 	surname VARCHAR(20) NOT NULL,
     email VARCHAR(50),
-	AMKA INT NOT NULL, -- Το πιο πιθανό είναι να μην το ξέρει
+	AMKA INT NOT NULL,
+    phonenumber INT NOT NULL,
 	confirmed_id INT NOT NULL,
 	victim_relationship VARCHAR(20) NOT NULL,
     danger VARCHAR(4) NOT NULL,
 	CONSTRAINT FK_victim_contacts_confirmed_id FOREIGN KEY (confirmed_id) REFERENCES confirmed (id)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE
-);
-
-CREATE TABLE contact_phone(
-	id INT PRIMARY KEY,
-	phone INT NOT NULL,
-	CONSTRAINT FK_contact_phone_id FOREIGN KEY (id) REFERENCES victim_contacts (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );

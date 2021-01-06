@@ -3,10 +3,10 @@ public class AllPeople {
 	protected String name;
 	protected String surname;
 	protected String email;
-	protected int phonenumber[];
+	protected int phonenumber;
 	protected int AMKA;
 
-	public AllPeople(String name, String surname, String email, int phonenumber[], int AMKA) {
+	public AllPeople(String name, String surname, String email, int phonenumber, int AMKA) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
@@ -16,14 +16,8 @@ public class AllPeople {
 
 	@Override
 	public String toString() {
-		String s = "\nname = " + name + "\nsurname = " + surname + "\nemail = " + email + "\nphonenumber = ";
-		for (int i = 0; i < phonenumber.length; i++) {
-			if (i > 0) {
-				s += ", ";
-			}
-			s += phonenumber[i];
-		}
-		s += "\nAMKA = " + AMKA;
+		String s = "\nname = " + name + "\nsurname = " + surname + "\nemail = " + email + "\nphonenumber = "
+				+ phonenumber + "\nAMKA = " + AMKA;
 		return s;
 	}
 
@@ -41,8 +35,8 @@ public class AllPeople {
 		String s = " SET email = '" + email + "'";
 		return s;
 	}
-	// Kati den paei kala
-	public static String setPhonenumber(int[] phonenumber) {
+
+	public static String setPhonenumber(int phonenumber) {
 		String s = " SET phonenumber = '" + phonenumber + "'";
 		return s;
 	}

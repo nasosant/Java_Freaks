@@ -49,23 +49,10 @@ public class PersonJdbo {
 			resultSet.next();
 			String name = resultSet.getString("name");
 			String surname = resultSet.getString("surname");
-			int AMKA = resultSet.getInt("AMKA");
 			String email = resultSet.getString("email");
+			int phonenumber = resultSet.getInt("phonenumber");
+			int AMKA = resultSet.getInt("AMKA");
 			if (fromClass == "victim_contacts") {
-				String query2 = "SELECT * FROM contact_phone WHERE id = " + id;
-				Statement statement2 = connection.createStatement();
-				ResultSet resultSet2 = statement2.executeQuery(query2);
-				int counter = 0;
-				while (resultSet2.next()) {
-					counter++;
-				}
-				resultSet2 = statement2.executeQuery(query2);
-				int[] phonenumber = new int[counter];
-				int i = -1;
-				while (resultSet2.next()) {
-					i++;
-					phonenumber[i] = resultSet2.getInt("phone");
-				}
 				int confirmed_id = resultSet.getInt("id");
 				String victim_relationship = resultSet.getString("victim_relationship");
 				String danger = resultSet.getString("danger");
@@ -76,20 +63,6 @@ public class PersonJdbo {
 				System.out.println("Successfully got the person with the id=" + id + " from " + fromClass);
 				return victimContact;
 			} else {
-				String query2 = "SELECT * FROM confirmed_phone WHERE id = " + id;
-				Statement statement2 = connection.createStatement();
-				ResultSet resultSet2 = statement2.executeQuery(query2);
-				int counter = 0;
-				while (resultSet2.next()) {
-					counter++;
-				}
-				resultSet2 = statement2.executeQuery(query2);
-				int[] phonenumber = new int[counter];
-				int i = -1;
-				while (resultSet2.next()) {
-					i++;
-					phonenumber[i] = resultSet2.getInt("phone");
-				}
 				String area = resultSet.getString("area");
 				String street = resultSet.getString("street");
 				int street_number = resultSet.getInt("street_number");
@@ -113,23 +86,17 @@ public class PersonJdbo {
 	public void addVictimContact(VictimContact victimContact) throws Exception {
 		try {
 			connect();
-			String query = "insert into victim_contacts(name, surname, email, AMKA, confirmed_id, victim_relationship, danger) values (?,?,?,?,?,?,?)";
+			String query = "insert into victim_contacts(name, surname, email, phonenumber, AMKA, confirmed_id, victim_relationship, danger) values (?,?,?,?,?,?,?,?)";
 			PreparedStatement pstatement = connection.prepareStatement(query);
 			pstatement.setString(1, victimContact.name);
 			pstatement.setString(2, victimContact.surname);
 			pstatement.setString(3, victimContact.email);
-			pstatement.setInt(4, victimContact.AMKA);
-			pstatement.setInt(5, victimContact.confirmed_id);
-			pstatement.setString(6, victimContact.victim_relationship);
-			pstatement.setString(7, victimContact.danger);
+			pstatement.setInt(4, victimContact.phonenumber);
+			pstatement.setInt(5, victimContact.AMKA);
+			pstatement.setInt(6, victimContact.confirmed_id);
+			pstatement.setString(7, victimContact.victim_relationship);
+			pstatement.setString(8, victimContact.danger);
 			int rows = pstatement.executeUpdate();
-			String query2 = "insert into contact_phone(id,phone) values (?,?)";
-			PreparedStatement pstatement2 = connection.prepareStatement(query2);
-			for (int i = 0; i < victimContact.phonenumber.length; i++) {
-				pstatement2.setInt(1, victimContact.vid);
-				pstatement2.setInt(2, victimContact.phonenumber[i]);
-				rows += pstatement2.executeUpdate();
-			}
 			if (rows > 0) {
 				System.out.println(rows + " row/s affected");
 				System.out.println("A new Person has been inserted successfully");
@@ -144,25 +111,19 @@ public class PersonJdbo {
 	public void addConfirmed(Confirmed confirmed) throws Exception {
 		try {
 			connect();
-			String query = "insert into confirmed(name, surname, email, AMKA, area, street, street_number, zip, active_status) values (?,?,?,?,?,?,?,?,?)";
+			String query = "insert into confirmed(name, surname, email, phonenumber, AMKA, area, street, street_number, zip, active_status) values (?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pstatement = connection.prepareStatement(query);
 			pstatement.setString(1, confirmed.name);
 			pstatement.setString(2, confirmed.surname);
 			pstatement.setString(3, confirmed.email);
-			pstatement.setInt(4, confirmed.AMKA);
-			pstatement.setString(5, confirmed.area);
-			pstatement.setString(6, confirmed.street);
-			pstatement.setInt(7, confirmed.street_number);
-			pstatement.setInt(8, confirmed.zip);
-			pstatement.setBoolean(9, confirmed.active_status);
+			pstatement.setInt(4, confirmed.phonenumber);
+			pstatement.setInt(5, confirmed.AMKA);
+			pstatement.setString(6, confirmed.area);
+			pstatement.setString(7, confirmed.street);
+			pstatement.setInt(8, confirmed.street_number);
+			pstatement.setInt(9, confirmed.zip);
+			pstatement.setBoolean(10, confirmed.active_status);
 			int rows = pstatement.executeUpdate();
-			String query2 = "insert into confirmed_phone(id,phone) values (?,?)";
-			PreparedStatement pstatement2 = connection.prepareStatement(query2);
-			for (int i = 0; i < confirmed.phonenumber.length; i++) {
-				pstatement2.setInt(1, confirmed.cid);
-				pstatement2.setInt(2, confirmed.phonenumber[i]);
-				rows += pstatement2.executeUpdate();
-			}
 			if (rows > 0) {
 				System.out.println(rows + " row/s affected");
 				System.out.println("A new Person has been inserted successfully");

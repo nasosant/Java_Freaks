@@ -6,7 +6,7 @@ public class VictimContact extends AllPeople {
 	protected int vid;
 	protected static int counterForVictimContact = 0;
 
-	public VictimContact(String name, String surname, String email, int phonenumber[], int AMKA, int confirmed_id,
+	public VictimContact(String name, String surname, String email, int phonenumber, int AMKA, int confirmed_id,
 			String victim_relationship, String danger) {
 		super(name, surname, email, phonenumber, AMKA);
 		counterForVictimContact++;
@@ -16,7 +16,7 @@ public class VictimContact extends AllPeople {
 		vid = counterForVictimContact;
 	}
 
-	public VictimContact(int vid, String name, String surname, String email, int phonenumber[], int AMKA,
+	public VictimContact(int vid, String name, String surname, String email, int phonenumber, int AMKA,
 			int confirmed_id, String victim_relationship, String danger) {
 		super(name, surname, email, phonenumber, AMKA);
 		this.victim_relationship = victim_relationship;
@@ -68,11 +68,4 @@ public class VictimContact extends AllPeople {
 		return s;
 	}
 
-	/*
-	 * public static String classifyContact(String victim_relationship) { if
-	 * (victim_relationship == "housemate" || victim_relationship == "directContact"
-	 * || contactwhilesymptomsoccured == "yes" || (Distance <= 2 && Time > 15) ||
-	 * placeToMeet == "internal" || Worksector == "healthdomain") { return "high"; }
-	 * else { return "low"; } }
-	 */
 }

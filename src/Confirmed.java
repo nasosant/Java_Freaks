@@ -6,9 +6,9 @@ public class Confirmed extends AllPeople {
 	protected int zip;
 	protected boolean active_status;
 	protected int cid;
-	protected static int counterForConfirmed = 2;
+	protected static int counterForConfirmed = 0;
 
-	public Confirmed(String name, String surname, String email, int phonenumber[], int AMKA, String area, String street,
+	public Confirmed(String name, String surname, String email, int phonenumber, int AMKA, String area, String street,
 			int street_number, int zip, boolean active_status) throws Exception {
 		super(name, surname, email, phonenumber, AMKA);
 		counterForConfirmed++;
@@ -20,7 +20,7 @@ public class Confirmed extends AllPeople {
 		cid = counterForConfirmed;
 	}
 
-	public Confirmed(int cid, String name, String surname, String email, int phonenumber[], int AMKA, String area,
+	public Confirmed(int cid, String name, String surname, String email, int phonenumber, int AMKA, String area,
 			String street, int street_number, int zip, boolean active_status) throws Exception {
 		super(name, surname, email, phonenumber, AMKA);
 		this.area = area;
@@ -64,11 +64,6 @@ public class Confirmed extends AllPeople {
 
 	public static String setCid(int cid) {
 		String s = " SET cid = '" + cid + "'";
-		return s;
-	}
-
-	public static String setCounterForConfirmed(int counterForConfirmed) {
-		String s = " SET counterForConfirmed = '" + counterForConfirmed + "'";
 		return s;
 	}
 
