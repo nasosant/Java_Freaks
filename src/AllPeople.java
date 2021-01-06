@@ -32,20 +32,24 @@ public class AllPeople {
 		return s;
 	}
 
-	public void setSurname(String surname) {
-
+	public static String setSurname(String surname) {
+		String s = " SET surname = '" + surname + "'";
+		return s;
 	}
 
-	public void setEmail(String email) {
-
+	public static String setEmail(String email) {
+		String s = " SET email = '" + email + "'";
+		return s;
+	}
+	// Kati den paei kala
+	public static String setPhonenumber(int[] phonenumber) {
+		String s = " SET phonenumber = '" + phonenumber + "'";
+		return s;
 	}
 
-	public void setPhonenumber(int[] phonenumber) {
-
-	}
-
-	public void setAMKA(int ΑMKA) {
-
+	public static String setAMKA(int ΑMKA) {
+		String s = " SET ΑMKA = '" + ΑMKA + "'";
+		return s;
 	}
 
 }

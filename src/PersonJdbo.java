@@ -23,10 +23,10 @@ public class PersonJdbo {
 
 	}
 
-	public void alterTables(int id, String fromClass) throws Exception {
+	public void alterTables(int id, String fromClass, String set) throws Exception {
 		try {
 			connect();
-			String query = "UPDATE " + fromClass + AllPeople.setName("Nikos") + " WHERE id = " + id;
+			String query = "UPDATE " + fromClass + set + " WHERE id = " + id;
 			PreparedStatement pstatement;
 			pstatement = connection.prepareStatement(query);
 			int rows = pstatement.executeUpdate();
