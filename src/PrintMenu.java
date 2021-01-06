@@ -51,7 +51,7 @@ public class PrintMenu extends JFrame implements ActionListener {
 		Image imgUpgrade = new ImageIcon(this.getClass().getResource("upgrade.png")).getImage();
 		labelUpgrade.setBounds(325, 2, 25, 25);
 
-		buttonUpgrade = new JButton("2. Update.");
+		buttonUpgrade = new JButton("2. Cured/Passed Away.");
 		buttonUpgrade.setIcon(new ImageIcon(imgUpgrade));
 		buttonUpgrade.setBounds(180, 115, 250, 30);
 		buttonUpgrade.addActionListener(this);
@@ -125,7 +125,16 @@ public class PrintMenu extends JFrame implements ActionListener {
 			});
 		} else if (e.getSource() == buttonUpgrade) {
 			dispose();
-			new Upgrade();
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						Cured_PassedAway frame = new Cured_PassedAway();
+						frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
 		} else if (e.getSource() == buttonExit) {
 			System.exit(1);
 		} else if (e.getSource() == buttonChangeUser) {

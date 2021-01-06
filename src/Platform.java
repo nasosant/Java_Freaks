@@ -1,5 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -18,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JCheckBox;
+import javax.swing.JToggleButton;
 
 public class Platform extends JFrame {
 
@@ -32,14 +32,19 @@ public class Platform extends JFrame {
 	protected JTable table;
 	protected static JLabel labelChangeUserImg;
 	protected static DefaultTableModel model;
-	// protected static JTextField[][] details = new JTextField[100][6];
-	final static Object[] row = new Object[6];
-	static Object[] column = { "Name", "Surname", "Address", "Email", "Phone Number", "SSN" };
+	final static Object[] row = new Object[10];
+	static Object[] column = { "Name", "Surname", "Email", "Phone Number", "SSN", "Area", "Street", "Street Number",
+			"Zip", "Active Status" };
 	protected static int number = -1;
+	private JTextField areaText;
+	private JTextField streetText;
+	private JTextField streetNumberText;
+	private JTextField zipText;
+	boolean flag = false;
 
 	public Platform() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1098, 481);
+		setBounds(100, 100, 1315, 535);
 		setTitle("Personal information");
 		setResizable(false);
 		contentPane = new JPanel();
@@ -50,7 +55,7 @@ public class Platform extends JFrame {
 
 		JPanel panel = new JPanel();
 		// panel.setBackground(new Color(176, 196, 222));
-		panel.setBounds(0, 0, 1092, 452);
+		panel.setBounds(0, 0, 1309, 506);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -121,37 +126,65 @@ public class Platform extends JFrame {
 		panel.add(labelAmkaImg);
 
 		nameText = new JTextField();
-		nameText.setBounds(128, 56, 160, 20);
+		nameText.setBounds(128, 52, 160, 20);
 		panel.add(nameText);
 		nameText.setColumns(10);
 
 		surnameText = new JTextField();
 		surnameText.setColumns(10);
-		surnameText.setBounds(128, 86, 160, 20);
+		surnameText.setBounds(128, 82, 160, 20);
 		panel.add(surnameText);
 
 		addressText = new JTextField();
 		addressText.setColumns(10);
-		addressText.setBounds(128, 116, 160, 20);
+		addressText.setBounds(128, 112, 160, 20);
 		panel.add(addressText);
 
 		emailText = new JTextField();
 		emailText.setColumns(10);
-		emailText.setBounds(128, 146, 160, 20);
+		emailText.setBounds(128, 142, 160, 20);
 		panel.add(emailText);
 
 		phoneNumberText = new JTextField();
 		phoneNumberText.setColumns(10);
-		phoneNumberText.setBounds(128, 176, 160, 20);
+		phoneNumberText.setBounds(128, 172, 160, 20);
 		panel.add(phoneNumberText);
 
 		ssnText = new JTextField();
 		ssnText.setColumns(10);
-		ssnText.setBounds(128, 208, 160, 20);
+		ssnText.setBounds(128, 204, 160, 20);
 		panel.add(ssnText);
 
+		areaText = new JTextField();
+		areaText.setColumns(10);
+		areaText.setBounds(128, 234, 160, 20);
+		panel.add(areaText);
+
+		streetText = new JTextField();
+		streetText.setColumns(10);
+		streetText.setBounds(128, 264, 160, 20);
+		panel.add(streetText);
+
+		streetNumberText = new JTextField();
+		streetNumberText.setColumns(10);
+		streetNumberText.setBounds(128, 324, 160, 20);
+		panel.add(streetNumberText);
+
+		zipText = new JTextField();
+		zipText.setColumns(10);
+		zipText.setBounds(128, 294, 160, 20);
+		panel.add(zipText);
+
+		JCheckBox checkBoxYes = new JCheckBox("Yes");
+		checkBoxYes.setBounds(124, 351, 53, 23);
+		panel.add(checkBoxYes);
+
+		JCheckBox checkBoxNo = new JCheckBox("No");
+		checkBoxNo.setBounds(191, 351, 97, 23);
+		panel.add(checkBoxNo);
+
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(298, 56, 782, 283);
+		scrollPane.setBounds(298, 56, 1001, 318);
 		panel.add(scrollPane);
 
 		table = new JTable();
@@ -161,10 +194,13 @@ public class Platform extends JFrame {
 				int i = table.getSelectedRow();
 				nameText.setText(model.getValueAt(i, 0).toString());
 				surnameText.setText(model.getValueAt(i, 1).toString());
-				addressText.setText(model.getValueAt(i, 2).toString());
-				emailText.setText(model.getValueAt(i, 3).toString());
-				phoneNumberText.setText(model.getValueAt(i, 4).toString());
-				ssnText.setText(model.getValueAt(i, 5).toString());
+				emailText.setText(model.getValueAt(i, 2).toString());
+				phoneNumberText.setText(model.getValueAt(i, 3).toString());
+				ssnText.setText(model.getValueAt(i, 4).toString());
+				areaText.setText(model.getValueAt(i, 5).toString());
+				streetText.setText(model.getValueAt(i, 6).toString());
+				streetNumberText.setText(model.getValueAt(i, 7).toString());
+				zipText.setText(model.getValueAt(i, 8).toString());
 			}
 		});
 		table.setBackground(new Color(211, 211, 211));
@@ -178,35 +214,52 @@ public class Platform extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (nameText.getText().equals("") || surnameText.getText().equals("")
 						|| addressText.getText().equals("") || emailText.getText().equals("")
-						|| phoneNumberText.getText().equals("") || ssnText.getText().equals("")) {
+						|| phoneNumberText.getText().equals("") || ssnText.getText().equals("")
+						|| areaText.getText().equals("") || streetText.getText().equals("")
+						|| streetNumberText.getText().equals("") || zipText.getText().equals("")
+						|| (!checkBoxYes.isSelected() && !checkBoxNo.isSelected())) {
+
 					JOptionPane.showMessageDialog(null, "Pease Fill Complete Information");
 				} else {
 					number++;
 					row[0] = nameText.getText();
 					row[1] = surnameText.getText();
-					row[2] = addressText.getText();
-					row[3] = emailText.getText();
-					row[4] = phoneNumberText.getText();
-					row[5] = ssnText.getText();
-					model.addRow(row);
+					row[2] = emailText.getText();
+					row[3] = phoneNumberText.getText();
+					row[4] = ssnText.getText();
+					row[5] = areaText.getText();
+					row[6] = streetText.getText();
+					row[7] = streetNumberText.getText();
+					row[8] = zipText.getText();
+					if (checkBoxYes.isSelected() && checkBoxNo.isSelected()) {
+						JOptionPane.showMessageDialog(null, "Pease Check Only One Box");
+						flag = true;
+					} else {
+						if (checkBoxYes.isSelected()) {
+						 	row[9] = "Yes";
+						} else if (checkBoxNo.isSelected()) {
+							row[9] = "No";
+						}
+						model.addRow(row);
+						if (flag == false) {
+							nameText.setText("");
+							surnameText.setText("");
+							addressText.setText("");
+							emailText.setText("");
+							phoneNumberText.setText("");
+							ssnText.setText("");
+							areaText.setText("");
+							streetText.setText("");
+							streetNumberText.setText("");
+							zipText.setText("");
+						}
+					}
 
-					nameText.setText("");
-					surnameText.setText("");
-					addressText.setText("");
-					emailText.setText("");
-					phoneNumberText.setText("");
-					ssnText.setText("");
-
-					/*
-					 * details[number][0].getText(); details[number][1].getText();
-					 * details[number][2].getText(); details[number][3].getText();
-					 * details[number][4].getText(); details[number][5].getText();
-					 */
 				}
 
 			}
 		});
-		btnNewButton.setBounds(10, 270, 110, 25);
+		btnNewButton.setBounds(298, 387, 110, 25);
 		panel.add(btnNewButton);
 
 		JButton btnUpdate = new JButton("Update");
@@ -216,15 +269,21 @@ public class Platform extends JFrame {
 				if (i >= 0) {
 					model.setValueAt(nameText.getText(), i, 0);
 					model.setValueAt(surnameText.getText(), i, 1);
-					model.setValueAt(addressText.getText(), i, 2);
-					model.setValueAt(emailText.getText(), i, 3);
-					model.setValueAt(phoneNumberText.getText(), i, 4);
-					model.setValueAt(ssnText.getText(), i, 5);
-					/*
-					 * details[number][0].getText(); details[number][1].getText();
-					 * details[number][2].getText(); details[number][3].getText();
-					 * details[number][4].getText(); details[number][5].getText();
-					 */
+					model.setValueAt(emailText.getText(), i, 2);
+					model.setValueAt(phoneNumberText.getText(), i, 3);
+					model.setValueAt(ssnText.getText(), i, 4);
+					model.setValueAt(areaText.getText(), i, 5);
+					model.setValueAt(streetText.getText(), i, 6);
+					model.setValueAt(streetNumberText.getText(), i, 7);
+					model.setValueAt(zipText.getText(), i, 8);
+					if (checkBoxYes.isSelected()) {
+						row[9] = true;
+						model.setValueAt("Yes", i, 9);
+					} else if (checkBoxNo.isSelected()) {
+						row[9] = false;
+						model.setValueAt("No", i, 9);
+					}
+
 					JOptionPane.showMessageDialog(null, "Updated Successfully");
 				} else {
 					JOptionPane.showMessageDialog(null, "Please Select a Row First");
@@ -232,7 +291,7 @@ public class Platform extends JFrame {
 
 			}
 		});
-		btnUpdate.setBounds(144, 270, 110, 25);
+		btnUpdate.setBounds(418, 387, 110, 25);
 		panel.add(btnUpdate);
 
 		JButton btnClear = new JButton("Clear");
@@ -244,9 +303,13 @@ public class Platform extends JFrame {
 				emailText.setText("");
 				phoneNumberText.setText("");
 				ssnText.setText("");
+				areaText.setText("");
+				streetText.setText("");
+				streetNumberText.setText("");
+				zipText.setText("");
 			}
 		});
-		btnClear.setBounds(144, 314, 110, 25);
+		btnClear.setBounds(658, 387, 110, 25);
 		panel.add(btnClear);
 
 		JButton btnDelete = new JButton("Delete");
@@ -255,11 +318,6 @@ public class Platform extends JFrame {
 				int k = table.getSelectedRow();
 				if (k >= 0) {
 					model.removeRow(k);
-					/*
-					 * for (int i = k; i > number; k++) { for (int j = 0; j > 6; j++) {
-					 * details[k][j] = details[k + 1][j]; } } for (int j = 0; j < 6; j++) {
-					 * details[number][j] = null; }
-					 */
 					JOptionPane.showMessageDialog(null, "Deleted Successfully");
 				} else {
 					JOptionPane.showMessageDialog(null, "Please Select a Row First");
@@ -267,7 +325,7 @@ public class Platform extends JFrame {
 
 			}
 		});
-		btnDelete.setBounds(10, 314, 110, 25);
+		btnDelete.setBounds(538, 387, 110, 25);
 		panel.add(btnDelete);
 
 		JLabel labelSubmitImg = new JLabel("");
@@ -278,17 +336,29 @@ public class Platform extends JFrame {
 		JButton buttonSub = new JButton("Submit");
 		buttonSub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Confirmed patient = new Confirmed(nameText.getText(), surnameText.getText(), emailText.getText(), phoneNumberText.getText(), ssnText.getText(), addressText.getText(),
-				// phonenumber [ ] +
-				//			   [ ] +
-				//			   [ ]
-				// int phonenumber[] περισσοτερες επιλογες
-				// String area, String street, int street_number, int zip, boolean active_status
-				dispose();
-				new Message("Your personal information has been submited successfully. Thank you!", 120);
+				if (row[0] == null) {
+					JOptionPane.showMessageDialog(null, "Please Add a Row First");
+				} else {
+					PersonJdbo persondao = new PersonJdbo();
+					int[] tel = { Integer.parseInt((String) row[3]), Integer.parseInt((String) row[3]) };
+					try {
+						Confirmed patient = new Confirmed((String) row[0], (String) row[1], (String) row[2], tel,
+								Integer.parseInt((String) row[4]), (String) row[5], (String) row[6],
+								Integer.parseInt((String) row[7]), Integer.parseInt((String) row[8]),
+								Boolean.parseBoolean((String) row[9]));
+						persondao.addConfirmed(patient);
+					} catch (NumberFormatException e1) {
+						e1.printStackTrace();
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					dispose();
+					new Message("Your personal information has been submited successfully. Thank you!", 120);
+				}
+
 			}
 		});
-		buttonSub.setBounds(10, 381, 245, 45);
+		buttonSub.setBounds(58, 435, 245, 45);
 		buttonSub.setIcon(new ImageIcon(imgSubmit));
 		panel.add(buttonSub);
 
@@ -304,7 +374,7 @@ public class Platform extends JFrame {
 				new PrintMenu();
 			}
 		});
-		buttonCancel.setBounds(424, 381, 240, 45);
+		buttonCancel.setBounds(347, 435, 240, 45);
 		buttonCancel.setIcon(new ImageIcon(imgCancel));
 		panel.add(buttonCancel);
 
@@ -312,18 +382,6 @@ public class Platform extends JFrame {
 		Image imgChangeUser = new ImageIcon(this.getClass().getResource("changeUser.png")).getImage();
 		labelChangeUserImg.setIcon(new ImageIcon(imgChangeUser));
 		labelChangeUserImg.setBounds(325, 240, 25, 25);
-
-		JButton buttonChangeUser = new JButton("Change user");
-		buttonChangeUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				Registration obj = new Registration();
-				obj.login();
-			}
-		});
-		buttonChangeUser.setBounds(840, 381, 240, 45);
-		buttonChangeUser.setIcon(new ImageIcon(imgChangeUser));
-		panel.add(buttonChangeUser);
 
 		JLabel lblNewLabel_1 = new JLabel("Enter the personal information as it appears on the police ID.");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -339,7 +397,33 @@ public class Platform extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel(
 				"If you press submit you will have no more accessibility to the information that you have entered.");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2.setBounds(10, 350, 607, 24);
+		lblNewLabel_2.setBounds(10, 412, 607, 24);
 		panel.add(lblNewLabel_2);
+
+		JLabel lblNewLabel_3 = new JLabel("Area");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_3.setBounds(10, 232, 37, 20);
+		panel.add(lblNewLabel_3);
+
+		JLabel lblNewLabel_4 = new JLabel("Street");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_4.setBounds(10, 262, 46, 14);
+		panel.add(lblNewLabel_4);
+
+		JLabel lblNewLabel_5 = new JLabel("Street Number");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_5.setBounds(9, 292, 121, 14);
+		panel.add(lblNewLabel_5);
+
+		JLabel lblNewLabel_6 = new JLabel("Zip");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_6.setBounds(10, 322, 46, 14);
+		panel.add(lblNewLabel_6);
+
+		JLabel lblNewLabel_7 = new JLabel("Active Status");
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_7.setBounds(9, 352, 88, 24);
+		panel.add(lblNewLabel_7);
+
 	}
 }

@@ -28,6 +28,10 @@ public class Data extends JFrame {
 	protected static DefaultTableModel model;
 	protected Object[] column = { "Id", "Name", "Surname", "Email", "Phone Number", "SSN", "Address", "Has Covid" };
 	protected final static Object[] row = new Object[8];
+	protected static DefaultTableModel model_1;
+	protected Object[] column_1 = { "Id", "Name", "Surname", "Email", "Phone Number", "SSN", "Confirmed Id", "Victim Relationship", "Danger" };
+	protected final static Object[] row_1 = new Object[9];
+	private JTable table_1;
 
 	public static void main(String[] args) throws Exception {
 		EventQueue.invokeLater(new Runnable() {
@@ -44,39 +48,30 @@ public class Data extends JFrame {
 
 	public Data() throws Exception {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1087, 642);
+		setBounds(100, 100, 1458, 800);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		setTitle("Data");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 1071, 603);
+		panel.setBounds(0, 0, 1452, 769);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 49, 1051, 457);
+		scrollPane.setBounds(10, 49, 760, 630);
 		panel.add(scrollPane);
 
-		JLabel lblNewLabel = new JLabel("These are all the data!");
+		JLabel lblNewLabel = new JLabel("Confirmed Cases");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(436, 11, 196, 27);
+		lblNewLabel.setBounds(260, 11, 146, 26);
 		panel.add(lblNewLabel);
 
 		table = new JTable();
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int i = table.getSelectedRow();
-				Platform.nameText.setText(model.getValueAt(i, 0).toString());
-				Platform.surnameText.setText(model.getValueAt(i, 1).toString());
-				Platform.addressText.setText(model.getValueAt(i, 2).toString());
-				Platform.emailText.setText(model.getValueAt(i, 3).toString());
-				Platform.phoneNumberText.setText(model.getValueAt(i, 4).toString());
-				Platform.ssnText.setText(model.getValueAt(i, 5).toString());
-			}
-		});
 		scrollPane.setViewportView(table);
 		table.setBackground(new Color(211, 211, 211));
 		model = new DefaultTableModel();
@@ -84,22 +79,22 @@ public class Data extends JFrame {
 		table.setModel(model);
 		scrollPane.setViewportView(table);
 
-		PersonJdbo obj = new PersonJdbo();
+		PersonJdbo persondao = new PersonJdbo();
 
-		int count = obj.check("confirmed");
+		int count = persondao.check("confirmed");
 		for (int i = 1; i <= count; i++) {
-			Confirmed obj2 = (Confirmed) obj.showAll("confirmed", i);
-			row[0] = obj2.cid;
-			row[1] = obj2.name;
-			row[2] = obj2.surname;
-			row[3] = obj2.email;
-			row[4] = obj2.phonenumber[0];
-			for (int j = 1; j < obj2.phonenumber.length; j++) {
-				row[4] += ", " + obj2.phonenumber[j];
+			Confirmed patient = (Confirmed) persondao.showAll("confirmed", i);
+			row[0] = patient.cid;
+			row[1] = patient.name;
+			row[2] = patient.surname;
+			row[3] = patient.email;
+			row[4] = patient.phonenumber[0];
+			for (int j = 1; j < patient.phonenumber.length; j++) {
+				row[4] += ", " + patient.phonenumber[j];
 			}
-			row[5] = obj2.AMKA;
-			row[6] = obj2.street + " " + obj2.street_number + ", " + obj2.area + " " + obj2.zip;
-			row[7] = obj2.active_status;
+			row[5] = patient.AMKA;
+			row[6] = patient.street + " " + patient.street_number + ", " + patient.area + " " + patient.zip;
+			row[7] = patient.active_status;
 			model.addRow(row);
 		}
 
@@ -116,7 +111,57 @@ public class Data extends JFrame {
 				new PrintMenu();
 			}
 		});
-		btnNewButton.setBounds(430, 529, 223, 54);
+		btnNewButton.setBounds(629, 690, 223, 54);
 		panel.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Edit a Confirmed Case");
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnNewButton_1.setBounds(275, 690, 223, 54);
+		panel.add(btnNewButton_1);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(780, 49, 660, 630);
+		panel.add(scrollPane_1);
+		
+		
+		// Victim Contact
+		
+		table_1 = new JTable();
+		scrollPane_1.setViewportView(table_1);
+		table_1.setBackground(new Color(211, 211, 211));
+		model_1 = new DefaultTableModel();
+		model_1.setColumnIdentifiers(column_1);
+		table_1.setModel(model_1);
+		scrollPane_1.setViewportView(table_1);
+		//"Name", "Surname", "Email", "Phone Number", "SSN", "Confirmed Id", "Victim Relationship", "Danger" 
+		
+		int count_1 = persondao.check("victim_contacts");
+		for (int i = 1; i <= count_1; i++) {
+			VictimContact victim = (VictimContact) persondao.showAll("victim_contacts", i);
+			row_1[0] = victim.vid;
+			row_1[1] = victim.name;
+			row_1[2] = victim.surname;
+			row_1[3] = victim.email;
+			row_1[4] = victim.phonenumber[0];
+			for (int j = 1; j < victim.phonenumber.length; j++) {
+				row_1[4] += ", " + victim.phonenumber[j];
+			}
+			row_1[5] = victim.AMKA;
+			row_1[6] = victim.confirmed_id;
+			row_1[7] = victim.victim_relationship;
+			row_1[8] = victim.danger;
+			model_1.addRow(row_1);
+		}
+
+		
+		JButton btnNewButton_1_1 = new JButton("Edit a Victim Contact");
+		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnNewButton_1_1.setBounds(961, 690, 223, 54);
+		panel.add(btnNewButton_1_1);
+		
+		JLabel lblNewLabel_1 = new JLabel("Victim Contact");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_1.setBounds(994, 11, 146, 26);
+		panel.add(lblNewLabel_1);
 	}
 }
