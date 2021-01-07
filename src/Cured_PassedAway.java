@@ -31,6 +31,7 @@ public class Cured_PassedAway extends JFrame {
 	protected static DefaultTableModel model;
 	protected static boolean cured;
 	protected static int curedAMKA;
+	protected static int curedId;
 	final static Object[] row = new Object[8];
 	protected Object[] column = { "Id", "Name", "Surname", "Email", "Phone Number", "SSN", "Address", "Has Covid" };
 	protected static int number = -1;
@@ -94,8 +95,13 @@ public class Cured_PassedAway extends JFrame {
 				int i = table.getSelectedRow();
 				if (i >= 0) {
 					row[7] = false;
+					curedId = Integer.parseInt(model.getValueAt(i, 0).toString());
 					curedAMKA = Integer.parseInt(model.getValueAt(i, 5).toString());
 					cured = true;
+					System.out.println(curedId);
+					System.out.println(curedAMKA);
+					System.out.println(row[7]);
+					System.out.println(cured);
 					model.removeRow(i);
 					JOptionPane.showMessageDialog(null, "Thank you!");
 				} else {
@@ -113,8 +119,13 @@ public class Cured_PassedAway extends JFrame {
 				int i = table.getSelectedRow();
 				if (i >= 0) {
 					row[7] = false;
+					curedId = Integer.parseInt(model.getValueAt(i, 0).toString());
 					curedAMKA = Integer.parseInt(model.getValueAt(i, 5).toString());
 					cured = false;
+					System.out.println(curedId);
+					System.out.println(curedAMKA);
+					System.out.println(row[7]);
+					System.out.println(cured);
 					model.removeRow(i);
 					JOptionPane.showMessageDialog(null, "Thank you!");
 				} else {
