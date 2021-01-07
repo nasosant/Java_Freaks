@@ -41,8 +41,8 @@ public class AllPeople {
 		return s;
 	}
 
-	public static String setAMKA(int ΑMKA) {
-		String s = " SET ΑMKA = '" + ΑMKA + "'";
+	public static String setAMKA(int AMKA) {
+		String s = " SET ΑMKA = '" + AMKA + "'";
 		return s;
 	}
 
