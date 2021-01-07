@@ -1,5 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -9,7 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.Image;
-import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -82,10 +79,7 @@ public class Cured_PassedAway extends JFrame {
 				row[1] = obj2.name;
 				row[2] = obj2.surname;
 				row[3] = obj2.email;
-				row[4] = obj2.phonenumber[0];
-				for (int j = 1; j < obj2.phonenumber.length; j++) {
-					row[4] += ", " + obj2.phonenumber[j];
-				}
+				row[4] = obj2.phonenumber;
 				row[5] = obj2.AMKA;
 				row[6] = obj2.street + " " + obj2.street_number + ", " + obj2.area + " " + obj2.zip;
 				row[7] = obj2.active_status;

@@ -34,19 +34,6 @@ public class Data extends JFrame {
 	protected final static Object[] row_1 = new Object[9];
 	private JTable table_1;
 
-	public static void main(String[] args) throws Exception {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Data frame = new Data();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public Data() throws Exception {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1458, 800);
@@ -78,10 +65,8 @@ public class Data extends JFrame {
 		model = new DefaultTableModel();
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
-		scrollPane.setViewportView(table);
 
 		PersonJdbo persondao = new PersonJdbo();
-
 		int count = persondao.check("confirmed");
 		for (int i = 1; i <= count; i++) {
 			Confirmed patient = (Confirmed) persondao.showAll("confirmed", i);
@@ -92,17 +77,14 @@ public class Data extends JFrame {
 				row[1] = patient.name;
 				row[2] = patient.surname;
 				row[3] = patient.email;
-				row[4] = patient.phonenumber[0];
-				for (int j = 1; j < patient.phonenumber.length; j++) {
-					row[4] += ", " + patient.phonenumber[j];
-				}
+				row[4] = patient.phonenumber;
 				row[5] = patient.AMKA;
 				row[6] = patient.street + " " + patient.street_number + ", " + patient.area + " " + patient.zip;
 				row[7] = patient.active_status;
 				model.addRow(row);
 			}
 		}
-
+		
 		labelOkey = new JLabel("");
 		Image imgOkey = new ImageIcon(this.getClass().getResource("okey.png")).getImage();
 		labelOkey.setBounds(373, 529, 48, 48);// panel.add(labelOkey);
@@ -152,9 +134,7 @@ public class Data extends JFrame {
 		model_1.setColumnIdentifiers(column_1);
 		table_1.setModel(model_1);
 		scrollPane_1.setViewportView(table_1);
-		// "Name", "Surname", "Email", "Phone Number", "SSN", "Confirmed Id", "Victim
-		// Relationship", "Danger"
-
+		
 		int count_1 = persondao.check("victim_contacts");
 		for (int i = 1; i <= count_1; i++) {
 			VictimContact victim = (VictimContact) persondao.showAll("victim_contacts", i);
@@ -165,10 +145,7 @@ public class Data extends JFrame {
 				row_1[1] = victim.name;
 				row_1[2] = victim.surname;
 				row_1[3] = victim.email;
-				row_1[4] = victim.phonenumber[0];
-				for (int j = 1; j < victim.phonenumber.length; j++) {
-					row_1[4] += ", " + victim.phonenumber[j];
-				}
+				row_1[4] = victim.phonenumber;
 				row_1[5] = victim.AMKA;
 				row_1[6] = victim.confirmed_id;
 				row_1[7] = victim.victim_relationship;
@@ -176,7 +153,8 @@ public class Data extends JFrame {
 				model_1.addRow(row_1);
 			}
 		}
-
+		
+		
 		JButton btnNewButton_1_1 = new JButton("Edit a Victim Contact");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -202,4 +180,5 @@ public class Data extends JFrame {
 		lblNewLabel_1.setBounds(994, 11, 146, 26);
 		panel.add(lblNewLabel_1);
 	}
+
 }
