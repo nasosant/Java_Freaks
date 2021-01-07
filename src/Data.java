@@ -84,7 +84,7 @@ public class Data extends JFrame {
 				model.addRow(row);
 			}
 		}
-		
+
 		labelOkey = new JLabel("");
 		Image imgOkey = new ImageIcon(this.getClass().getResource("okey.png")).getImage();
 		labelOkey.setBounds(373, 529, 48, 48);// panel.add(labelOkey);
@@ -134,7 +134,7 @@ public class Data extends JFrame {
 		model_1.setColumnIdentifiers(column_1);
 		table_1.setModel(model_1);
 		scrollPane_1.setViewportView(table_1);
-		
+
 		int count_1 = persondao.check("victim_contacts");
 		for (int i = 1; i <= count_1; i++) {
 			VictimContact victim = (VictimContact) persondao.showAll("victim_contacts", i);
@@ -153,8 +153,7 @@ public class Data extends JFrame {
 				model_1.addRow(row_1);
 			}
 		}
-		
-		
+
 		JButton btnNewButton_1_1 = new JButton("Edit a Victim Contact");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

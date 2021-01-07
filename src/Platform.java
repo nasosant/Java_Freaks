@@ -71,7 +71,7 @@ public class Platform extends JFrame {
 			"Victim Relationship", "Danger" };
 	protected final static Object[] row_1 = new Object[8];
 	protected static int number = -1;
-	
+
 	boolean flag = false;
 
 	public Platform(String who) throws Exception {
@@ -402,16 +402,16 @@ public class Platform extends JFrame {
 						JOptionPane.showMessageDialog(null, "Please Add a Row First");
 					} else {
 						try {
-							//Na vro to id kai na to valo sti methofo alterTables
+							// Na vro to id kai na to valo sti methofo alterTables
 							if (nameTemp != nameNew) {
 								String s = AllPeople.setName(nameNew);
 								persondao.alterTables(2, "confirmed", s);
 							}
 							if (surnameTemp != surnameNew) {
-								String s = AllPeople.setName(surnameNew);
+								String s = AllPeople.setSurname(surnameNew);
 								persondao.alterTables(2, "confirmed", s);
 							}
-							if (emailTemp != emailNew) {
+							if (!emailTemp.equals(emailNew)) {
 								String s = AllPeople.setEmail(emailNew);
 								persondao.alterTables(2, "confirmed", s);
 							}
@@ -648,14 +648,14 @@ public class Platform extends JFrame {
 						JOptionPane.showMessageDialog(null, "Please Add a Row First");
 					} else {
 						try {
-							//Na vro to id kai na to valo sti methofo alterTables
+							// Na vro to id kai na to valo sti methofo alterTables
 							if (nameTemp != nameNew) {
 								String s = AllPeople.setName(nameNew);
 								persondao.alterTables(2, "victim_contacts", s);
 							}
 
 							if (surnameTemp != surnameNew) {
-								String s = AllPeople.setName(surnameNew);
+								String s = AllPeople.setSurname(surnameNew);
 								persondao.alterTables(2, "victim_contacts", s);
 							}
 							if (emailTemp != emailNew) {
@@ -923,9 +923,10 @@ public class Platform extends JFrame {
 						JOptionPane.showMessageDialog(null, "Please Add a Row First");
 					} else {
 						try {
-							Confirmed patient = new Confirmed((int) Data.row[0], (String) row[0], (String) row[1],
-									(String) row[2], (int) row[3], (int) row[4], (String) row[5], (String) row[6],
-									(int) row[7], (int) row[8], (boolean) row[9]);
+							Confirmed patient = new Confirmed((String) row[0], (String) row[1], (String) row[2],
+									Integer.parseInt((String) row[3]), Integer.parseInt((String) row[4]),
+									(String) row[5], (String) row[6], Integer.parseInt((String) row[7]),
+									Integer.parseInt((String) row[8]), (boolean) row[9]);
 							persondao.addConfirmed(patient);
 						} catch (NumberFormatException e1) {
 							e1.printStackTrace();

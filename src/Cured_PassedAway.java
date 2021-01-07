@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 
 public class Cured_PassedAway extends JFrame {
 
@@ -29,9 +30,8 @@ public class Cured_PassedAway extends JFrame {
 	protected JTable table;
 	protected static JLabel labelChangeUserImg;
 	protected static DefaultTableModel model;
-	protected static boolean cured;
-	protected static int curedAMKA;
 	protected static int curedId;
+	protected static int deceasedId;
 	final static Object[] row = new Object[8];
 	protected Object[] column = { "Id", "Name", "Surname", "Email", "Phone Number", "SSN", "Address", "Has Covid" };
 	protected static int number = -1;
@@ -94,16 +94,21 @@ public class Cured_PassedAway extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int i = table.getSelectedRow();
 				if (i >= 0) {
-					row[7] = false;
 					curedId = Integer.parseInt(model.getValueAt(i, 0).toString());
-					curedAMKA = Integer.parseInt(model.getValueAt(i, 5).toString());
-					cured = true;
-					Confirmed confirmed= (Confirmed) persondao.getPerson(curedId, "confirmed");
-					confirmed.getsCured(new Date());
-					System.out.println(curedId);
-					System.out.println(curedAMKA);
-					System.out.println(row[7]);
-					System.out.println(cured);
+					PersonJdbo persondao = new PersonJdbo();
+					Confirmed confirmed = null;
+					try {
+						confirmed = (Confirmed) persondao.getPerson(curedId, "confirmed");
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					try {
+						String set = Confirmed.setActive_status(false);
+						persondao.alterTables(confirmed.cid, "confirmed", set);
+						persondao.insertIntoCured_Deceased(new Cured_Deceased(confirmed.cid, new Date()), "cured");
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
 					model.removeRow(i);
 					JOptionPane.showMessageDialog(null, "Thank you!");
 				} else {
@@ -120,17 +125,21 @@ public class Cured_PassedAway extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int i = table.getSelectedRow();
 				if (i >= 0) {
-					row[7] = false;
-					cured = false;
 					deceasedId = Integer.parseInt(model.getValueAt(i, 0).toString());
-					deceasedAMKA = Integer.parseInt(model.getValueAt(i, 5).toString());
-					cured = false;
-					Confirmed confirmed= (Confirmed) persondao.getPerson(deceasedId, "confirmed");
-					confirmed.getsDeceased(new Date());
-					System.out.println(curedId);
-					System.out.println(curedAMKA);
-					System.out.println(row[7]);
-					System.out.println(cured);
+					PersonJdbo persondao = new PersonJdbo();
+					Confirmed confirmed = null;
+					try {
+						confirmed = (Confirmed) persondao.getPerson(deceasedId, "confirmed");
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					try {
+						String set = Confirmed.setActive_status(false);
+						persondao.alterTables(confirmed.cid, "confirmed", set);
+						persondao.insertIntoCured_Deceased(new Cured_Deceased(confirmed.cid, new Date()), "deceased");
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
 					model.removeRow(i);
 					JOptionPane.showMessageDialog(null, "Thank you!");
 				} else {
