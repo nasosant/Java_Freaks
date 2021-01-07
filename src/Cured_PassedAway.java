@@ -30,6 +30,7 @@ public class Cured_PassedAway extends JFrame {
 	protected static JLabel labelChangeUserImg;
 	protected static DefaultTableModel model;
 	protected static boolean cured;
+	protected static int curedAMKA;
 	final static Object[] row = new Object[8];
 	protected Object[] column = { "Id", "Name", "Surname", "Email", "Phone Number", "SSN", "Address", "Has Covid" };
 	protected static int number = -1;
@@ -92,6 +93,8 @@ public class Cured_PassedAway extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int i = table.getSelectedRow();
 				if (i >= 0) {
+					row[7] = false;
+					curedAMKA = Integer.parseInt(model.getValueAt(i, 5).toString());
 					cured = true;
 					model.removeRow(i);
 					JOptionPane.showMessageDialog(null, "Thank you!");
@@ -109,6 +112,8 @@ public class Cured_PassedAway extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int i = table.getSelectedRow();
 				if (i >= 0) {
+					row[7] = false;
+					curedAMKA = Integer.parseInt(model.getValueAt(i, 5).toString());
 					cured = false;
 					model.removeRow(i);
 					JOptionPane.showMessageDialog(null, "Thank you!");
