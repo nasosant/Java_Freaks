@@ -98,6 +98,8 @@ public class Cured_PassedAway extends JFrame {
 					curedId = Integer.parseInt(model.getValueAt(i, 0).toString());
 					curedAMKA = Integer.parseInt(model.getValueAt(i, 5).toString());
 					cured = true;
+					Confirmed confirmed= (Confirmed) persondao.getPerson(curedId, "confirmed");
+					confirmed.getsCured(new Date());
 					System.out.println(curedId);
 					System.out.println(curedAMKA);
 					System.out.println(row[7]);
@@ -119,9 +121,12 @@ public class Cured_PassedAway extends JFrame {
 				int i = table.getSelectedRow();
 				if (i >= 0) {
 					row[7] = false;
-					curedId = Integer.parseInt(model.getValueAt(i, 0).toString());
-					curedAMKA = Integer.parseInt(model.getValueAt(i, 5).toString());
 					cured = false;
+					deceasedId = Integer.parseInt(model.getValueAt(i, 0).toString());
+					deceasedAMKA = Integer.parseInt(model.getValueAt(i, 5).toString());
+					cured = false;
+					Confirmed confirmed= (Confirmed) persondao.getPerson(deceasedId, "confirmed");
+					confirmed.getsDeceased(new Date());
 					System.out.println(curedId);
 					System.out.println(curedAMKA);
 					System.out.println(row[7]);

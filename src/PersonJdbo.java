@@ -62,7 +62,7 @@ public class PersonJdbo {
 				connection.close();
 				System.out.println("Successfully got the person with the id=" + id + " from " + fromClass);
 				return victimContact;
-			} else {
+			} else if(fromClass == "confirmed") {
 				String area = resultSet.getString("area");
 				String street = resultSet.getString("street");
 				int street_number = resultSet.getInt("street_number");
@@ -74,6 +74,8 @@ public class PersonJdbo {
 				connection.close();
 				System.out.println("Successfully got the person with the id=" + id + " from " + fromClass);
 				return confirmed;
+			} else { 
+				throw new Error("Invalid fromClass: "+ fromClass);				
 			}
 
 		} catch (Exception e) {
@@ -134,6 +136,53 @@ public class PersonJdbo {
 			System.out.println("In Method: PersonJdbo.addConfirmed\nException: " + e.getMessage());
 		}
 	}
+
+
+	public void insertIntoCured(Cured patient) throws Exception {
+		try {
+			connect();
+			String query = "insert into cured(id,cured_date) values (?,?)";
+			PreparedStatement pstatement = connection.prepareStatement(query);
+			pstatement.setInt(1, patient.confirmed.cid);
+			java.sql.Date sql_cured_date = new java.sql.Date(cured_date.getTime());
+			pstatement.setDate(2, patient.sql_cured_date);
+			int rows = pstatement.executeUpdate();
+	
+			if (rows > 0) {
+				System.out.println(rows + " row/s affected");
+				System.out.println("A new Person has been inserted successfully");
+				pstatement.close();
+				connection.close();
+			}
+		} catch (Exception e) {
+			System.out.println("In Method: PersonJdbo.insertIntoCured\nException: " + e.getMessage());
+		}
+	}
+	
+	
+	public void insertIntoDeceased(Deceased patient) throws Exception {
+		try {
+			connect();
+			String query = "insert into deceased(id,cured_date) values (?,?)";
+			PreparedStatement pstatement = connection.prepareStatement(query);
+			pstatement.setInt(1, patient.deceased.cid);
+			java.sql.Date sql_deceased_date = new java.sql.Date(deceased_date.getTime());
+			pstatement.setDate(2, patient.sql_deceased_date);
+			int rows = pstatement.executeUpdate();
+	
+			if (rows > 0) {
+				System.out.println(rows + " row/s affected");
+				System.out.println("A new Person has been inserted successfully");
+				pstatement.close();
+				connection.close();
+			}
+		} catch (Exception e) {
+			System.out.println("In Method: PersonJdbo.insertIntoDeceased\nException: " + e.getMessage());
+		}
+	}
+	
+
+
 
 	public void removePerson(int id, String fromClass) throws Exception {
 		try {

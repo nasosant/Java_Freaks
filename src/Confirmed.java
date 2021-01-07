@@ -1,3 +1,5 @@
+import java.util.Date;
+
 public class Confirmed extends AllPeople {
 
 	protected String area;
@@ -30,6 +32,19 @@ public class Confirmed extends AllPeople {
 		this.active_status = active_status;
 		this.cid = cid;
 	}
+
+	public void getsCured(Date cured_date) {
+		PersonJdbo persondao = new PersonJdbo();
+
+		// Add the patient to Cured
+		persondao.insertIntoCured(new Cured(this,cured_date));
+	}
+
+	public void getsDeceased(Date deceased_date) {
+		PersonJdbo persondao = new PersonJdbo();
+
+		// Add the patient to Cured
+		persondao.insertIntoCured(new Cured(this,deceased_date));
 
 	public void confirmedtoString() {
 		String s = "id = " + cid + toString() + "\naddress = " + street + " " + street_number + ", " + area + " " + zip
