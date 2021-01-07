@@ -210,8 +210,8 @@ public class Communication {
 					"<li>Person (s) who had face-to-face contact with COVID-19 at a distance of less than 2 meters but less than 15 '</li>\r\n" + 
 					"<li>Companions of the COVID-19 case in other means of transport</li>\r\n" + 
 					"</ul>\r\n" + 
-					"<p>Based on the above, you are called to write to us the people you were in contact with as well as their phone number  and Email. You will send an email back to this as a reply with COVID-19 tracking procedure as the subject in the following way: <p>\r\n" + 
-					"<p>Code space fullname space phone space email , code space fullname ....etc.<p>\r\n" + 
+					"<p>Based on the above, you are called to write to us the people you were in contact with as well as their and Email. You will send an email back to this as a reply with COVID-19 tracking procedure as the subject in the following way: <p>\r\n" + 
+					"<p>Code space fullname space email , code space fullname ....etc.<p>\r\n" + 
 					"<p>In code you write either H or L depends on if the contact is High danger or Low Danger.<p>\r\n" + 
 					"\r\n" + 
 					"</body>\r\n" + 
