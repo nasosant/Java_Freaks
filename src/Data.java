@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -10,15 +9,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JTable;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
 
 public class Data extends JFrame {
 
@@ -108,7 +104,7 @@ public class Data extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Platform frame = new Platform("c");
+							EditConfirmed frame = new EditConfirmed();
 							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -161,7 +157,7 @@ public class Data extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Platform frame = new Platform("v");
+							EditVictimContact frame = new EditVictimContact();
 							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();

@@ -3,14 +3,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
-import java.awt.Container;
+import java.awt.EventQueue;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.ScrollPane;
-import java.awt.Window;
 
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
@@ -23,7 +21,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JCheckBox;
 
-public class Platform extends JFrame {
+public class EditConfirmed extends JFrame {
 
 	protected String nameNew;
 	protected String surnameNew;
@@ -74,41 +72,46 @@ public class Platform extends JFrame {
 	protected final static Object[] row_1 = new Object[8];
 	protected static int number = -1;
 	boolean flag = false;
+	protected JPanel panel;
+	protected JLabel lblNewLabel;
+	protected JLabel labelNameImg;
+	protected JLabel lblSurname;
+	protected JLabel labelSurNameImg;
+	protected JLabel lblEmail;
+	protected JLabel labelEmailImg;
+	protected JLabel lblPhoneNumber;
+	protected JLabel labelPhoneImg;
+	protected JLabel lblSsn;
+	protected JLabel labelAmkaImg;
+	protected JScrollPane scrollPane;
+	protected JLabel lblNewLabel_3;
+	protected JLabel lblNewLabel_4;
+	protected JLabel lblNewLabel_5;
+	protected JLabel lblNewLabel_6;
+	protected JLabel lblNewLabel_7;
+	protected JCheckBox checkBoxYes;
+	protected JCheckBox checkBoxNo;
+	protected JLabel labelSubmitImg;
 	protected PersonJdbo persondao;
-	private JPanel panel;
-	private JLabel lblNewLabel;
-	private JLabel labelNameImg;
-	private JLabel lblSurname;
-	private JLabel labelSurNameImg;
-	private JLabel lblEmail;
-	private JLabel labelEmailImg;
-	private JLabel lblPhoneNumber;
-	private JLabel labelPhoneImg;
-	private JLabel lblSsn;
-	private JLabel labelAmkaImg;
-	private JScrollPane scrollPane;
-	private JLabel lblNewLabel_4;
-	private JLabel lblNewLabel_3;
-	private JLabel lblNewLabel_5;
-	private JLabel lblNewLabel_6;
-	private JLabel lblNewLabel_7;
-	private JCheckBox checkBoxYes;
-	private JCheckBox checkBoxNo;
-	private Image imgSubmit;
-	private Image imgCancel;
+	protected Image imgSubmit;
+	protected JLabel labelCancelImg;
+	protected Image imgCancel;
+	protected Image imgChangeUser;
+	protected Image imgId;
 
-	public Platform() throws Exception {
+	public EditConfirmed() throws Exception {
 		persondao = new PersonJdbo();
 		draw();
 		images();
-		buttons();
 		table();
+		buttons();
+		dataBase();
 	}
 
 	public void draw() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1315, 535);
-		setTitle("Personal information");
+		setBounds(100, 100, 1315, 546);
+		setTitle("Edit Confirmed Cases");
 		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -118,7 +121,7 @@ public class Platform extends JFrame {
 
 		panel = new JPanel();
 		// panel.setBackground(new Color(176, 196, 222));
-		panel.setBounds(0, 0, 1309, 506);
+		panel.setBounds(0, 0, 1309, 517);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -127,55 +130,25 @@ public class Platform extends JFrame {
 		lblNewLabel.setBounds(10, 52, 45, 24);
 		panel.add(lblNewLabel);
 
-		labelNameImg = new JLabel("");
-		Image imgName = new ImageIcon(this.getClass().getResource("name.png")).getImage();
-		labelNameImg.setIcon(new ImageIcon(imgName));
-		labelNameImg.setBounds(53, 52, 25, 25);
-		panel.add(labelNameImg);
-
 		lblSurname = new JLabel("Surname");
 		lblSurname.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblSurname.setBounds(10, 82, 63, 24);
 		panel.add(lblSurname);
-
-		labelSurNameImg = new JLabel("");
-		Image imgSurName = new ImageIcon(this.getClass().getResource("name.png")).getImage();
-		labelSurNameImg.setIcon(new ImageIcon(imgSurName));
-		labelSurNameImg.setBounds(83, 82, 25, 25);
-		panel.add(labelSurNameImg);
 
 		lblEmail = new JLabel("Email");
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblEmail.setBounds(11, 113, 45, 24);
 		panel.add(lblEmail);
 
-		labelEmailImg = new JLabel("");
-		Image imgEmail = new ImageIcon(this.getClass().getResource("email.png")).getImage();
-		labelEmailImg.setIcon(new ImageIcon(imgEmail));
-		labelEmailImg.setBounds(54, 118, 25, 25);
-		panel.add(labelEmailImg);
-
 		lblPhoneNumber = new JLabel("Phone Number");
 		lblPhoneNumber.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblPhoneNumber.setBounds(11, 143, 98, 24);
 		panel.add(lblPhoneNumber);
 
-		labelPhoneImg = new JLabel("");
-		Image imgPhone = new ImageIcon(this.getClass().getResource("phone.png")).getImage();
-		labelPhoneImg.setIcon(new ImageIcon(imgPhone));
-		labelPhoneImg.setBounds(106, 143, 25, 25);
-		panel.add(labelPhoneImg);
-
 		lblSsn = new JLabel("SSN");
 		lblSsn.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblSsn.setBounds(11, 173, 45, 24);
 		panel.add(lblSsn);
-
-		labelAmkaImg = new JLabel("");
-		Image imgAmka = new ImageIcon(this.getClass().getResource("amka.png")).getImage();
-		labelAmkaImg.setIcon(new ImageIcon(imgAmka));
-		labelAmkaImg.setBounds(54, 173, 25, 25);
-		panel.add(labelAmkaImg);
 
 		nameText = new JTextField();
 		nameText.setBounds(128, 52, 160, 20);
@@ -203,7 +176,7 @@ public class Platform extends JFrame {
 		panel.add(ssnText);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(300, 56, 1000, 403);
+		scrollPane.setBounds(298, 52, 1002, 396);
 		panel.add(scrollPane);
 
 		lblNewLabel_3 = new JLabel("Area");
@@ -233,7 +206,7 @@ public class Platform extends JFrame {
 
 		streetNumberText = new JTextField();
 		streetNumberText.setColumns(10);
-		streetNumberText.setBounds(129, 295, 160, 20);
+		streetNumberText.setBounds(129, 265, 160, 20);
 		panel.add(streetNumberText);
 
 		lblNewLabel_6 = new JLabel("Zip");
@@ -243,7 +216,7 @@ public class Platform extends JFrame {
 
 		zipText = new JTextField();
 		zipText.setColumns(10);
-		zipText.setBounds(129, 265, 160, 20);
+		zipText.setBounds(129, 295, 160, 20);
 		panel.add(zipText);
 
 		lblNewLabel_7 = new JLabel("Active Status");
@@ -259,78 +232,117 @@ public class Platform extends JFrame {
 		checkBoxNo.setBounds(192, 322, 97, 23);
 		panel.add(checkBoxNo);
 
-		JLabel lblNewLabel_1 = new JLabel("Enter the personal information as it appears on the police ID.");
+		JLabel lblNewLabel_1 = new JLabel("Here you can edit every person's information.");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_1.setBounds(387, 20, 502, 20);
 		panel.add(lblNewLabel_1);
+	}
+
+	public void images() {
+		labelNameImg = new JLabel("");
+		Image imgName = new ImageIcon(this.getClass().getResource("name.png")).getImage();
+		labelNameImg.setIcon(new ImageIcon(imgName));
+		labelNameImg.setBounds(83, 52, 25, 25);
+		panel.add(labelNameImg);
+
+		labelSurNameImg = new JLabel("");
+		Image imgSurName = new ImageIcon(this.getClass().getResource("name.png")).getImage();
+		labelSurNameImg.setIcon(new ImageIcon(imgSurName));
+		labelSurNameImg.setBounds(83, 82, 25, 25);
+		panel.add(labelSurNameImg);
+
+		labelEmailImg = new JLabel("");
+		Image imgEmail = new ImageIcon(this.getClass().getResource("email.png")).getImage();
+		labelEmailImg.setIcon(new ImageIcon(imgEmail));
+		labelEmailImg.setBounds(54, 118, 25, 25);
+		panel.add(labelEmailImg);
+
+		labelPhoneImg = new JLabel("");
+		Image imgPhone = new ImageIcon(this.getClass().getResource("phone.png")).getImage();
+		labelPhoneImg.setIcon(new ImageIcon(imgPhone));
+		labelPhoneImg.setBounds(106, 143, 25, 25);
+		panel.add(labelPhoneImg);
+
+		labelAmkaImg = new JLabel("");
+		Image imgAmka = new ImageIcon(this.getClass().getResource("amka.png")).getImage();
+		labelAmkaImg.setIcon(new ImageIcon(imgAmka));
+		labelAmkaImg.setBounds(54, 173, 25, 25);
+		panel.add(labelAmkaImg);
+
+		labelSubmitImg = new JLabel("");
+		imgSubmit = new ImageIcon(this.getClass().getResource("submit.png")).getImage();
+		labelSubmitImg.setIcon(new ImageIcon(imgSubmit));
+		labelSubmitImg.setBounds(5, 240, 25, 25);
+
+		labelCancelImg = new JLabel("");
+		imgCancel = new ImageIcon(this.getClass().getResource("cancel.png")).getImage();
+		labelCancelImg.setIcon(new ImageIcon(imgCancel));
+		labelCancelImg.setBounds(165, 240, 25, 25);
+
+		labelChangeUserImg = new JLabel("");
+		imgChangeUser = new ImageIcon(this.getClass().getResource("changeUser.png")).getImage();
+		labelChangeUserImg.setIcon(new ImageIcon(imgChangeUser));
+		labelChangeUserImg.setBounds(325, 240, 25, 25);
 
 	}
 
-	public void buttons() {
-		JButton btnNewButton = new JButton("Add");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (nameText.getText().equals("") || surnameText.getText().equals("") || emailText.getText().equals("")
-						|| phoneNumberText.getText().equals("") || ssnText.getText().equals("")
-						|| areaText.getText().equals("") || streetText.getText().equals("")
-						|| streetNumberText.getText().equals("") || zipText.getText().equals("")
-						|| (!checkBoxYes.isSelected() && !checkBoxNo.isSelected())) {
-					JOptionPane.showMessageDialog(null, "Pease Fill Complete Information");
-				} else {
-					number++;
-					row[0] = nameText.getText();
-					row[1] = surnameText.getText();
-					row[2] = emailText.getText();
-					row[3] = phoneNumberText.getText();
-					row[4] = ssnText.getText();
-					row[5] = areaText.getText();
-					row[6] = streetText.getText();
-					row[7] = streetNumberText.getText();
-					row[8] = zipText.getText();
-					if (checkBoxYes.isSelected() && checkBoxNo.isSelected()) {
-						JOptionPane.showMessageDialog(null, "Pease Check Only One Box");
-						flag = true;
-					} else {
-						if (checkBoxYes.isSelected()) {
-							row[9] = true;
-						} else if (checkBoxNo.isSelected()) {
-							row[9] = false;
-						}
-						model.addRow(row);
-						if (flag == false) {
-							nameText.setText("");
-							surnameText.setText("");
-							emailText.setText("");
-							phoneNumberText.setText("");
-							ssnText.setText("");
-							areaText.setText("");
-							streetText.setText("");
-							streetNumberText.setText("");
-							zipText.setText("");
-						}
-					}
-
-				}
-
+	public void table() {
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int i = table.getSelectedRow();
+				nameText.setText(model.getValueAt(i, 0).toString());
+				nameTemp = model.getValueAt(i, 0).toString();
+				surnameText.setText(model.getValueAt(i, 1).toString());
+				surnameTemp = model.getValueAt(i, 1).toString();
+				emailText.setText(model.getValueAt(i, 2).toString());
+				emailTemp = model.getValueAt(i, 2).toString();
+				phoneNumberText.setText(model.getValueAt(i, 3).toString());
+				phoneNumberTemp = Integer.parseInt(model.getValueAt(i, 3).toString());
+				ssnText.setText(model.getValueAt(i, 4).toString());
+				ssnTemp = Integer.parseInt(model.getValueAt(i, 4).toString());
+				areaText.setText(model.getValueAt(i, 5).toString());
+				areaTemp = model.getValueAt(i, 5).toString();
+				streetText.setText(model.getValueAt(i, 6).toString());
+				streetTemp = model.getValueAt(i, 6).toString();
+				streetNumberText.setText(model.getValueAt(i, 7).toString());
+				streetNumberTemp = Integer.parseInt(model.getValueAt(i, 7).toString());
+				zipText.setText(model.getValueAt(i, 8).toString());
+				zipTemp = Integer.parseInt(model.getValueAt(i, 8).toString());
 			}
 		});
-		btnNewButton.setBounds(300, 470, 230, 25);
-		panel.add(btnNewButton);
+		scrollPane.setViewportView(table);
+		table.setBackground(new Color(211, 211, 211));
+		model = new DefaultTableModel();
+		model.setColumnIdentifiers(column);
+		table.setModel(model);
+	}
 
-		JButton btnUpdate = new JButton("Change");
+	public void buttons() {
+		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int i = table.getSelectedRow();
 				if (i >= 0) {
 					model.setValueAt(nameText.getText(), i, 0);
+					nameNew = nameText.getText();
 					model.setValueAt(surnameText.getText(), i, 1);
+					surnameNew = surnameText.getText();
 					model.setValueAt(emailText.getText(), i, 2);
+					emailNew = emailText.getText();
 					model.setValueAt(phoneNumberText.getText(), i, 3);
+					phoneNumberNew = Integer.parseInt(phoneNumberText.getText());
 					model.setValueAt(ssnText.getText(), i, 4);
+					ssnNew = Integer.parseInt(ssnText.getText());
 					model.setValueAt(areaText.getText(), i, 5);
+					areaNew = areaText.getText();
 					model.setValueAt(streetText.getText(), i, 6);
+					streetNew = streetText.getText();
 					model.setValueAt(streetNumberText.getText(), i, 7);
+					streetNumberNew = Integer.parseInt(streetNumberText.getText());
 					model.setValueAt(zipText.getText(), i, 8);
+					zipNew = Integer.parseInt(zipText.getText());
 					if (checkBoxYes.isSelected()) {
 						row[9] = true;
 						model.setValueAt(true, i, 9);
@@ -346,7 +358,7 @@ public class Platform extends JFrame {
 
 			}
 		});
-		btnUpdate.setBounds(559, 470, 230, 25);
+		btnUpdate.setBounds(298, 459, 230, 25);
 		panel.add(btnUpdate);
 
 		JButton btnClear = new JButton("Clear");
@@ -363,7 +375,7 @@ public class Platform extends JFrame {
 				zipText.setText("");
 			}
 		});
-		btnClear.setBounds(1069, 470, 230, 25);
+		btnClear.setBounds(1069, 459, 230, 25);
 		panel.add(btnClear);
 
 		JButton btnDelete = new JButton("Delete");
@@ -379,7 +391,7 @@ public class Platform extends JFrame {
 
 			}
 		});
-		btnDelete.setBounds(813, 470, 230, 25);
+		btnDelete.setBounds(684, 459, 230, 25);
 		panel.add(btnDelete);
 
 		JButton buttonSub = new JButton("Submit");
@@ -389,11 +401,42 @@ public class Platform extends JFrame {
 					JOptionPane.showMessageDialog(null, "Please Add a Row First");
 				} else {
 					try {
-						Confirmed patient = new Confirmed((String) row[0], (String) row[1], (String) row[2],
-								Integer.parseInt((String) row[3]), Integer.parseInt((String) row[4]), (String) row[5],
-								(String) row[6], Integer.parseInt((String) row[7]), Integer.parseInt((String) row[8]),
-								(boolean) row[9]);
-						persondao.addConfirmed(patient);
+						if (nameTemp != nameNew) {
+							String s = AllPeople.setName(nameNew);
+							persondao.alterTables(2, "confirmed", s);
+						}
+						if (surnameTemp != surnameNew) {
+							String s = AllPeople.setSurname(surnameNew);
+							persondao.alterTables(2, "confirmed", s);
+						}
+						if (!emailTemp.equals(emailNew)) {
+							String s = AllPeople.setEmail(emailNew);
+							persondao.alterTables(2, "confirmed", s);
+						}
+						if (phoneNumberTemp != phoneNumberNew) {
+							String s = AllPeople.setPhonenumber(phoneNumberNew);
+							persondao.alterTables(2, "confirmed", s);
+						}
+						if (ssnTemp != ssnNew) {
+							String s = AllPeople.setAMKA(ssnNew);
+							persondao.alterTables(2, "confirmed", s);
+						}
+						if (areaTemp != areaNew) {
+							String s = Confirmed.setArea(areaNew);
+							persondao.alterTables(2, "confirmed", s);
+						}
+						if (streetTemp != streetNew) {
+							String s = Confirmed.setStreet(streetNew);
+							persondao.alterTables(2, "confirmed", s);
+						}
+						if (streetNumberTemp != streetNumberNew) {
+							String s = Confirmed.setStreet_number(streetNumberNew);
+							persondao.alterTables(2, "confirmed", s);
+						}
+						if (zipTemp != zipNew) {
+							String s = Confirmed.setZip(zipNew);
+							persondao.alterTables(2, "confirmed", s);
+						}
 					} catch (NumberFormatException e1) {
 						e1.printStackTrace();
 					} catch (Exception e1) {
@@ -415,59 +458,46 @@ public class Platform extends JFrame {
 		buttonCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new PrintMenu();
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							Data frame = new Data();
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
-		buttonCancel.setBounds(10, 450, 240, 45);
+
+		buttonCancel.setBounds(10, 439, 240, 45);
 		buttonCancel.setIcon(new ImageIcon(imgCancel));
 		panel.add(buttonCancel);
+
 	}
 
-	public void table() {
-		table = new JTable();
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int i = table.getSelectedRow();
-				nameText.setText(model.getValueAt(i, 0).toString());
-				surnameText.setText(model.getValueAt(i, 1).toString());
-				emailText.setText(model.getValueAt(i, 2).toString());
-				phoneNumberText.setText(model.getValueAt(i, 3).toString());
-				ssnText.setText(model.getValueAt(i, 4).toString());
-				areaText.setText(model.getValueAt(i, 5).toString());
-				streetText.setText(model.getValueAt(i, 6).toString());
-				streetNumberText.setText(model.getValueAt(i, 7).toString());
-				zipText.setText(model.getValueAt(i, 8).toString());
+	public void dataBase() throws Exception {
+		int count = persondao.check("confirmed");
+		for (int i = 1; i <= count; i++) {
+			Confirmed patient = (Confirmed) persondao.showAll("confirmed", i);
+			if (patient == null) {
+				count++;
+			} else {
+				row[0] = patient.name;
+				row[1] = patient.surname;
+				row[2] = patient.email;
+				row[3] = patient.phonenumber;
+				row[4] = patient.AMKA;
+				row[5] = patient.area;
+				row[6] = patient.street;
+				row[7] = patient.street_number;
+				row[8] = patient.zip;
+				row[9] = patient.active_status;
+				model.addRow(row);
 			}
-		});
-		table.setBackground(new Color(211, 211, 211));
-		model = new DefaultTableModel();
-		model.setColumnIdentifiers(column);
-		table.setModel(model);
-		scrollPane.setViewportView(table);
-	}
-
-	public void images() {
-		JLabel labelSubmitImg = new JLabel("");
-		imgSubmit = new ImageIcon(this.getClass().getResource("submit.png")).getImage();
-		// labelSubmitImg.setIcon(new ImageIcon(imgSubmit));
-		labelSubmitImg.setBounds(5, 240, 25, 25);
-
-		JLabel labelCancelImg = new JLabel("");
-		imgCancel = new ImageIcon(this.getClass().getResource("cancel.png")).getImage();
-		// labelCancelImg.setIcon(new ImageIcon(imgCancel));
-		labelCancelImg.setBounds(165, 240, 25, 25);
-
-		labelChangeUserImg = new JLabel("");
-		Image imgChangeUser = new ImageIcon(this.getClass().getResource("changeUser.png")).getImage();
-		labelChangeUserImg.setIcon(new ImageIcon(imgChangeUser));
-		labelChangeUserImg.setBounds(325, 240, 25, 25);
-
-		JLabel labelIdImg = new JLabel("");
-		Image imgId = new ImageIcon(this.getClass().getResource("id.png")).getImage();
-		labelIdImg.setIcon(new ImageIcon(imgId));
-		labelIdImg.setBounds(899, 9, 48, 36);
-		panel.add(labelIdImg);
+		}
 	}
 
 }
+

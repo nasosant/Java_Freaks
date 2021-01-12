@@ -39,7 +39,7 @@ public class Cured_PassedAway extends JFrame {
 	public Cured_PassedAway() throws Exception {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1090, 478);
-		setTitle("Personal information");
+		setTitle("Cured - Passed Away");
 		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -76,7 +76,7 @@ public class Cured_PassedAway extends JFrame {
 			Confirmed obj2 = (Confirmed) obj.showAll("confirmed", i);
 			if (obj2 == null) {
 				count++;
-			} else {
+			} else if (obj2.active_status) {
 				row[0] = obj2.cid;
 				row[1] = obj2.name;
 				row[2] = obj2.surname;
@@ -147,7 +147,7 @@ public class Cured_PassedAway extends JFrame {
 				}
 			}
 		});
-		btnUpdate.setBounds(280, 381, 245, 45);
+		btnUpdate.setBounds(409, 381, 245, 45);
 		panel.add(btnUpdate);
 
 		JLabel labelSubmitImg = new JLabel("");
@@ -158,49 +158,22 @@ public class Cured_PassedAway extends JFrame {
 		JButton buttonSub = new JButton("Okey");
 		buttonSub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * name = nameText.getText(); surname = surnameText.getText(); address =
-				 * addressText.getText(); email = emailText.getText(); phoneNumber =
-				 * phoneNumberText.getText(); ssn = ssnText.getText();
-				 */
-				dispose();
-				new Message("Your personal information has been submited successfully. Thank you!", 120);
-			}
-		});
-		buttonSub.setBounds(550, 381, 245, 45);
-		buttonSub.setIcon(new ImageIcon(imgSubmit));
-		panel.add(buttonSub);
-
-		JLabel labelCancelImg = new JLabel("");
-		Image imgCancel = new ImageIcon(this.getClass().getResource("cancel.png")).getImage();
-		labelCancelImg.setIcon(new ImageIcon(imgCancel));
-		labelCancelImg.setBounds(165, 240, 25, 25);
-
-		JButton buttonCancel = new JButton("Back");
-		buttonCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 				dispose();
 				new PrintMenu();
 			}
 		});
-		buttonCancel.setBounds(820, 381, 245, 45);
-		buttonCancel.setIcon(new ImageIcon(imgCancel));
-		panel.add(buttonCancel);
+		buttonSub.setBounds(818, 381, 245, 45);
+		buttonSub.setIcon(new ImageIcon(imgSubmit));
+		panel.add(buttonSub);
 
 		labelChangeUserImg = new JLabel("");
 		Image imgChangeUser = new ImageIcon(this.getClass().getResource("changeUser.png")).getImage();
 		labelChangeUserImg.setIcon(new ImageIcon(imgChangeUser));
 		labelChangeUserImg.setBounds(325, 240, 25, 25);
 
-		JLabel lblNewLabel_1 = new JLabel("Enter the personal information as it appears on the police ID.");
+		JLabel lblNewLabel_1 = new JLabel("Enter if a person has been cured or passed away.");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(244, 11, 502, 20);
+		lblNewLabel_1.setBounds(333, 15, 413, 20);
 		panel.add(lblNewLabel_1);
-
-		JLabel labelIdImg = new JLabel("");
-		Image imgId = new ImageIcon(this.getClass().getResource("id.png")).getImage();
-		labelIdImg.setIcon(new ImageIcon(imgId));
-		labelIdImg.setBounds(756, 5, 48, 36);
-		panel.add(labelIdImg);
 	}
 }

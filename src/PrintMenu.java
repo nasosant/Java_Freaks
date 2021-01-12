@@ -27,8 +27,10 @@ public class PrintMenu extends JFrame implements ActionListener {
 	protected static JButton buttonHelp;
 
 	PrintMenu() {
-		obj = new Registration();
+		draw();
+	}
 
+	public void draw() {
 		labelVirus = new JLabel("");
 		Image imgVirus = new ImageIcon(this.getClass().getResource("virus.png")).getImage();
 		labelVirus.setIcon(new ImageIcon(imgVirus));
@@ -47,12 +49,8 @@ public class PrintMenu extends JFrame implements ActionListener {
 		buttonAddPatient.setIcon(new ImageIcon(imgPatient));
 		buttonAddPatient.addActionListener(this);
 
-		labelUpgrade = new JLabel("");
-		Image imgUpgrade = new ImageIcon(this.getClass().getResource("upgrade.png")).getImage();
-		labelUpgrade.setBounds(325, 2, 25, 25);
-
 		buttonUpgrade = new JButton("2. Cured/Passed Away.");
-		buttonUpgrade.setIcon(new ImageIcon(imgUpgrade));
+		// buttonUpgrade.setIcon(new ImageIcon(imgUpgrade));
 		buttonUpgrade.setBounds(180, 115, 250, 30);
 		buttonUpgrade.addActionListener(this);
 
@@ -60,7 +58,7 @@ public class PrintMenu extends JFrame implements ActionListener {
 		Image imgData = new ImageIcon(this.getClass().getResource("data.png")).getImage();
 		labelData.setBounds(600, 2, 25, 25);
 
-		buttonData = new JButton("Show data.");
+		buttonData = new JButton("3. Show data.");
 		buttonData.setBounds(180, 150, 250, 30);
 		buttonData.setIcon(new ImageIcon(imgData));
 		buttonData.addActionListener(this);
@@ -111,12 +109,13 @@ public class PrintMenu extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		obj = new Registration();
 		if (e.getSource() == buttonAddPatient) {
 			dispose();
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						Platform frame = new Platform("null");
+						Platform frame = new Platform();
 						frame.setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();
