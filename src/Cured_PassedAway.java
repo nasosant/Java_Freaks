@@ -34,6 +34,9 @@ public class Cured_PassedAway extends JFrame {
 	protected static int deceasedId;
 	final static Object[] row = new Object[8];
 	protected Object[] column = { "Id", "Name", "Surname", "Email", "Phone Number", "SSN", "Address", "Has Covid" };
+	private JLabel labelHeal;
+	private Image imgHeal;
+	private JLabel labelPassedWay;
 	protected static int number = -1;
 
 	public Cured_PassedAway() throws Exception {
@@ -89,6 +92,10 @@ public class Cured_PassedAway extends JFrame {
 			}
 		}
 
+		labelHeal = new JLabel("");
+		imgHeal = new ImageIcon(this.getClass().getResource("heal.png")).getImage();
+		labelHeal.setBounds(20, 40, 60, 40);
+
 		JButton btnNewButton = new JButton("Cured");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -118,7 +125,12 @@ public class Cured_PassedAway extends JFrame {
 			}
 		});
 		btnNewButton.setBounds(10, 381, 245, 45);
+		btnNewButton.setIcon(new ImageIcon(imgHeal));
 		panel.add(btnNewButton);
+
+		labelPassedWay = new JLabel("");
+		Image imgPassedWay = new ImageIcon(this.getClass().getResource("passedAway.png")).getImage();
+		labelPassedWay.setBounds(20, 40, 60, 40);
 
 		JButton btnUpdate = new JButton("Passed Away");
 		btnUpdate.addActionListener(new ActionListener() {
@@ -148,6 +160,7 @@ public class Cured_PassedAway extends JFrame {
 			}
 		});
 		btnUpdate.setBounds(409, 381, 245, 45);
+		btnUpdate.setIcon(new ImageIcon(imgPassedWay));
 		panel.add(btnUpdate);
 
 		JLabel labelSubmitImg = new JLabel("");
@@ -155,7 +168,7 @@ public class Cured_PassedAway extends JFrame {
 		labelSubmitImg.setIcon(new ImageIcon(imgSubmit));
 		labelSubmitImg.setBounds(5, 240, 25, 25);
 
-		JButton buttonSub = new JButton("Okey");
+		JButton buttonSub = new JButton("Okay");
 		buttonSub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
