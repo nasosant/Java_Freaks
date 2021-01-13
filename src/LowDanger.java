@@ -1,6 +1,6 @@
-public class LowDanger extends VictimContact {
+//public class LowDanger extends VictimContact {
 
-    public LowDanger(String name, String surname) {
-        super(name, surname);
-    }
-}
+    //public LowDanger(String name, String surname) {
+        //super(name, surname);
+    //}
+//}
