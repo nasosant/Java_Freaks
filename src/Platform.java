@@ -327,30 +327,35 @@ public class Platform extends JFrame {
 		JButton btnUpdate = new JButton("Change");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int i = table.getSelectedRow();
-				if (i >= 0) {
-					model.setValueAt(nameText.getText(), i, 0);
-					model.setValueAt(surnameText.getText(), i, 1);
-					model.setValueAt(emailText.getText(), i, 2);
-					model.setValueAt(phoneNumberText.getText(), i, 3);
-					model.setValueAt(ssnText.getText(), i, 4);
-					model.setValueAt(areaText.getText(), i, 5);
-					model.setValueAt(streetText.getText(), i, 6);
-					model.setValueAt(streetNumberText.getText(), i, 7);
-					model.setValueAt(zipText.getText(), i, 8);
-					if (checkBoxYes.isSelected()) {
-						row[9] = true;
-						model.setValueAt(true, i, 9);
-					} else if (checkBoxNo.isSelected()) {
-						row[9] = false;
-						model.setValueAt(false, i, 9);
-					}
-
-					JOptionPane.showMessageDialog(null, "Updated Successfully");
+				String tempAMKA = ssnText.getText();
+				if (checkAMKA(tempAMKA)) {
+					JOptionPane.showMessageDialog(null, "Please Enter A Valid SSN");
+					ssnText.setText("");
 				} else {
-					JOptionPane.showMessageDialog(null, "Please Select a Row First");
-				}
+					int i = table.getSelectedRow();
+					if (i >= 0) {
+						model.setValueAt(nameText.getText(), i, 0);
+						model.setValueAt(surnameText.getText(), i, 1);
+						model.setValueAt(emailText.getText(), i, 2);
+						model.setValueAt(phoneNumberText.getText(), i, 3);
+						model.setValueAt(tempAMKA, i, 4);
+						model.setValueAt(areaText.getText(), i, 5);
+						model.setValueAt(streetText.getText(), i, 6);
+						model.setValueAt(streetNumberText.getText(), i, 7);
+						model.setValueAt(zipText.getText(), i, 8);
+						if (checkBoxYes.isSelected()) {
+							row[9] = true;
+							model.setValueAt(true, i, 9);
+						} else if (checkBoxNo.isSelected()) {
+							row[9] = false;
+							model.setValueAt(false, i, 9);
+						}
 
+						JOptionPane.showMessageDialog(null, "Updated Successfully");
+					} else {
+						JOptionPane.showMessageDialog(null, "Please Select a Row First");
+					}
+				}
 			}
 		});
 		btnUpdate.setBounds(550, 455, 230, 25);
@@ -567,7 +572,7 @@ public class Platform extends JFrame {
 		panel.add(labelIdImg);
 	}
 
-	public boolean checkAMKA(String tempAMKA) {
+	public static boolean checkAMKA(String tempAMKA) {
 		PersonJdbo persondao = new PersonJdbo();
 		try {
 			persondao.connect();

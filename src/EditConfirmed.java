@@ -125,7 +125,7 @@ public class EditConfirmed extends JFrame {
 		setLocationRelativeTo(null);
 
 		panel = new JPanel();
-		// panel.setBackground(new Color(176, 196, 222));
+		panel.setBackground(new Color(176, 196, 222));
 		panel.setBounds(0, 0, 1309, 517);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -350,54 +350,60 @@ public class EditConfirmed extends JFrame {
 			JButton btnUpdate = new JButton("Update");
 			btnUpdate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					numberNew++;
-					if (numberNew < matrixNew.length) {
-						int i = table.getSelectedRow();
-						if (i >= 0) {
-							model.setValueAt(nameText.getText(), i, 0);
-							nameNew = nameText.getText();
-							matrixNew[numberNew][0] = nameText.getText();
-
-							model.setValueAt(surnameText.getText(), i, 1);
-							surnameNew = surnameText.getText();
-							matrixNew[numberNew][1] = surnameText.getText();
-
-							model.setValueAt(emailText.getText(), i, 2);
-							emailNew = emailText.getText();
-							matrixNew[numberNew][2] = emailText.getText();
-
-							model.setValueAt(phoneNumberText.getText(), i, 3);
-							phoneNumberNew = Integer.parseInt(phoneNumberText.getText());
-							matrixNew[numberNew][3] = phoneNumberText.getText();
-
-							model.setValueAt(ssnText.getText(), i, 4);
-							ssnNew = Integer.parseInt(ssnText.getText());
-							matrixNew[numberNew][4] = ssnText.getText();
-
-							model.setValueAt(areaText.getText(), i, 5);
-							areaNew = areaText.getText();
-							matrixNew[numberNew][5] = areaText.getText();
-
-							model.setValueAt(streetText.getText(), i, 6);
-							streetNew = streetText.getText();
-							matrixNew[numberNew][6] = streetText.getText();
-
-							model.setValueAt(streetNumberText.getText(), i, 7);
-							streetNumberNew = Integer.parseInt(streetNumberText.getText());
-							matrixNew[numberNew][7] = streetNumberText.getText();
-
-							model.setValueAt(zipText.getText(), i, 8);
-							zipNew = Integer.parseInt(zipText.getText());
-							matrixNew[numberNew][8] = zipText.getText();
-
-							JOptionPane.showMessageDialog(null, "Updated Successfully");
-						} else {
-							JOptionPane.showMessageDialog(null, "Please Select a Row First");
-						}
+					String tempAMKA = ssnText.getText();
+					if (Platform.checkAMKA(tempAMKA)) {
+						JOptionPane.showMessageDialog(null, "Please Enter A Valid SSN");
+						ssnText.setText("");
 					} else {
-						JOptionPane.showMessageDialog(null,
-								"You Can Not Update more Than 10 People At A Time! Press Submit.");
-						flagUpdate = false;
+						numberNew++;
+						if (numberNew < matrixNew.length) {
+							int i = table.getSelectedRow();
+							if (i >= 0) {
+								model.setValueAt(nameText.getText(), i, 0);
+								nameNew = nameText.getText();
+								matrixNew[numberNew][0] = nameText.getText();
+
+								model.setValueAt(surnameText.getText(), i, 1);
+								surnameNew = surnameText.getText();
+								matrixNew[numberNew][1] = surnameText.getText();
+
+								model.setValueAt(emailText.getText(), i, 2);
+								emailNew = emailText.getText();
+								matrixNew[numberNew][2] = emailText.getText();
+
+								model.setValueAt(phoneNumberText.getText(), i, 3);
+								phoneNumberNew = Integer.parseInt(phoneNumberText.getText());
+								matrixNew[numberNew][3] = phoneNumberText.getText();
+
+								model.setValueAt(tempAMKA, i, 4);
+								ssnNew = Integer.parseInt(tempAMKA);
+								matrixNew[numberNew][4] = tempAMKA;
+
+								model.setValueAt(areaText.getText(), i, 5);
+								areaNew = areaText.getText();
+								matrixNew[numberNew][5] = areaText.getText();
+
+								model.setValueAt(streetText.getText(), i, 6);
+								streetNew = streetText.getText();
+								matrixNew[numberNew][6] = streetText.getText();
+
+								model.setValueAt(streetNumberText.getText(), i, 7);
+								streetNumberNew = Integer.parseInt(streetNumberText.getText());
+								matrixNew[numberNew][7] = streetNumberText.getText();
+
+								model.setValueAt(zipText.getText(), i, 8);
+								zipNew = Integer.parseInt(zipText.getText());
+								matrixNew[numberNew][8] = zipText.getText();
+
+								JOptionPane.showMessageDialog(null, "Updated Successfully");
+							} else {
+								JOptionPane.showMessageDialog(null, "Please Select a Row First");
+							}
+						} else {
+							JOptionPane.showMessageDialog(null,
+									"You Can Not Update more Than 10 People At A Time! Press Submit.");
+							flagUpdate = false;
+						}
 					}
 				}
 			});

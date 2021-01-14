@@ -1,11 +1,15 @@
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class PrintMenu extends JFrame implements ActionListener {
 
@@ -25,6 +29,7 @@ public class PrintMenu extends JFrame implements ActionListener {
 	protected static JButton buttonExit;
 	protected static JButton buttonChangeUser;
 	protected static JButton buttonHelp;
+	private JLabel labelCuredPassedAway;
 
 	PrintMenu() {
 		draw();
@@ -36,12 +41,15 @@ public class PrintMenu extends JFrame implements ActionListener {
 		labelVirus.setIcon(new ImageIcon(imgVirus));
 		labelVirus.setBounds(25, 50, 180, 140);
 
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(176, 196, 222));
+
 		label = new JLabel();
 		label.setText("Choose one of the following!");
 		label.setBounds(230, 45, 400, 25);
 
 		labelPatient = new JLabel("");
-		Image imgPatient = new ImageIcon(this.getClass().getResource("patient.png")).getImage();
+		Image imgPatient = new ImageIcon(this.getClass().getResource("addPatient.png")).getImage();
 		labelPatient.setBounds(20, 40, 60, 40);
 
 		buttonAddPatient = new JButton("1. Add a patient.");
@@ -49,8 +57,12 @@ public class PrintMenu extends JFrame implements ActionListener {
 		buttonAddPatient.setIcon(new ImageIcon(imgPatient));
 		buttonAddPatient.addActionListener(this);
 
+		labelCuredPassedAway = new JLabel("");
+		Image imgCuredPassedAway = new ImageIcon(this.getClass().getResource("curedPassedAway.png")).getImage();
+		labelCuredPassedAway.setBounds(20, 40, 60, 40);
+
 		buttonUpgrade = new JButton("2. Cured/Passed Away.");
-		// buttonUpgrade.setIcon(new ImageIcon(imgUpgrade));
+		buttonUpgrade.setIcon(new ImageIcon(imgCuredPassedAway));
 		buttonUpgrade.setBounds(180, 115, 250, 30);
 		buttonUpgrade.addActionListener(this);
 

@@ -46,6 +46,7 @@ public class Data extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(176, 196, 222));
 		panel.setBounds(0, 0, 1452, 769);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -101,11 +102,9 @@ public class Data extends JFrame {
 		btnNewButton.setBounds(629, 690, 223, 54);
 		panel.add(btnNewButton);
 
-		/*
-		 * labelEditCon = new JLabel(""); imgEditCon = new
-		 * ImageIcon(this.getClass().getResource("edit.png")).getImage();
-		 * labelEditCon.setBounds(373, 529, 48, 48);
-		 */
+		labelEditCon = new JLabel("");
+		imgEditCon = new ImageIcon(this.getClass().getResource("edit.png")).getImage();
+		labelEditCon.setBounds(373, 529, 48, 48);
 
 		JButton btnNewButton_1 = new JButton("Edit a Confirmed Case");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -125,7 +124,7 @@ public class Data extends JFrame {
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_1.setBounds(275, 690, 223, 54);
-		// btnNewButton_1.setIcon(new ImageIcon(imgEditCon));
+		btnNewButton_1.setIcon(new ImageIcon(imgEditCon));
 		panel.add(btnNewButton_1);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -161,11 +160,9 @@ public class Data extends JFrame {
 			}
 		}
 
-		/*
-		 * labelEditVictim = new JLabel(""); imgEditVictim = new
-		 * ImageIcon(this.getClass().getResource("edit.png")).getImage();
-		 * labelEditVictim.setBounds(373, 529, 48, 48);
-		 */
+		labelEditVictim = new JLabel("");
+		imgEditVictim = new ImageIcon(this.getClass().getResource("edit.png")).getImage();
+		labelEditVictim.setBounds(373, 529, 48, 48);
 
 		JButton btnNewButton_1_1 = new JButton("Edit a Victim Contact");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
@@ -185,7 +182,7 @@ public class Data extends JFrame {
 		});
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_1_1.setBounds(961, 690, 223, 54);
-		// btnNewButton_1_1.setIcon(new ImageIcon(imgEditVictim));
+		btnNewButton_1_1.setIcon(new ImageIcon(imgEditVictim));
 		panel.add(btnNewButton_1_1);
 
 		JLabel lblNewLabel_1 = new JLabel("Victim Contact");
