@@ -30,6 +30,8 @@ public class PrintMenu extends JFrame implements ActionListener {
 	protected static JButton buttonChangeUser;
 	protected static JButton buttonHelp;
 	private JLabel labelCuredPassedAway;
+	private JButton buttonEmail;
+	private JLabel labelEmail;
 
 	PrintMenu() {
 		draw();
@@ -39,20 +41,20 @@ public class PrintMenu extends JFrame implements ActionListener {
 		labelVirus = new JLabel("");
 		Image imgVirus = new ImageIcon(this.getClass().getResource("virus.png")).getImage();
 		labelVirus.setIcon(new ImageIcon(imgVirus));
-		labelVirus.setBounds(25, 50, 180, 140);
+		labelVirus.setBounds(25, 70, 180, 140);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(176, 196, 222));
 
 		label = new JLabel();
 		label.setText("Choose one of the following!");
-		label.setBounds(230, 45, 400, 25);
+		label.setBounds(225, 50, 400, 25);
 
 		labelPatient = new JLabel("");
 		Image imgPatient = new ImageIcon(this.getClass().getResource("addPatient.png")).getImage();
 		labelPatient.setBounds(20, 40, 60, 40);
 
-		buttonAddPatient = new JButton("1. Add a patient.");
+		buttonAddPatient = new JButton("1. Add a Patient.");
 		buttonAddPatient.setBounds(180, 80, 250, 30);
 		buttonAddPatient.setIcon(new ImageIcon(imgPatient));
 		buttonAddPatient.addActionListener(this);
@@ -61,7 +63,7 @@ public class PrintMenu extends JFrame implements ActionListener {
 		Image imgCuredPassedAway = new ImageIcon(this.getClass().getResource("curedPassedAway.png")).getImage();
 		labelCuredPassedAway.setBounds(20, 40, 60, 40);
 
-		buttonUpgrade = new JButton("2. Cured/Passed Away.");
+		buttonUpgrade = new JButton("2. Cured / Passed Away.");
 		buttonUpgrade.setIcon(new ImageIcon(imgCuredPassedAway));
 		buttonUpgrade.setBounds(180, 115, 250, 30);
 		buttonUpgrade.addActionListener(this);
@@ -70,10 +72,19 @@ public class PrintMenu extends JFrame implements ActionListener {
 		Image imgData = new ImageIcon(this.getClass().getResource("data.png")).getImage();
 		labelData.setBounds(600, 2, 25, 25);
 
-		buttonData = new JButton("3. Show data.");
+		buttonData = new JButton("3. Show / Edit Data.");
 		buttonData.setBounds(180, 150, 250, 30);
 		buttonData.setIcon(new ImageIcon(imgData));
 		buttonData.addActionListener(this);
+
+		labelEmail = new JLabel("");
+		Image imgEmail = new ImageIcon(this.getClass().getResource("email@.png")).getImage();
+		labelEmail.setBounds(600, 2, 25, 25);
+
+		buttonEmail = new JButton("4. Send Emails.");
+		buttonEmail.setIcon(new ImageIcon(imgEmail));
+		buttonEmail.setBounds(180, 185, 250, 30);
+		buttonEmail.addActionListener(this);
 
 		labelExit = new JLabel("");
 		Image imgExit = new ImageIcon(this.getClass().getResource("exit.png")).getImage();
@@ -105,7 +116,7 @@ public class PrintMenu extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Menu");
 		this.setLayout(null);
-		this.setSize(500, 250);
+		this.setSize(500, 265);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
@@ -117,6 +128,7 @@ public class PrintMenu extends JFrame implements ActionListener {
 		this.add(buttonHelp);
 		this.add(labelVirus);
 		this.add(buttonData);
+		this.add(buttonEmail);
 	}
 
 	@Override
@@ -166,6 +178,8 @@ public class PrintMenu extends JFrame implements ActionListener {
 					}
 				}
 			});
+		} else if (e.getSource() == buttonEmail) {
+			// dispose();
 		}
 	}
 }

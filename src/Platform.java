@@ -21,6 +21,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JCheckBox;
 
 import java.sql.*;
+import javax.swing.JToggleButton;
+import javax.swing.JRadioButton;
 
 public class Platform extends JFrame {
 
@@ -92,8 +94,8 @@ public class Platform extends JFrame {
 	protected JLabel lblNewLabel_5;
 	protected JLabel lblNewLabel_6;
 	protected JLabel lblNewLabel_7;
-	protected JCheckBox checkBoxYes;
-	protected JCheckBox checkBoxNo;
+	protected JRadioButton checkBoxYes;
+	protected JRadioButton checkBoxNo;
 	protected Image imgSubmit;
 	protected Image imgCancel;
 	protected JLabel labelArea;
@@ -132,7 +134,7 @@ public class Platform extends JFrame {
 
 		panel = new JPanel();
 		panel.setBackground(new Color(176, 196, 222));
-		panel.setBounds(0, 0, 1309, 506);
+		panel.setBounds(10, 0, 1309, 506);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -187,7 +189,7 @@ public class Platform extends JFrame {
 		panel.add(ssnText);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(299, 56, 989, 378);
+		scrollPane.setBounds(298, 52, 979, 380);
 		panel.add(scrollPane);
 
 		lblNewLabel_3 = new JLabel("Area");
@@ -235,17 +237,17 @@ public class Platform extends JFrame {
 		lblNewLabel_7.setBounds(10, 323, 88, 24);
 		panel.add(lblNewLabel_7);
 
-		checkBoxYes = new JCheckBox("Yes");
-		checkBoxYes.setBounds(125, 322, 53, 23);
+		checkBoxYes = new JRadioButton("Yes");
+		checkBoxYes.setBounds(128, 322, 65, 25);
 		panel.add(checkBoxYes);
 
-		checkBoxNo = new JCheckBox("No");
-		checkBoxNo.setBounds(192, 322, 97, 23);
+		checkBoxNo = new JRadioButton("No");
+		checkBoxNo.setBounds(223, 322, 65, 25);
 		panel.add(checkBoxNo);
 
 		JLabel lblNewLabel_1 = new JLabel("Enter the personal information as it appears on the ID.");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(387, 20, 502, 20);
+		lblNewLabel_1.setBounds(439, 20, 462, 20);
 		panel.add(lblNewLabel_1);
 
 	}
@@ -320,7 +322,7 @@ public class Platform extends JFrame {
 				}
 			});
 
-			btnNewButton.setBounds(299, 455, 230, 25);
+			btnNewButton.setBounds(299, 455, 230, 30);
 			btnNewButton.setIcon(new ImageIcon(imgAdd));
 			panel.add(btnNewButton);
 		}
@@ -358,7 +360,7 @@ public class Platform extends JFrame {
 				}
 			}
 		});
-		btnUpdate.setBounds(550, 455, 230, 25);
+		btnUpdate.setBounds(550, 455, 230, 30);
 		btnUpdate.setIcon(new ImageIcon(imgChange));
 		panel.add(btnUpdate);
 
@@ -376,7 +378,7 @@ public class Platform extends JFrame {
 				zipText.setText("");
 			}
 		});
-		btnClear.setBounds(1058, 455, 230, 25);
+		btnClear.setBounds(1047, 455, 230, 30);
 		btnClear.setIcon(new ImageIcon(imgClear));
 		panel.add(btnClear);
 
@@ -393,7 +395,7 @@ public class Platform extends JFrame {
 
 			}
 		});
-		btnDelete.setBounds(800, 455, 230, 25);
+		btnDelete.setBounds(800, 455, 230, 30);
 		btnDelete.setIcon(new ImageIcon(imgDelete));
 		panel.add(btnDelete);
 
@@ -432,7 +434,7 @@ public class Platform extends JFrame {
 
 			}
 		});
-		buttonSub.setBounds(10, 375, 245, 45);
+		buttonSub.setBounds(10, 387, 245, 45);
 		buttonSub.setIcon(new ImageIcon(imgSubmit));
 		panel.add(buttonSub);
 
@@ -443,7 +445,7 @@ public class Platform extends JFrame {
 				new PrintMenu();
 			}
 		});
-		buttonCancel.setBounds(10, 435, 240, 45);
+		buttonCancel.setBounds(10, 440, 245, 45);
 		buttonCancel.setIcon(new ImageIcon(imgCancel));
 		panel.add(buttonCancel);
 
@@ -505,7 +507,7 @@ public class Platform extends JFrame {
 		labelStreetNumberImg = new JLabel("");
 		Image imgStreetNumber = new ImageIcon(this.getClass().getResource("streetNumber.png")).getImage();
 		labelStreetNumberImg.setIcon(new ImageIcon(imgStreetNumber));
-		labelStreetNumberImg.setBounds(105, 260, 25, 25);
+		labelStreetNumberImg.setBounds(103, 260, 25, 25);
 		panel.add(labelStreetNumberImg);
 
 		labelStreetImg = new JLabel("");
@@ -568,7 +570,7 @@ public class Platform extends JFrame {
 		JLabel labelIdImg = new JLabel("");
 		Image imgId = new ImageIcon(this.getClass().getResource("id.png")).getImage();
 		labelIdImg.setIcon(new ImageIcon(imgId));
-		labelIdImg.setBounds(899, 9, 48, 36);
+		labelIdImg.setBounds(911, 11, 48, 36);
 		panel.add(labelIdImg);
 	}
 

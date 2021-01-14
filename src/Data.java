@@ -87,11 +87,11 @@ public class Data extends JFrame {
 		}
 
 		labelOkey = new JLabel("");
-		Image imgOkey = new ImageIcon(this.getClass().getResource("okey.png")).getImage();
+		Image imgOkey = new ImageIcon(this.getClass().getResource("submit.png")).getImage();
 		labelOkey.setBounds(373, 529, 48, 48);// panel.add(labelOkey);
 
 		JButton btnNewButton = new JButton("Okey");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton.setIcon(new ImageIcon(imgOkey));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

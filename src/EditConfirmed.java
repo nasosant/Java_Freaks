@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
 
 public class EditConfirmed extends JFrame {
 
@@ -92,8 +93,8 @@ public class EditConfirmed extends JFrame {
 	protected JLabel lblNewLabel_5;
 	protected JLabel lblNewLabel_6;
 	protected JLabel lblNewLabel_7;
-	protected JCheckBox checkBoxYes;
-	protected JCheckBox checkBoxNo;
+	protected JRadioButton checkBoxYes;
+	protected JRadioButton checkBoxNo;
 	protected JLabel labelSubmitImg;
 	protected PersonJdbo persondao;
 	protected Image imgSubmit;
@@ -103,6 +104,17 @@ public class EditConfirmed extends JFrame {
 	protected Image imgId;
 	protected int id;
 	private boolean flagUpdate = true;
+	private JLabel labelArea;
+	private JLabel labelActiveStatusImg;
+	private JLabel labelZipImg;
+	private JLabel labelStreetNumberImg;
+	private JLabel labelStreetImg;
+	private JLabel labelUpdateImg;
+	private Image imgUpdate;
+	private JLabel labelDeleteImg;
+	private Image imgDelete;
+	private JLabel labelClearImg;
+	private Image imgClear;
 
 	public EditConfirmed() throws Exception {
 		persondao = new PersonJdbo();
@@ -229,17 +241,17 @@ public class EditConfirmed extends JFrame {
 		lblNewLabel_7.setBounds(10, 323, 88, 24);
 		panel.add(lblNewLabel_7);
 
-		checkBoxYes = new JCheckBox("Yes");
+		checkBoxYes = new JRadioButton("Yes");
 		checkBoxYes.setBounds(125, 322, 53, 23);
 		panel.add(checkBoxYes);
 
-		checkBoxNo = new JCheckBox("No");
+		checkBoxNo = new JRadioButton("No");
 		checkBoxNo.setBounds(192, 322, 97, 23);
 		panel.add(checkBoxNo);
 
 		JLabel lblNewLabel_1 = new JLabel("Here you can edit every person's information.");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(387, 20, 502, 20);
+		lblNewLabel_1.setBounds(586, 21, 384, 20);
 		panel.add(lblNewLabel_1);
 	}
 
@@ -289,6 +301,56 @@ public class EditConfirmed extends JFrame {
 		labelChangeUserImg.setIcon(new ImageIcon(imgChangeUser));
 		labelChangeUserImg.setBounds(325, 240, 25, 25);
 
+		labelArea = new JLabel("");
+		Image imgArea = new ImageIcon(this.getClass().getResource("area.png")).getImage();
+		labelArea.setIcon(new ImageIcon(imgArea));
+		labelArea.setBounds(42, 203, 25, 25);
+		panel.add(labelArea);
+
+		labelActiveStatusImg = new JLabel("");
+		Image imgActiveStatus = new ImageIcon(this.getClass().getResource("activeStatus.png")).getImage();
+		labelActiveStatusImg.setIcon(new ImageIcon(imgActiveStatus));
+		labelActiveStatusImg.setBounds(94, 322, 25, 25);
+		panel.add(labelActiveStatusImg);
+
+		labelZipImg = new JLabel("");
+		Image imgZip = new ImageIcon(this.getClass().getResource("zip.png")).getImage();
+		labelZipImg.setIcon(new ImageIcon(imgZip));
+		labelZipImg.setBounds(42, 293, 25, 25);
+		panel.add(labelZipImg);
+
+		labelStreetNumberImg = new JLabel("");
+		Image imgStreetNumber = new ImageIcon(this.getClass().getResource("streetNumber.png")).getImage();
+		labelStreetNumberImg.setIcon(new ImageIcon(imgStreetNumber));
+		labelStreetNumberImg.setBounds(105, 260, 25, 25);
+		panel.add(labelStreetNumberImg);
+
+		labelStreetImg = new JLabel("");
+		Image imgStreet = new ImageIcon(this.getClass().getResource("street.png")).getImage();
+		labelStreetImg.setIcon(new ImageIcon(imgStreet));
+		labelStreetImg.setBounds(58, 230, 25, 25);
+		panel.add(labelStreetImg);
+
+		labelUpdateImg = new JLabel("");
+		imgUpdate = new ImageIcon(this.getClass().getResource("update.png")).getImage();
+		labelUpdateImg.setBounds(58, 230, 25, 25);
+		panel.add(labelUpdateImg);
+
+		labelDeleteImg = new JLabel("");
+		imgDelete = new ImageIcon(this.getClass().getResource("delete.png")).getImage();
+		labelDeleteImg.setBounds(58, 230, 25, 25);
+		panel.add(labelDeleteImg);
+
+		labelClearImg = new JLabel("");
+		imgClear = new ImageIcon(this.getClass().getResource("clear.png")).getImage();
+		labelClearImg.setBounds(58, 230, 25, 25);
+		panel.add(labelClearImg);
+
+		JLabel labelEditImg = new JLabel("");
+		Image imgEdit = new ImageIcon(this.getClass().getResource("edit.png")).getImage();
+		labelEditImg.setBounds(967, 16, 25, 25);
+		labelEditImg.setIcon(new ImageIcon(imgEdit));
+		panel.add(labelEditImg);
 	}
 
 	public void table() {
@@ -409,6 +471,7 @@ public class EditConfirmed extends JFrame {
 			});
 
 			btnUpdate.setBounds(298, 459, 230, 25);
+			btnUpdate.setIcon(new ImageIcon(imgUpdate));
 			panel.add(btnUpdate);
 		}
 		JButton btnClear = new JButton("Clear");
@@ -426,6 +489,7 @@ public class EditConfirmed extends JFrame {
 			}
 		});
 		btnClear.setBounds(1069, 459, 230, 25);
+		btnClear.setIcon(new ImageIcon(imgClear));
 		panel.add(btnClear);
 
 		JButton btnDelete = new JButton("Delete");
@@ -442,6 +506,7 @@ public class EditConfirmed extends JFrame {
 			}
 		});
 		btnDelete.setBounds(684, 459, 230, 25);
+		btnDelete.setIcon(new ImageIcon(imgDelete));
 		panel.add(btnDelete);
 
 		JButton buttonSub = new JButton("Submit");
