@@ -98,6 +98,7 @@ public class ReceiveMail {
                 }
             }
         } catch (Exception e) {
+            System.out.println(e.getMessage());
 
         }
     }
@@ -149,7 +150,8 @@ public class ReceiveMail {
 
     }
 
-    public static void deleteMail() throws Exception{
+    public static void deleteMail() throws Exception {
+
         connect();
         //3) create folder??
         Folder emailFolder = store.getFolder("INBOX");
