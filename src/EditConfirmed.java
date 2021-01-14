@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
 
 public class EditConfirmed extends JFrame {
 
@@ -64,13 +65,16 @@ public class EditConfirmed extends JFrame {
 	protected JTable table;
 	protected static JLabel labelChangeUserImg;
 	protected static DefaultTableModel model;
-	final static Object[] row = new Object[10];
+	final static Object[] row = new Object[11];
+	protected String[][] matrixNew = new String[10][10];
+	protected String[][] matrixTemp = new String[10][10];
 	static Object[] column = { "Name", "Surname", "Email", "Phone Number", "SSN", "Area", "Street", "Street Number",
-			"Zip", "Active Status" };
+			"Zip", "Active Status", "Id" };
 	protected Object[] column_1 = { "Name", "Surname", "Email", "Phone Number", "SSN", "Confirmed Id",
 			"Victim Relationship", "Danger" };
 	protected final static Object[] row_1 = new Object[8];
-	protected static int number = -1;
+	protected static int numberNew = -1;
+	protected static int numberTemp = -1;
 	boolean flag = false;
 	protected JPanel panel;
 	protected JLabel lblNewLabel;
@@ -89,8 +93,8 @@ public class EditConfirmed extends JFrame {
 	protected JLabel lblNewLabel_5;
 	protected JLabel lblNewLabel_6;
 	protected JLabel lblNewLabel_7;
-	protected JCheckBox checkBoxYes;
-	protected JCheckBox checkBoxNo;
+	protected JRadioButton checkBoxYes;
+	protected JRadioButton checkBoxNo;
 	protected JLabel labelSubmitImg;
 	protected PersonJdbo persondao;
 	protected Image imgSubmit;
@@ -98,14 +102,27 @@ public class EditConfirmed extends JFrame {
 	protected Image imgCancel;
 	protected Image imgChangeUser;
 	protected Image imgId;
+	protected int id;
+	private boolean flagUpdate = true;
+	private JLabel labelArea;
+	private JLabel labelActiveStatusImg;
+	private JLabel labelZipImg;
+	private JLabel labelStreetNumberImg;
+	private JLabel labelStreetImg;
+	private JLabel labelUpdateImg;
+	private Image imgUpdate;
+	private JLabel labelDeleteImg;
+	private Image imgDelete;
+	private JLabel labelClearImg;
+	private Image imgClear;
 
 	public EditConfirmed() throws Exception {
 		persondao = new PersonJdbo();
 		draw();
 		images();
 		table();
-		buttons();
 		dataBase();
+		buttons();
 	}
 
 	public void draw() {
@@ -120,7 +137,7 @@ public class EditConfirmed extends JFrame {
 		setLocationRelativeTo(null);
 
 		panel = new JPanel();
-		// panel.setBackground(new Color(176, 196, 222));
+		panel.setBackground(new Color(176, 196, 222));
 		panel.setBounds(0, 0, 1309, 517);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -224,17 +241,17 @@ public class EditConfirmed extends JFrame {
 		lblNewLabel_7.setBounds(10, 323, 88, 24);
 		panel.add(lblNewLabel_7);
 
-		checkBoxYes = new JCheckBox("Yes");
+		checkBoxYes = new JRadioButton("Yes");
 		checkBoxYes.setBounds(125, 322, 53, 23);
 		panel.add(checkBoxYes);
 
-		checkBoxNo = new JCheckBox("No");
+		checkBoxNo = new JRadioButton("No");
 		checkBoxNo.setBounds(192, 322, 97, 23);
 		panel.add(checkBoxNo);
 
 		JLabel lblNewLabel_1 = new JLabel("Here you can edit every person's information.");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(387, 20, 502, 20);
+		lblNewLabel_1.setBounds(586, 21, 384, 20);
 		panel.add(lblNewLabel_1);
 	}
 
@@ -284,6 +301,56 @@ public class EditConfirmed extends JFrame {
 		labelChangeUserImg.setIcon(new ImageIcon(imgChangeUser));
 		labelChangeUserImg.setBounds(325, 240, 25, 25);
 
+		labelArea = new JLabel("");
+		Image imgArea = new ImageIcon(this.getClass().getResource("area.png")).getImage();
+		labelArea.setIcon(new ImageIcon(imgArea));
+		labelArea.setBounds(42, 203, 25, 25);
+		panel.add(labelArea);
+
+		labelActiveStatusImg = new JLabel("");
+		Image imgActiveStatus = new ImageIcon(this.getClass().getResource("activeStatus.png")).getImage();
+		labelActiveStatusImg.setIcon(new ImageIcon(imgActiveStatus));
+		labelActiveStatusImg.setBounds(94, 322, 25, 25);
+		panel.add(labelActiveStatusImg);
+
+		labelZipImg = new JLabel("");
+		Image imgZip = new ImageIcon(this.getClass().getResource("zip.png")).getImage();
+		labelZipImg.setIcon(new ImageIcon(imgZip));
+		labelZipImg.setBounds(42, 293, 25, 25);
+		panel.add(labelZipImg);
+
+		labelStreetNumberImg = new JLabel("");
+		Image imgStreetNumber = new ImageIcon(this.getClass().getResource("streetNumber.png")).getImage();
+		labelStreetNumberImg.setIcon(new ImageIcon(imgStreetNumber));
+		labelStreetNumberImg.setBounds(105, 260, 25, 25);
+		panel.add(labelStreetNumberImg);
+
+		labelStreetImg = new JLabel("");
+		Image imgStreet = new ImageIcon(this.getClass().getResource("street.png")).getImage();
+		labelStreetImg.setIcon(new ImageIcon(imgStreet));
+		labelStreetImg.setBounds(58, 230, 25, 25);
+		panel.add(labelStreetImg);
+
+		labelUpdateImg = new JLabel("");
+		imgUpdate = new ImageIcon(this.getClass().getResource("update.png")).getImage();
+		labelUpdateImg.setBounds(58, 230, 25, 25);
+		panel.add(labelUpdateImg);
+
+		labelDeleteImg = new JLabel("");
+		imgDelete = new ImageIcon(this.getClass().getResource("delete.png")).getImage();
+		labelDeleteImg.setBounds(58, 230, 25, 25);
+		panel.add(labelDeleteImg);
+
+		labelClearImg = new JLabel("");
+		imgClear = new ImageIcon(this.getClass().getResource("clear.png")).getImage();
+		labelClearImg.setBounds(58, 230, 25, 25);
+		panel.add(labelClearImg);
+
+		JLabel labelEditImg = new JLabel("");
+		Image imgEdit = new ImageIcon(this.getClass().getResource("edit.png")).getImage();
+		labelEditImg.setBounds(967, 16, 25, 25);
+		labelEditImg.setIcon(new ImageIcon(imgEdit));
+		panel.add(labelEditImg);
 	}
 
 	public void table() {
@@ -291,25 +358,46 @@ public class EditConfirmed extends JFrame {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				numberTemp++;
 				int i = table.getSelectedRow();
+
 				nameText.setText(model.getValueAt(i, 0).toString());
 				nameTemp = model.getValueAt(i, 0).toString();
+				matrixTemp[numberTemp][0] = nameTemp;
+
 				surnameText.setText(model.getValueAt(i, 1).toString());
 				surnameTemp = model.getValueAt(i, 1).toString();
+				matrixTemp[numberTemp][1] = surnameTemp;
+
 				emailText.setText(model.getValueAt(i, 2).toString());
 				emailTemp = model.getValueAt(i, 2).toString();
+				matrixTemp[numberTemp][2] = emailTemp;
+
 				phoneNumberText.setText(model.getValueAt(i, 3).toString());
 				phoneNumberTemp = Integer.parseInt(model.getValueAt(i, 3).toString());
+				matrixTemp[numberTemp][3] = model.getValueAt(i, 3).toString();
+
 				ssnText.setText(model.getValueAt(i, 4).toString());
 				ssnTemp = Integer.parseInt(model.getValueAt(i, 4).toString());
+				matrixTemp[numberTemp][4] = model.getValueAt(i, 4).toString();
+
 				areaText.setText(model.getValueAt(i, 5).toString());
 				areaTemp = model.getValueAt(i, 5).toString();
+				matrixTemp[numberTemp][5] = areaTemp;
+
 				streetText.setText(model.getValueAt(i, 6).toString());
 				streetTemp = model.getValueAt(i, 6).toString();
+				matrixTemp[numberTemp][6] = streetTemp;
+
 				streetNumberText.setText(model.getValueAt(i, 7).toString());
 				streetNumberTemp = Integer.parseInt(model.getValueAt(i, 7).toString());
+				matrixTemp[numberTemp][7] = model.getValueAt(i, 7).toString();
+
 				zipText.setText(model.getValueAt(i, 8).toString());
 				zipTemp = Integer.parseInt(model.getValueAt(i, 8).toString());
+				matrixTemp[numberTemp][8] = model.getValueAt(i, 8).toString();
+
+				matrixTemp[numberTemp][9] = model.getValueAt(i, 10).toString();
 			}
 		});
 		scrollPane.setViewportView(table);
@@ -320,47 +408,72 @@ public class EditConfirmed extends JFrame {
 	}
 
 	public void buttons() {
-		JButton btnUpdate = new JButton("Update");
-		btnUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int i = table.getSelectedRow();
-				if (i >= 0) {
-					model.setValueAt(nameText.getText(), i, 0);
-					nameNew = nameText.getText();
-					model.setValueAt(surnameText.getText(), i, 1);
-					surnameNew = surnameText.getText();
-					model.setValueAt(emailText.getText(), i, 2);
-					emailNew = emailText.getText();
-					model.setValueAt(phoneNumberText.getText(), i, 3);
-					phoneNumberNew = Integer.parseInt(phoneNumberText.getText());
-					model.setValueAt(ssnText.getText(), i, 4);
-					ssnNew = Integer.parseInt(ssnText.getText());
-					model.setValueAt(areaText.getText(), i, 5);
-					areaNew = areaText.getText();
-					model.setValueAt(streetText.getText(), i, 6);
-					streetNew = streetText.getText();
-					model.setValueAt(streetNumberText.getText(), i, 7);
-					streetNumberNew = Integer.parseInt(streetNumberText.getText());
-					model.setValueAt(zipText.getText(), i, 8);
-					zipNew = Integer.parseInt(zipText.getText());
-					if (checkBoxYes.isSelected()) {
-						row[9] = true;
-						model.setValueAt(true, i, 9);
-					} else if (checkBoxNo.isSelected()) {
-						row[9] = false;
-						model.setValueAt(false, i, 9);
+		if (flagUpdate) {
+			JButton btnUpdate = new JButton("Update");
+			btnUpdate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String tempAMKA = ssnText.getText();
+					if (Platform.checkAMKA(tempAMKA)) {
+						JOptionPane.showMessageDialog(null, "Please Enter A Valid SSN");
+						ssnText.setText("");
+					} else {
+						numberNew++;
+						if (numberNew < matrixNew.length) {
+							int i = table.getSelectedRow();
+							if (i >= 0) {
+								model.setValueAt(nameText.getText(), i, 0);
+								nameNew = nameText.getText();
+								matrixNew[numberNew][0] = nameText.getText();
+
+								model.setValueAt(surnameText.getText(), i, 1);
+								surnameNew = surnameText.getText();
+								matrixNew[numberNew][1] = surnameText.getText();
+
+								model.setValueAt(emailText.getText(), i, 2);
+								emailNew = emailText.getText();
+								matrixNew[numberNew][2] = emailText.getText();
+
+								model.setValueAt(phoneNumberText.getText(), i, 3);
+								phoneNumberNew = Integer.parseInt(phoneNumberText.getText());
+								matrixNew[numberNew][3] = phoneNumberText.getText();
+
+								model.setValueAt(tempAMKA, i, 4);
+								ssnNew = Integer.parseInt(tempAMKA);
+								matrixNew[numberNew][4] = tempAMKA;
+
+								model.setValueAt(areaText.getText(), i, 5);
+								areaNew = areaText.getText();
+								matrixNew[numberNew][5] = areaText.getText();
+
+								model.setValueAt(streetText.getText(), i, 6);
+								streetNew = streetText.getText();
+								matrixNew[numberNew][6] = streetText.getText();
+
+								model.setValueAt(streetNumberText.getText(), i, 7);
+								streetNumberNew = Integer.parseInt(streetNumberText.getText());
+								matrixNew[numberNew][7] = streetNumberText.getText();
+
+								model.setValueAt(zipText.getText(), i, 8);
+								zipNew = Integer.parseInt(zipText.getText());
+								matrixNew[numberNew][8] = zipText.getText();
+
+								JOptionPane.showMessageDialog(null, "Updated Successfully");
+							} else {
+								JOptionPane.showMessageDialog(null, "Please Select a Row First");
+							}
+						} else {
+							JOptionPane.showMessageDialog(null,
+									"You Can Not Update more Than 10 People At A Time! Press Submit.");
+							flagUpdate = false;
+						}
 					}
-
-					JOptionPane.showMessageDialog(null, "Updated Successfully");
-				} else {
-					JOptionPane.showMessageDialog(null, "Please Select a Row First");
 				}
+			});
 
-			}
-		});
-		btnUpdate.setBounds(298, 459, 230, 25);
-		panel.add(btnUpdate);
-
+			btnUpdate.setBounds(298, 459, 230, 25);
+			btnUpdate.setIcon(new ImageIcon(imgUpdate));
+			panel.add(btnUpdate);
+		}
 		JButton btnClear = new JButton("Clear");
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -376,6 +489,7 @@ public class EditConfirmed extends JFrame {
 			}
 		});
 		btnClear.setBounds(1069, 459, 230, 25);
+		btnClear.setIcon(new ImageIcon(imgClear));
 		panel.add(btnClear);
 
 		JButton btnDelete = new JButton("Delete");
@@ -392,62 +506,73 @@ public class EditConfirmed extends JFrame {
 			}
 		});
 		btnDelete.setBounds(684, 459, 230, 25);
+		btnDelete.setIcon(new ImageIcon(imgDelete));
 		panel.add(btnDelete);
 
 		JButton buttonSub = new JButton("Submit");
 		buttonSub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (row[0] == null) {
-					JOptionPane.showMessageDialog(null, "Please Add a Row First");
+					JOptionPane.showMessageDialog(null, "Please Pick a Row First");
 				} else {
-					try {
-						if (nameTemp != nameNew) {
-							String s = AllPeople.setName(nameNew);
-							persondao.alterTables(2, "confirmed", s);
+					flagUpdate = true;
+					numberNew = 0;
+					for (int i = 0; i < 10; i++) {
+						if (matrixTemp[i][0] != null) {
+							try {
+								if (!matrixTemp[i][0].equals(matrixNew[i][0])) {
+									String s = AllPeople.setName(matrixNew[i][0]);
+									persondao.alterTables(Integer.parseInt(matrixTemp[i][9]), "confirmed", s);
+								}
+								if (!matrixTemp[i][1].equals(matrixNew[i][1])) {
+									String s = AllPeople.setSurname(matrixNew[i][1]);
+									persondao.alterTables(Integer.parseInt(matrixTemp[i][9]), "confirmed", s);
+								}
+								if (!matrixTemp[i][2].equals(matrixNew[i][2])) {
+									String s = AllPeople.setEmail(matrixNew[i][2]);
+									persondao.alterTables(Integer.parseInt(matrixTemp[i][9]), "confirmed", s);
+								}
+								if (!matrixTemp[i][3].equals(matrixNew[i][3])) {
+									String s = AllPeople.setPhonenumber(Integer.parseInt(matrixNew[i][3]));
+									persondao.alterTables(Integer.parseInt(matrixTemp[i][9]), "confirmed", s);
+								}
+								if (!matrixTemp[i][4].equals(matrixNew[i][4])) {
+									String s = AllPeople.setAMKA(Integer.parseInt(matrixNew[i][4]));
+									persondao.alterTables(Integer.parseInt(matrixTemp[i][9]), "confirmed", s);
+								}
+								if (!matrixTemp[i][5].equals(matrixNew[i][5])) {
+									String s = Confirmed.setArea(matrixNew[i][5]);
+									persondao.alterTables(Integer.parseInt(matrixTemp[i][9]), "confirmed", s);
+								}
+								if (!matrixTemp[i][6].equals(matrixNew[i][6])) {
+									String s = Confirmed.setStreet(matrixNew[i][6]);
+									persondao.alterTables(Integer.parseInt(matrixTemp[i][9]), "confirmed", s);
+								}
+								if (!matrixTemp[i][7].equals(matrixNew[i][7])) {
+									String s = Confirmed.setStreet_number(Integer.parseInt(matrixNew[i][7]));
+									persondao.alterTables(Integer.parseInt(matrixTemp[i][9]), "confirmed", s);
+								}
+								if (!matrixTemp[i][8].equals(matrixNew[i][8])) {
+									String s = Confirmed.setZip(Integer.parseInt(matrixNew[i][8]));
+									persondao.alterTables(Integer.parseInt(matrixTemp[i][9]), "confirmed", s);
+								}
+							} catch (NumberFormatException e1) {
+								e1.printStackTrace();
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+							// import vivliothiki
+							// Communication.sendMailToConfirmedCases((String) row[2]);
+
+						} else {
+							break;
 						}
-						if (surnameTemp != surnameNew) {
-							String s = AllPeople.setSurname(surnameNew);
-							persondao.alterTables(2, "confirmed", s);
-						}
-						if (!emailTemp.equals(emailNew)) {
-							String s = AllPeople.setEmail(emailNew);
-							persondao.alterTables(2, "confirmed", s);
-						}
-						if (phoneNumberTemp != phoneNumberNew) {
-							String s = AllPeople.setPhonenumber(phoneNumberNew);
-							persondao.alterTables(2, "confirmed", s);
-						}
-						if (ssnTemp != ssnNew) {
-							String s = AllPeople.setAMKA(ssnNew);
-							persondao.alterTables(2, "confirmed", s);
-						}
-						if (areaTemp != areaNew) {
-							String s = Confirmed.setArea(areaNew);
-							persondao.alterTables(2, "confirmed", s);
-						}
-						if (streetTemp != streetNew) {
-							String s = Confirmed.setStreet(streetNew);
-							persondao.alterTables(2, "confirmed", s);
-						}
-						if (streetNumberTemp != streetNumberNew) {
-							String s = Confirmed.setStreet_number(streetNumberNew);
-							persondao.alterTables(2, "confirmed", s);
-						}
-						if (zipTemp != zipNew) {
-							String s = Confirmed.setZip(zipNew);
-							persondao.alterTables(2, "confirmed", s);
-						}
-					} catch (NumberFormatException e1) {
-						e1.printStackTrace();
-					} catch (Exception e1) {
-						e1.printStackTrace();
 					}
-					// import vivliothiki
-					// Communication.sendMailToConfirmedCases((String) row[2]);
+					matrixNew = null;
+					matrixTemp = null;
 					dispose();
 					new Message("Your personal information has been submited successfully. Thank you!", 120);
 				}
-
 			}
 		});
 		buttonSub.setBounds(10, 375, 245, 45);
@@ -494,10 +619,10 @@ public class EditConfirmed extends JFrame {
 				row[7] = patient.street_number;
 				row[8] = patient.zip;
 				row[9] = patient.active_status;
+				row[10] = patient.cid;
 				model.addRow(row);
 			}
 		}
 	}
 
 }
-
