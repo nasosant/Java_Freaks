@@ -19,36 +19,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 
 public class EditConfirmed extends JFrame {
 
-	protected String nameNew;
-	protected String surnameNew;
-	protected String emailNew;
-	protected int phoneNumberNew;
-	protected int ssnNew;
-	protected int confirmed_idNew;
-	protected String victim_relationshipNew;
-	protected String dangerNew;
-	protected String areaNew;
-	protected String streetNew;
-	protected int streetNumberNew;
-	protected int zipNew;
-	protected String areaTemp;
-	protected String streetTemp;
-	protected int streetNumberTemp;
-	protected int zipTemp;
-	protected String nameTemp;
-	protected String surnameTemp;
-	protected String emailTemp;
-	protected int phoneNumberTemp;
-	protected int ssnTemp;
-	protected int confirmed_idTemp;
-	protected String victim_relationshipTemp;
-	protected String dangerTemp;
-	protected static JButton buttonSub;
+	protected int repeatedly = 0;
 	protected static JTextField nameText;
 	protected static JTextField surnameText;
 	protected static JTextField emailText;
@@ -57,64 +32,67 @@ public class EditConfirmed extends JFrame {
 	protected static JTextField confirmed_idText;
 	protected static JTextField victim_relationshipText;
 	protected static JTextField dangerText;
-	protected JTextField areaText;
-	protected JTextField streetText;
-	protected JTextField streetNumberText;
-	protected JTextField zipText;
+	protected static JTextField areaText;
+	protected static JTextField streetText;
+	protected static JTextField streetNumberText;
+	protected static JTextField zipText;
 	protected JPanel contentPane;
 	protected JTable table;
 	protected static JLabel labelChangeUserImg;
 	protected static DefaultTableModel model;
+	protected static Object[] column = { "Name", "Surname", "Email", "Phone Number", "SSN", "Area", "Street",
+			"Street Number", "Zip", "Active Status", "Id" };
 	final static Object[] row = new Object[11];
 	protected String[][] matrixNew = new String[10][10];
-	protected String[][] matrixTemp = new String[10][10];
-	static Object[] column = { "Name", "Surname", "Email", "Phone Number", "SSN", "Area", "Street", "Street Number",
-			"Zip", "Active Status", "Id" };
-	protected Object[] column_1 = { "Name", "Surname", "Email", "Phone Number", "SSN", "Confirmed Id",
-			"Victim Relationship", "Danger" };
-	protected final static Object[] row_1 = new Object[8];
+	protected String[][] matrixTemp = new String[11][10];
+	protected int[] idToDelete = new int[10];
+	protected static int numberDel = -1;
 	protected static int numberNew = -1;
 	protected static int numberTemp = -1;
 	boolean flag = false;
 	protected JPanel panel;
-	protected JLabel lblNewLabel;
-	protected JLabel labelNameImg;
+	// Label
+	protected JLabel lblName;
 	protected JLabel lblSurname;
-	protected JLabel labelSurNameImg;
 	protected JLabel lblEmail;
-	protected JLabel labelEmailImg;
 	protected JLabel lblPhoneNumber;
-	protected JLabel labelPhoneImg;
 	protected JLabel lblSsn;
+	protected JLabel lblArea;
+	protected JLabel lblStreet;
+	protected JLabel lblStreetNumber;
+	protected JLabel lblZip;
+	protected JLabel lblActiveStatus;
+	// Label Images
+	protected JLabel labelNameImg;
+	protected JLabel labelSurNameImg;
+	protected JLabel labelEmailImg;
+	protected JLabel labelPhoneImg;
 	protected JLabel labelAmkaImg;
-	protected JScrollPane scrollPane;
-	protected JLabel lblNewLabel_3;
-	protected JLabel lblNewLabel_4;
-	protected JLabel lblNewLabel_5;
-	protected JLabel lblNewLabel_6;
-	protected JLabel lblNewLabel_7;
-	protected JRadioButton checkBoxYes;
-	protected JRadioButton checkBoxNo;
-	protected JLabel labelSubmitImg;
-	protected PersonJdbo persondao;
+	protected JLabel labelArea;
+	protected JLabel labelStreetImg;
+	protected JLabel labelStreetNumberImg;
+	protected JLabel labelZipImg;
+	protected JLabel labelActiveStatusImg;
+	// Images
 	protected Image imgSubmit;
-	protected JLabel labelCancelImg;
 	protected Image imgCancel;
 	protected Image imgChangeUser;
 	protected Image imgId;
+	protected Image imgUpdate;
+	protected Image imgDelete;
+	protected Image imgClear;
+
+	protected JScrollPane scrollPane;
+	protected JRadioButton checkBoxYes;
+	protected JRadioButton checkBoxNo;
+	protected PersonJdbo persondao;
 	protected int id;
 	private boolean flagUpdate = true;
-	private JLabel labelArea;
-	private JLabel labelActiveStatusImg;
-	private JLabel labelZipImg;
-	private JLabel labelStreetNumberImg;
-	private JLabel labelStreetImg;
+	protected JLabel labelSubmitImg;
 	private JLabel labelUpdateImg;
-	private Image imgUpdate;
 	private JLabel labelDeleteImg;
-	private Image imgDelete;
 	private JLabel labelClearImg;
-	private Image imgClear;
+	protected JLabel labelCancelImg;
 
 	public EditConfirmed() throws Exception {
 		persondao = new PersonJdbo();
@@ -142,10 +120,10 @@ public class EditConfirmed extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		lblNewLabel = new JLabel("Name");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel.setBounds(10, 52, 45, 24);
-		panel.add(lblNewLabel);
+		lblName = new JLabel("Name");
+		lblName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblName.setBounds(10, 52, 45, 24);
+		panel.add(lblName);
 
 		lblSurname = new JLabel("Surname");
 		lblSurname.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -166,6 +144,31 @@ public class EditConfirmed extends JFrame {
 		lblSsn.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblSsn.setBounds(11, 173, 45, 24);
 		panel.add(lblSsn);
+
+		lblArea = new JLabel("Area");
+		lblArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblArea.setBounds(11, 203, 37, 20);
+		panel.add(lblArea);
+
+		lblStreet = new JLabel("Street");
+		lblStreet.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblStreet.setBounds(11, 233, 46, 14);
+		panel.add(lblStreet);
+
+		lblStreetNumber = new JLabel("Street Number");
+		lblStreetNumber.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblStreetNumber.setBounds(10, 263, 121, 14);
+		panel.add(lblStreetNumber);
+
+		lblZip = new JLabel("Zip");
+		lblZip.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblZip.setBounds(11, 293, 46, 14);
+		panel.add(lblZip);
+
+		lblActiveStatus = new JLabel("Active Status");
+		lblActiveStatus.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblActiveStatus.setBounds(10, 323, 88, 24);
+		panel.add(lblActiveStatus);
 
 		nameText = new JTextField();
 		nameText.setBounds(128, 52, 160, 20);
@@ -192,54 +195,25 @@ public class EditConfirmed extends JFrame {
 		ssnText.setBounds(129, 175, 160, 20);
 		panel.add(ssnText);
 
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(298, 52, 1002, 396);
-		panel.add(scrollPane);
-
-		lblNewLabel_3 = new JLabel("Area");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_3.setBounds(11, 203, 37, 20);
-		panel.add(lblNewLabel_3);
-
 		areaText = new JTextField();
 		areaText.setColumns(10);
 		areaText.setBounds(129, 205, 160, 20);
 		panel.add(areaText);
-
-		lblNewLabel_4 = new JLabel("Street");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_4.setBounds(11, 233, 46, 14);
-		panel.add(lblNewLabel_4);
 
 		streetText = new JTextField();
 		streetText.setColumns(10);
 		streetText.setBounds(129, 235, 160, 20);
 		panel.add(streetText);
 
-		lblNewLabel_5 = new JLabel("Street Number");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_5.setBounds(10, 263, 121, 14);
-		panel.add(lblNewLabel_5);
-
 		streetNumberText = new JTextField();
 		streetNumberText.setColumns(10);
 		streetNumberText.setBounds(129, 265, 160, 20);
 		panel.add(streetNumberText);
 
-		lblNewLabel_6 = new JLabel("Zip");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_6.setBounds(11, 293, 46, 14);
-		panel.add(lblNewLabel_6);
-
 		zipText = new JTextField();
 		zipText.setColumns(10);
 		zipText.setBounds(129, 295, 160, 20);
 		panel.add(zipText);
-
-		lblNewLabel_7 = new JLabel("Active Status");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_7.setBounds(10, 323, 88, 24);
-		panel.add(lblNewLabel_7);
 
 		checkBoxYes = new JRadioButton("Yes");
 		checkBoxYes.setBounds(125, 322, 53, 23);
@@ -248,6 +222,10 @@ public class EditConfirmed extends JFrame {
 		checkBoxNo = new JRadioButton("No");
 		checkBoxNo.setBounds(192, 322, 97, 23);
 		panel.add(checkBoxNo);
+
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(298, 52, 1002, 396);
+		panel.add(scrollPane);
 
 		JLabel lblNewLabel_1 = new JLabel("Here you can edit every person's information.");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -286,10 +264,13 @@ public class EditConfirmed extends JFrame {
 		labelAmkaImg.setBounds(54, 173, 25, 25);
 		panel.add(labelAmkaImg);
 
-		labelSubmitImg = new JLabel("");
 		imgSubmit = new ImageIcon(this.getClass().getResource("submit.png")).getImage();
-		labelSubmitImg.setIcon(new ImageIcon(imgSubmit));
-		labelSubmitImg.setBounds(5, 240, 25, 25);
+		/*
+		 * labelSubmitImg = new JLabel(""); imgSubmit = new
+		 * ImageIcon(this.getClass().getResource("submit.png")).getImage();
+		 * labelSubmitImg.setIcon(new ImageIcon(imgSubmit)); labelSubmitImg.setBounds(5,
+		 * 240, 25, 25);
+		 */
 
 		labelCancelImg = new JLabel("");
 		imgCancel = new ImageIcon(this.getClass().getResource("cancel.png")).getImage();
@@ -358,47 +339,43 @@ public class EditConfirmed extends JFrame {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				repeatedly++;
+				if (repeatedly != 1) {
+					numberTemp--;
+				}
 				numberTemp++;
 				int i = table.getSelectedRow();
 
 				nameText.setText(model.getValueAt(i, 0).toString());
-				nameTemp = model.getValueAt(i, 0).toString();
-				matrixTemp[numberTemp][0] = nameTemp;
+				matrixTemp[numberTemp][0] = model.getValueAt(i, 0).toString();
 
 				surnameText.setText(model.getValueAt(i, 1).toString());
-				surnameTemp = model.getValueAt(i, 1).toString();
-				matrixTemp[numberTemp][1] = surnameTemp;
+				matrixTemp[numberTemp][1] = model.getValueAt(i, 1).toString();
 
 				emailText.setText(model.getValueAt(i, 2).toString());
-				emailTemp = model.getValueAt(i, 2).toString();
-				matrixTemp[numberTemp][2] = emailTemp;
+				matrixTemp[numberTemp][2] = model.getValueAt(i, 2).toString();
 
 				phoneNumberText.setText(model.getValueAt(i, 3).toString());
-				phoneNumberTemp = Integer.parseInt(model.getValueAt(i, 3).toString());
 				matrixTemp[numberTemp][3] = model.getValueAt(i, 3).toString();
 
 				ssnText.setText(model.getValueAt(i, 4).toString());
-				ssnTemp = Integer.parseInt(model.getValueAt(i, 4).toString());
 				matrixTemp[numberTemp][4] = model.getValueAt(i, 4).toString();
 
 				areaText.setText(model.getValueAt(i, 5).toString());
-				areaTemp = model.getValueAt(i, 5).toString();
-				matrixTemp[numberTemp][5] = areaTemp;
+				matrixTemp[numberTemp][5] = model.getValueAt(i, 5).toString();
 
 				streetText.setText(model.getValueAt(i, 6).toString());
-				streetTemp = model.getValueAt(i, 6).toString();
-				matrixTemp[numberTemp][6] = streetTemp;
+				matrixTemp[numberTemp][6] = model.getValueAt(i, 6).toString();
 
 				streetNumberText.setText(model.getValueAt(i, 7).toString());
-				streetNumberTemp = Integer.parseInt(model.getValueAt(i, 7).toString());
 				matrixTemp[numberTemp][7] = model.getValueAt(i, 7).toString();
 
 				zipText.setText(model.getValueAt(i, 8).toString());
-				zipTemp = Integer.parseInt(model.getValueAt(i, 8).toString());
 				matrixTemp[numberTemp][8] = model.getValueAt(i, 8).toString();
 
 				matrixTemp[numberTemp][9] = model.getValueAt(i, 10).toString();
 			}
+
 		});
 		scrollPane.setViewportView(table);
 		table.setBackground(new Color(211, 211, 211));
@@ -408,56 +385,47 @@ public class EditConfirmed extends JFrame {
 	}
 
 	public void buttons() {
-		if (flagUpdate) {
-			JButton btnUpdate = new JButton("Update");
-			btnUpdate.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (flagUpdate) {
 					String tempAMKA = ssnText.getText();
-					if (Platform.checkAMKA(tempAMKA)) {
+					if (!matrixTemp[numberTemp][4].equals(tempAMKA) && Platform.checkAMKA(tempAMKA)) {
 						JOptionPane.showMessageDialog(null, "Please Enter A Valid SSN");
 						ssnText.setText("");
 					} else {
 						numberNew++;
-						if (numberNew < matrixNew.length) {
+						if (numberNew < 10) {
 							int i = table.getSelectedRow();
 							if (i >= 0) {
 								model.setValueAt(nameText.getText(), i, 0);
-								nameNew = nameText.getText();
 								matrixNew[numberNew][0] = nameText.getText();
 
 								model.setValueAt(surnameText.getText(), i, 1);
-								surnameNew = surnameText.getText();
 								matrixNew[numberNew][1] = surnameText.getText();
 
 								model.setValueAt(emailText.getText(), i, 2);
-								emailNew = emailText.getText();
 								matrixNew[numberNew][2] = emailText.getText();
 
 								model.setValueAt(phoneNumberText.getText(), i, 3);
-								phoneNumberNew = Integer.parseInt(phoneNumberText.getText());
 								matrixNew[numberNew][3] = phoneNumberText.getText();
 
 								model.setValueAt(tempAMKA, i, 4);
-								ssnNew = Integer.parseInt(tempAMKA);
 								matrixNew[numberNew][4] = tempAMKA;
 
 								model.setValueAt(areaText.getText(), i, 5);
-								areaNew = areaText.getText();
 								matrixNew[numberNew][5] = areaText.getText();
 
 								model.setValueAt(streetText.getText(), i, 6);
-								streetNew = streetText.getText();
 								matrixNew[numberNew][6] = streetText.getText();
 
 								model.setValueAt(streetNumberText.getText(), i, 7);
-								streetNumberNew = Integer.parseInt(streetNumberText.getText());
 								matrixNew[numberNew][7] = streetNumberText.getText();
 
 								model.setValueAt(zipText.getText(), i, 8);
-								zipNew = Integer.parseInt(zipText.getText());
 								matrixNew[numberNew][8] = zipText.getText();
 
-								JOptionPane.showMessageDialog(null, "Updated Successfully");
+								repeatedly = 0;
 							} else {
 								JOptionPane.showMessageDialog(null, "Please Select a Row First");
 							}
@@ -467,13 +435,17 @@ public class EditConfirmed extends JFrame {
 							flagUpdate = false;
 						}
 					}
-				}
-			});
 
-			btnUpdate.setBounds(298, 459, 230, 25);
-			btnUpdate.setIcon(new ImageIcon(imgUpdate));
-			panel.add(btnUpdate);
-		}
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"You Can Not Update more Than 10 People At A Time! Press Submit.");
+				}
+			}
+		});
+		btnUpdate.setBounds(298, 459, 230, 25);
+		btnUpdate.setIcon(new ImageIcon(imgUpdate));
+		panel.add(btnUpdate);
+
 		JButton btnClear = new JButton("Clear");
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -497,8 +469,9 @@ public class EditConfirmed extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int k = table.getSelectedRow();
 				if (k >= 0) {
+					numberDel++;
+					idToDelete[numberDel] = Integer.parseInt(model.getValueAt(k, 10).toString());
 					model.removeRow(k);
-					JOptionPane.showMessageDialog(null, "Deleted Successfully");
 				} else {
 					JOptionPane.showMessageDialog(null, "Please Select a Row First");
 				}
@@ -512,6 +485,19 @@ public class EditConfirmed extends JFrame {
 		JButton buttonSub = new JButton("Submit");
 		buttonSub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (numberDel > -1) {
+					for (int i = 0; i < idToDelete.length; i++) {
+						try {
+							persondao.removePerson(idToDelete[i], "confirmed");
+							JOptionPane.showMessageDialog(null, "Deleted Successfully");
+						} catch (Exception e1) {
+							System.out.println("In Method: EditConfirmed.DeleteButton\nException: " + e1.getMessage());
+						}
+						if (idToDelete[i + 1] == 0) {
+							break;
+						}
+					}
+				}
 				if (row[0] == null) {
 					JOptionPane.showMessageDialog(null, "Please Pick a Row First");
 				} else {
@@ -556,13 +542,12 @@ public class EditConfirmed extends JFrame {
 									String s = Confirmed.setZip(Integer.parseInt(matrixNew[i][8]));
 									persondao.alterTables(Integer.parseInt(matrixTemp[i][9]), "confirmed", s);
 								}
+								JOptionPane.showMessageDialog(null, "Updated Successfully");
 							} catch (NumberFormatException e1) {
 								e1.printStackTrace();
 							} catch (Exception e1) {
 								e1.printStackTrace();
 							}
-							// import vivliothiki
-							// Communication.sendMailToConfirmedCases((String) row[2]);
 
 						} else {
 							break;
@@ -570,6 +555,7 @@ public class EditConfirmed extends JFrame {
 					}
 					matrixNew = null;
 					matrixTemp = null;
+					idToDelete = null;
 					dispose();
 					new Message("Your personal information has been submited successfully. Thank you!", 120);
 				}
@@ -595,11 +581,9 @@ public class EditConfirmed extends JFrame {
 				});
 			}
 		});
-
 		buttonCancel.setBounds(10, 439, 240, 45);
 		buttonCancel.setIcon(new ImageIcon(imgCancel));
 		panel.add(buttonCancel);
-
 	}
 
 	public void dataBase() throws Exception {
@@ -624,5 +608,4 @@ public class EditConfirmed extends JFrame {
 			}
 		}
 	}
-
 }

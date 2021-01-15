@@ -422,7 +422,7 @@ public class Platform extends JFrame {
 						e1.printStackTrace();
 					}
 					try {
-						Communication.sendMailToConfirmedCases((String) row[2]);
+						// Communication.sendMailToConfirmedCases((String) row[2]);
 					} catch (Exception e2) {
 						System.out.println(e2.getMessage());
 						System.out.println(e2.getCause());

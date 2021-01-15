@@ -1,28 +1,29 @@
 public class Covid {
 
 	public static void main(String[] args) throws Exception {
-		// Call the method login() and starts the programm with the Registration
-		PersonJdbo persondao = new PersonJdbo();
-		int count = persondao.check("confirmed");
-		for (int i = 1; i <= count; i++) {
-			Confirmed patient = (Confirmed) persondao.showAll("confirmed", i);
-			if (patient == null) {
-				count++;
-			} else {
-				Confirmed.counterForConfirmed = patient.cid + 1;
-			}
-		}
-		int count_1 = persondao.check("victim_contacts");
-		for (int i = 1; i <= count_1; i++) {
-			VictimContact victim = (VictimContact) persondao.showAll("victim_contacts", i);
-			if (victim == null) {
-				count_1++;
-			} else {
-				VictimContact.counterForVictimContact = victim.vid + 1;
-			}
-		}
+		// Call the method login() and starts the program with the Registration
+		checkId("confirmed");
+		checkId("victim_contacts");
 		Registration obj = new Registration();
 		obj.login();
 	}
 
+	public static void checkId(String fromClass) throws Exception {
+		PersonJdbo persondao = new PersonJdbo();
+		int count = persondao.check(fromClass);
+		for (int i = 1; i <= count; i++) {
+			AllPeople person = persondao.showAll(fromClass, i);
+			if (person == null) {
+				count++;
+			} else {
+				if (fromClass.equals("confirmed")) {
+					Confirmed patient = (Confirmed) person;
+					Confirmed.counterForConfirmed = patient.cid + 1;
+				} else {
+					VictimContact victim = (VictimContact) person;
+					VictimContact.counterForVictimContact = victim.vid + 1;
+				}
+			}
+		}
+	}
 }
