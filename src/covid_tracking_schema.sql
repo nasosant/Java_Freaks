@@ -11,12 +11,12 @@ DROP TABLE confirmed;
 
 CREATE TABLE confirmed(
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(20) NOT NULL,
-	surname VARCHAR(20) NOT NULL,
-	email VARCHAR(20),
-	AMKA VARCHAR(9) UNIQUE,
+	name VARCHAR(50) NOT NULL,
+	surname VARCHAR(50) NOT NULL,
+	email VARCHAR(50),
+	AMKA INT UNIQUE,
     phonenumber INT NOT NULL,
-	area VARCHAR(20) NOT NULL,
+	area VARCHAR(50) NOT NULL,
 	street VARCHAR(50) NOT NULL,
 	street_number INT NOT NULL,
 	zip INT NOT NULL,
@@ -41,13 +41,13 @@ CREATE TABLE deceased(
 
 CREATE TABLE victim_contacts(
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(30) NOT NULL,
-	surname VARCHAR(20) NOT NULL,
+	name VARCHAR(50) NOT NULL,
+	surname VARCHAR(50) NOT NULL,
     email VARCHAR(50),
-	AMKA INT NOT NULL,
+	AMKA INT UNIQUE,
     phonenumber INT NOT NULL,
 	confirmed_id INT NOT NULL,
-	victim_relationship VARCHAR(20) NOT NULL,
+	victim_relationship VARCHAR(50) NOT NULL,
     danger VARCHAR(4) NOT NULL,
 	CONSTRAINT FK_victim_contacts_confirmed_id FOREIGN KEY (confirmed_id) REFERENCES confirmed (id)
 		ON DELETE CASCADE

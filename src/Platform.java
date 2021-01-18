@@ -26,30 +26,6 @@ import javax.swing.JRadioButton;
 
 public class Platform extends JFrame {
 
-	protected String nameNew;
-	protected String surnameNew;
-	protected String emailNew;
-	protected int phoneNumberNew;
-	protected int ssnNew;
-	protected int confirmed_idNew;
-	protected String victim_relationshipNew;
-	protected String dangerNew;
-	protected String areaNew;
-	protected String streetNew;
-	protected int streetNumberNew;
-	protected int zipNew;
-	protected String areaTemp;
-	protected String streetTemp;
-	protected int streetNumberTemp;
-	protected int zipTemp;
-	protected String nameTemp;
-	protected String surnameTemp;
-	protected String emailTemp;
-	protected int phoneNumberTemp;
-	protected int ssnTemp;
-	protected int confirmed_idTemp;
-	protected String victim_relationshipTemp;
-	protected String dangerTemp;
 	protected static JButton buttonSub;
 	protected static JTextField nameText;
 	protected static JTextField surnameText;
@@ -71,8 +47,6 @@ public class Platform extends JFrame {
 	protected Confirmed[] con = new Confirmed[2];
 	static Object[] column = { "Name", "Surname", "Email", "Phone Number", "SSN", "Area", "Street", "Street Number",
 			"Zip", "Active Status" };
-	protected Object[] column_1 = { "Name", "Surname", "Email", "Phone Number", "SSN", "Confirmed Id",
-			"Victim Relationship", "Danger" };
 	protected final static Object[] row_1 = new Object[8];
 	protected static int number = -1;
 	boolean flag = false;
@@ -103,14 +77,6 @@ public class Platform extends JFrame {
 	protected JLabel labelStreetNumberImg;
 	protected JLabel labelZipImg;
 	protected JLabel labelActiveStatusImg;
-	protected JLabel labelAdd;
-	protected Image imgAdd;
-	private JLabel labelChange;
-	private Image imgChange;
-	private JLabel labelDelete;
-	private Image imgDelete;
-	private JLabel labelClear;
-	private Image imgClear;
 	private boolean flagAdd = true;
 
 	public Platform() throws Exception {
@@ -253,84 +219,152 @@ public class Platform extends JFrame {
 	}
 
 	public void buttons() {
-		if (flagAdd) {
-			JButton btnNewButton = new JButton("Add");
-			btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String tempAMKA = ssnText.getText();
-					if (nameText.getText().equals("") || surnameText.getText().equals("")
-							|| emailText.getText().equals("") || phoneNumberText.getText().equals("")
-							|| ssnText.getText().equals("") || areaText.getText().equals("")
-							|| streetText.getText().equals("") || streetNumberText.getText().equals("")
-							|| zipText.getText().equals("")
-							|| (!checkBoxYes.isSelected() && !checkBoxNo.isSelected())) {
-						JOptionPane.showMessageDialog(null, "Please Fill Complete Information");
-					} else if (checkAMKA(tempAMKA)) {
-						JOptionPane.showMessageDialog(null, "Please Enter A Valid SSN");
-						ssnText.setText("");
-					} else {
-						number++;
-						if (number < con.length) {
-							row[0] = nameText.getText();
-							row[1] = surnameText.getText();
-							row[2] = emailText.getText();
-							row[3] = phoneNumberText.getText();
-							row[4] = tempAMKA;
-							row[5] = areaText.getText();
-							row[6] = streetText.getText();
-							row[7] = streetNumberText.getText();
-							row[8] = zipText.getText();
-							if (checkBoxYes.isSelected() && checkBoxNo.isSelected()) {
-								JOptionPane.showMessageDialog(null, "Pease Check Only One Box");
-								flag = true;
-							} else {
-								if (checkBoxYes.isSelected()) {
-									row[9] = true;
-								} else if (checkBoxNo.isSelected()) {
-									row[9] = false;
-								}
-								model.addRow(row);
-								Confirmed patient = null;
-								try {
-									patient = new Confirmed((String) row[0], (String) row[1], (String) row[2],
-											Integer.parseInt((String) row[3]), Integer.parseInt((String) row[4]),
-											(String) row[5], (String) row[6], Integer.parseInt((String) row[7]),
-											Integer.parseInt((String) row[8]), (boolean) row[9]);
-								} catch (Exception e1) {
-									e1.printStackTrace();
-								}
-								con[number] = patient;
-								if (flag == false) {
-									nameText.setText("");
-									surnameText.setText("");
-									emailText.setText("");
-									phoneNumberText.setText("");
-									ssnText.setText("");
-									areaText.setText("");
-									streetText.setText("");
-									streetNumberText.setText("");
-									zipText.setText("");
-								}
-							}
-						} else {
-							JOptionPane.showMessageDialog(null,
-									"You Can Not Add more Than 10 People At A Time! Press Submit.");
-							flagAdd = false;
+		JButton btnNewButton = new JButton("Add");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String tempAMKA = ssnText.getText();
+				boolean unvalidAMKA = false;
+				// Check for a valid AMKA
+				if (persondao.constraints(tempAMKA, "int", 9) == false || tempAMKA.length() != 9) {
+					unvalidAMKA = true;
+				} else {
+					// Check for same AMKA in temporary AddList
+					for (int i = 0; i < number; i++) {
+						if (con[i].AMKA == Integer.parseInt(tempAMKA)) {
+							unvalidAMKA = true;
+							break;
 						}
-
 					}
 				}
-			});
+				// some others checks ....
+				if (nameText.getText().equals("") || surnameText.getText().equals("") || emailText.getText().equals("")
+						|| phoneNumberText.getText().equals("") || ssnText.getText().equals("")
+						|| areaText.getText().equals("") || streetText.getText().equals("")
+						|| streetNumberText.getText().equals("") || zipText.getText().equals("")
+						|| (!checkBoxYes.isSelected() && !checkBoxNo.isSelected())) {
+					JOptionPane.showMessageDialog(null, "Please Fill Complete Information");
+				} else if (persondao.checkAMKA(tempAMKA) || unvalidAMKA) {
+					JOptionPane.showMessageDialog(null, "Please Enter A Valid SSN");
+					ssnText.setText("");
+				} else if (number + 1 == con.length) {
+					JOptionPane.showMessageDialog(null,
+							"You Can Not Add more Than " + con.length + " People At A Time! Press Submit.");
+				} else {
+					number++;
+					int checkForNull = 0; // Elegxos egkyrothtas
+					if (persondao.constraints(nameText.getText(), "String", 50)) {
+						row[0] = nameText.getText();
+						checkForNull++;
+					} else {
+						nameText.setText("");
+					}
+					if (persondao.constraints(surnameText.getText(), "String", 50)) {
+						row[1] = surnameText.getText();
+						checkForNull++;
+					} else {
+						surnameText.setText("");
+					}
+					if (persondao.constraints(emailText.getText(), "String", 50)) {
+						row[2] = emailText.getText();
+						checkForNull++;
+					} else {
+						emailText.setText("");
+					}
+					if (persondao.constraints(phoneNumberText.getText(), "int", 10)) {
+						row[3] = phoneNumberText.getText();
+						checkForNull++;
+					} else {
+						phoneNumberText.setText("");
+					}
 
-			btnNewButton.setBounds(299, 455, 230, 30);
-			btnNewButton.setIcon(new ImageIcon(imgAdd));
-			panel.add(btnNewButton);
-		}
+					row[4] = tempAMKA;
+
+					if (persondao.constraints(areaText.getText(), "String", 50)) {
+						row[5] = areaText.getText();
+						checkForNull++;
+					} else {
+						areaText.setText("");
+					}
+					if (persondao.constraints(streetText.getText(), "String", 50)) {
+						row[6] = streetText.getText();
+						checkForNull++;
+					} else {
+						streetText.setText("");
+					}
+					if (persondao.constraints(streetNumberText.getText(), "int", 10)) {
+						row[7] = streetNumberText.getText();
+						checkForNull++;
+					} else {
+						streetNumberText.setText("");
+					}
+					if (persondao.constraints(zipText.getText(), "int", 10)) {
+						row[8] = zipText.getText();
+						checkForNull++;
+					} else {
+						zipText.setText("");
+					}
+					if (checkBoxYes.isSelected() && checkBoxNo.isSelected()) {
+						JOptionPane.showMessageDialog(null, "Please Check Only One Box");
+					} else if (checkBoxYes.isSelected()) {
+						row[9] = true;
+					} else if (checkBoxNo.isSelected()) {
+						row[9] = false;
+					}
+					if (checkForNull == 8) {
+						model.addRow(row);
+						try {
+							Confirmed patient = new Confirmed((String) row[0], (String) row[1], (String) row[2],
+									Integer.parseInt((String) row[3]), Integer.parseInt((String) row[4]),
+									(String) row[5], (String) row[6], Integer.parseInt((String) row[7]),
+									Integer.parseInt((String) row[8]), (boolean) row[9]);
+							con[number] = patient;
+						} catch (Exception e1) {
+							e1.printStackTrace(); // Better message
+						}
+						nameText.setText("");
+						surnameText.setText("");
+						emailText.setText("");
+						phoneNumberText.setText("");
+						ssnText.setText("");
+						areaText.setText("");
+						streetText.setText("");
+						streetNumberText.setText("");
+						zipText.setText("");
+					} else {
+						JOptionPane.showMessageDialog(null, "Enter Valid Information");
+						number--;
+					}
+				}
+
+			}
+		});
+		btnNewButton.setBounds(299, 455, 230, 30);
+		Image imgAdd = new ImageIcon(this.getClass().getResource("addPatient.png")).getImage();
+		btnNewButton.setIcon(new ImageIcon(imgAdd));
+		panel.add(btnNewButton);
+
 		JButton btnUpdate = new JButton("Change");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String tempAMKA = ssnText.getText();
-				if (checkAMKA(tempAMKA)) {
+				boolean unvalidAMKA = false;
+				// Check for a valid AMKA
+				if (persondao.constraints(tempAMKA, "int", 9) == false || tempAMKA.length() != 9) {
+					unvalidAMKA = true;
+				} else {
+					// Check for same AMKA in temporary AddList
+					for (int i = 0; i < con.length; i++) {
+						if (con[i].AMKA == Integer.parseInt(tempAMKA)) {
+							unvalidAMKA = true;
+							break;
+						}
+						if (con[i + 1] == null) {
+							break;
+						}
+					}
+				}
+
+				if (unvalidAMKA) {
 					JOptionPane.showMessageDialog(null, "Please Enter A Valid SSN");
 					ssnText.setText("");
 				} else {
@@ -361,6 +395,7 @@ public class Platform extends JFrame {
 			}
 		});
 		btnUpdate.setBounds(550, 455, 230, 30);
+		Image imgChange = new ImageIcon(this.getClass().getResource("change.png")).getImage();
 		btnUpdate.setIcon(new ImageIcon(imgChange));
 		panel.add(btnUpdate);
 
@@ -379,6 +414,7 @@ public class Platform extends JFrame {
 			}
 		});
 		btnClear.setBounds(1047, 455, 230, 30);
+		Image imgClear = new ImageIcon(this.getClass().getResource("clear.png")).getImage();
 		btnClear.setIcon(new ImageIcon(imgClear));
 		panel.add(btnClear);
 
@@ -388,7 +424,7 @@ public class Platform extends JFrame {
 				int k = table.getSelectedRow();
 				if (k >= 0) {
 					model.removeRow(k);
-					JOptionPane.showMessageDialog(null, "Deleted Successfully");
+					JOptionPane.showMessageDialog(null, "Informations Deleted Successfully");
 				} else {
 					JOptionPane.showMessageDialog(null, "Please Select a Row First");
 				}
@@ -396,6 +432,7 @@ public class Platform extends JFrame {
 			}
 		});
 		btnDelete.setBounds(800, 455, 230, 30);
+		Image imgDelete = new ImageIcon(this.getClass().getResource("delete.png")).getImage();
 		btnDelete.setIcon(new ImageIcon(imgDelete));
 		panel.add(btnDelete);
 
@@ -405,7 +442,6 @@ public class Platform extends JFrame {
 				if (row[0] == null) {
 					JOptionPane.showMessageDialog(null, "Please Add a Row First");
 				} else {
-					flagAdd = true;
 					number = 0;
 					try {
 						for (int i = 0; i < con.length; i++) {
@@ -435,6 +471,7 @@ public class Platform extends JFrame {
 			}
 		});
 		buttonSub.setBounds(10, 387, 245, 45);
+		Image imgSubmit = new ImageIcon(this.getClass().getResource("submit.png")).getImage();
 		buttonSub.setIcon(new ImageIcon(imgSubmit));
 		panel.add(buttonSub);
 
@@ -446,6 +483,7 @@ public class Platform extends JFrame {
 			}
 		});
 		buttonCancel.setBounds(10, 440, 245, 45);
+		Image imgCancel = new ImageIcon(this.getClass().getResource("cancel.png")).getImage();
 		buttonCancel.setIcon(new ImageIcon(imgCancel));
 		panel.add(buttonCancel);
 
@@ -476,21 +514,6 @@ public class Platform extends JFrame {
 	}
 
 	public void images() {
-		labelClear = new JLabel("");
-		imgClear = new ImageIcon(this.getClass().getResource("clear.png")).getImage();
-		labelClear.setBounds(20, 40, 60, 40);
-
-		labelDelete = new JLabel("");
-		imgDelete = new ImageIcon(this.getClass().getResource("delete.png")).getImage();
-		labelDelete.setBounds(20, 40, 60, 40);
-
-		labelChange = new JLabel("");
-		imgChange = new ImageIcon(this.getClass().getResource("change.png")).getImage();
-		labelChange.setBounds(20, 40, 60, 40);
-
-		labelAdd = new JLabel("");
-		imgAdd = new ImageIcon(this.getClass().getResource("addPatient.png")).getImage();
-		labelAdd.setBounds(20, 40, 60, 40);
 
 		labelActiveStatusImg = new JLabel("");
 		Image imgActiveStatus = new ImageIcon(this.getClass().getResource("activeStatus.png")).getImage();
@@ -552,45 +575,11 @@ public class Platform extends JFrame {
 		labelNameImg.setBounds(53, 52, 25, 25);
 		panel.add(labelNameImg);
 
-		JLabel labelSubmitImg = new JLabel("");
-		imgSubmit = new ImageIcon(this.getClass().getResource("submit.png")).getImage();
-		// labelSubmitImg.setIcon(new ImageIcon(imgSubmit));
-		labelSubmitImg.setBounds(5, 240, 25, 25);
-
-		JLabel labelCancelImg = new JLabel("");
-		imgCancel = new ImageIcon(this.getClass().getResource("cancel.png")).getImage();
-		// labelCancelImg.setIcon(new ImageIcon(imgCancel));
-		labelCancelImg.setBounds(165, 240, 25, 25);
-
-		labelChangeUserImg = new JLabel("");
-		Image imgChangeUser = new ImageIcon(this.getClass().getResource("changeUser.png")).getImage();
-		labelChangeUserImg.setIcon(new ImageIcon(imgChangeUser));
-		labelChangeUserImg.setBounds(325, 240, 25, 25);
-
 		JLabel labelIdImg = new JLabel("");
 		Image imgId = new ImageIcon(this.getClass().getResource("id.png")).getImage();
 		labelIdImg.setIcon(new ImageIcon(imgId));
 		labelIdImg.setBounds(911, 11, 48, 36);
 		panel.add(labelIdImg);
-	}
-
-	public static boolean checkAMKA(String tempAMKA) {
-		PersonJdbo persondao = new PersonJdbo();
-		try {
-			persondao.connect();
-			String query = "SELECT * FROM confirmed";
-			Statement statement = persondao.connection.createStatement();
-			ResultSet resultSet = statement.executeQuery(query);
-			while (resultSet.next()) {
-				int AMKA = resultSet.getInt("AMKA");
-				if (AMKA == Integer.parseInt(tempAMKA)) {
-					return true; // return true if finds same AMKA
-				}
-			}
-		} catch (Exception e) {
-			System.out.println("In Method: Platform.checkAMKA\nException: " + e.getMessage());
-		}
-		return false;
 	}
 
 }

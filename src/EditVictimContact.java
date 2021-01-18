@@ -72,26 +72,11 @@ public class EditVictimContact extends JFrame {
 	protected JLabel labelIdImg;
 	protected JLabel labelRelationshipImg;
 	protected JLabel labelDangerImg;
-	// Images
-	protected Image imgCancel;
-	protected Image imgChangeUser;
-	protected Image imgSubmit;
-	protected Image imgUpdate;
-	protected Image imgDelete;
-	protected Image imgClear;
 
 	protected JScrollPane scrollPane;
 	protected JCheckBox checkBoxYes;
 	protected JCheckBox checkBoxNo;
 	protected PersonJdbo persondao;
-
-	public static boolean flagUpdate = true;
-
-	protected JLabel labelUpdateImg;
-	protected JLabel labelDeleteImg;
-	protected JLabel labelClearImg;
-	protected JLabel labelCancelImg;
-	protected JLabel labelSubmitImg;
 
 	public EditVictimContact() throws Exception {
 		persondao = new PersonJdbo();
@@ -241,36 +226,6 @@ public class EditVictimContact extends JFrame {
 		labelAmkaImg.setBounds(38, 172, 25, 25);
 		panel.add(labelAmkaImg);
 
-		labelSubmitImg = new JLabel("");
-		imgSubmit = new ImageIcon(this.getClass().getResource("submit.png")).getImage();
-		labelSubmitImg.setIcon(new ImageIcon(imgSubmit));
-		labelSubmitImg.setBounds(5, 240, 25, 25);
-
-		labelCancelImg = new JLabel("");
-		imgCancel = new ImageIcon(this.getClass().getResource("cancel.png")).getImage();
-		labelCancelImg.setIcon(new ImageIcon(imgCancel));
-		labelCancelImg.setBounds(165, 240, 25, 25);
-
-		labelChangeUserImg = new JLabel("");
-		imgChangeUser = new ImageIcon(this.getClass().getResource("changeUser.png")).getImage();
-		labelChangeUserImg.setIcon(new ImageIcon(imgChangeUser));
-		labelChangeUserImg.setBounds(325, 240, 25, 25);
-
-		labelUpdateImg = new JLabel("");
-		imgUpdate = new ImageIcon(this.getClass().getResource("update.png")).getImage();
-		labelUpdateImg.setBounds(58, 230, 25, 25);
-		panel.add(labelUpdateImg);
-
-		labelDeleteImg = new JLabel("");
-		imgDelete = new ImageIcon(this.getClass().getResource("delete.png")).getImage();
-		labelDeleteImg.setBounds(58, 230, 25, 25);
-		panel.add(labelDeleteImg);
-
-		labelClearImg = new JLabel("");
-		imgClear = new ImageIcon(this.getClass().getResource("clear.png")).getImage();
-		labelClearImg.setBounds(58, 230, 25, 25);
-		panel.add(labelClearImg);
-
 		labelDangerImg = new JLabel("");
 		Image imgDanger = new ImageIcon(this.getClass().getResource("danger.png")).getImage();
 		labelDangerImg.setBounds(50, 263, 25, 25);
@@ -346,58 +301,97 @@ public class EditVictimContact extends JFrame {
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (flagUpdate) {
-					String tempAMKA = ssnText.getText();
-					if (!matrixTemp[numberTemp][4].equals(tempAMKA) && Platform.checkAMKA(tempAMKA)) {
-						JOptionPane.showMessageDialog(null, "Please Enter A Valid SSN");
-						ssnText.setText("");
-					} else {
-						numberNew++;
-						if (numberNew < 10) {
-							int i = table.getSelectedRow();
-							if (i >= 0) {
-								model.setValueAt(nameText.getText(), i, 0);
-								matrixNew[numberNew][0] = nameText.getText();
-
-								model.setValueAt(surnameText.getText(), i, 1);
-								matrixNew[numberNew][1] = surnameText.getText();
-
-								model.setValueAt(emailText.getText(), i, 2);
-								matrixNew[numberNew][2] = emailText.getText();
-
-								model.setValueAt(phoneNumberText.getText(), i, 3);
-								matrixNew[numberNew][3] = phoneNumberText.getText();
-
-								model.setValueAt(ssnText.getText(), i, 4);
-								matrixNew[numberNew][4] = ssnText.getText();
-
-								model.setValueAt(confirmed_idText.getText(), i, 5);
-								matrixNew[numberNew][5] = confirmed_idText.getText();
-
-								model.setValueAt(victim_relationshipText.getText(), i, 6);
-								matrixNew[numberNew][6] = victim_relationshipText.getText();
-
-								model.setValueAt(dangerText.getText(), i, 7);
-								matrixNew[numberNew][7] = dangerText.getText();
-
-								repeatedly = 0;
-							} else {
-								JOptionPane.showMessageDialog(null, "Please Select a Row First");
-							}
-						} else {
-							JOptionPane.showMessageDialog(null,
-									"You Can Not Update more Than 10 People At A Time! Press Submit.");
-							flagUpdate = false;
+				String tempAMKA = ssnText.getText();
+				boolean unvalidAMKA = false;
+				// Check for a valid AMKA
+				if (persondao.constraints(tempAMKA, "int", 9) == false || tempAMKA.length() != 9) {
+					unvalidAMKA = true;
+				} else if (!matrixTemp[numberTemp][4].equals(tempAMKA) && persondao.checkAMKA(tempAMKA)) {
+					// Check if it has changed to a not valid AMKA
+					unvalidAMKA = true;
+				} else {
+					// Check for same AMKA in temporary UpdateList
+					for (int i = 0; i < numberTemp; i++) {
+						if (matrixTemp[i][4].equals(tempAMKA)) {
+							unvalidAMKA = true;
+							break;
 						}
 					}
-
-				} else {
+				}
+				// some others checks ....
+				if (nameText.getText().equals("") || surnameText.getText().equals("") || emailText.getText().equals("")
+						|| phoneNumberText.getText().equals("") || ssnText.getText().equals("")
+						|| confirmed_idText.getText().equals("") || victim_relationshipText.getText().equals("")
+						|| dangerText.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Please Fill Complete Information");
+				} else if (unvalidAMKA) {
+					JOptionPane.showMessageDialog(null, "Please Enter A Valid SSN");
+					ssnText.setText("");
+				} else if (numberNew + 1 == 10) { // 10 einai giati tosous mporoyme na enhmerosoyme kathe fora
 					JOptionPane.showMessageDialog(null,
 							"You Can Not Update more Than 10 People At A Time! Press Submit.");
+				} else {
+					numberNew++;
+					int checkForNull = 0; // Elegxos egkyrothtas
+					int i = table.getSelectedRow();
+					if (i >= 0) {
+						if (persondao.constraints(nameText.getText(), "String", 50)) {
+							checkForNull++;
+						}
+						if (persondao.constraints(surnameText.getText(), "String", 50)) {
+							checkForNull++;
+						}
+						if (persondao.constraints(emailText.getText(), "String", 50)) {
+							checkForNull++;
+						}
+						if (persondao.constraints(phoneNumberText.getText(), "int", 10)) {
+							checkForNull++;
+						}
+						if (persondao.constraints(confirmed_idText.getText(), "int", Integer.MAX_VALUE)) {
+							checkForNull++;
+						}
+						if (persondao.constraints(victim_relationshipText.getText(), "String", 50)) {
+							checkForNull++;
+						}
+						if (persondao.constraints(dangerText.getText(), "String", 4)) {
+							checkForNull++;
+						}
+						if (checkForNull == 8) {
+							model.setValueAt(surnameText.getText(), i, 1);
+							model.setValueAt(nameText.getText(), i, 0);
+							model.setValueAt(emailText.getText(), i, 2);
+							model.setValueAt(phoneNumberText.getText(), i, 3);
+							model.setValueAt(tempAMKA, i, 4);
+							model.setValueAt(confirmed_idText.getText(), i, 5);
+							model.setValueAt(victim_relationshipText.getText(), i, 6);
+							model.setValueAt(dangerText.getText(), i, 7);
+
+							matrixNew[numberNew][0] = nameText.getText();
+							matrixNew[numberNew][1] = surnameText.getText();
+							matrixNew[numberNew][2] = emailText.getText();
+							matrixNew[numberNew][3] = phoneNumberText.getText();
+							matrixNew[numberNew][4] = tempAMKA;
+							matrixNew[numberNew][5] = confirmed_idText.getText();
+							matrixNew[numberNew][6] = victim_relationshipText.getText();
+							matrixNew[numberNew][7] = dangerText.getText();
+						} else {
+							JOptionPane.showMessageDialog(null, "Enter Valid Information");
+							numberNew--;
+						}
+						repeatedly = 0;
+					} else {
+						JOptionPane.showMessageDialog(null, "Please Select a Row First");
+					}
+				}
+				if (numberNew != numberTemp) {
+					for (int k = 0; k < 9; k++) {
+						matrixTemp[numberTemp][k] = null;
+					}
 				}
 			}
 		});
 		btnUpdate.setBounds(294, 465, 230, 30);
+		Image imgUpdate = new ImageIcon(this.getClass().getResource("update.png")).getImage();
 		btnUpdate.setIcon(new ImageIcon(imgUpdate));
 		panel.add(btnUpdate);
 
@@ -415,6 +409,7 @@ public class EditVictimContact extends JFrame {
 			}
 		});
 		btnClear.setBounds(1070, 465, 230, 30);
+		Image imgClear = new ImageIcon(this.getClass().getResource("clear.png")).getImage();
 		btnClear.setIcon(new ImageIcon(imgClear));
 		panel.add(btnClear);
 
@@ -429,16 +424,17 @@ public class EditVictimContact extends JFrame {
 				} else {
 					JOptionPane.showMessageDialog(null, "Please Select a Row First");
 				}
-
 			}
 		});
 		btnDelete.setBounds(672, 465, 230, 30);
+		Image imgDelete = new ImageIcon(this.getClass().getResource("delete.png")).getImage();
 		btnDelete.setIcon(new ImageIcon(imgDelete));
 		panel.add(btnDelete);
 
 		JButton buttonSub = new JButton("Submit");
 		buttonSub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Check if there is anyone in DeleteList
 				if (numberDel > -1) {
 					for (int i = 0; i < idToDelete.length; i++) {
 						try {
@@ -452,74 +448,74 @@ public class EditVictimContact extends JFrame {
 						}
 					}
 				}
-				if (row[0] == null) {
-					JOptionPane.showMessageDialog(null, "Please Add a Row First");
-				} else {
-					flagUpdate = true;
-					numberNew = 0;
-					for (int i = 0; i < 10; i++) {
-						if (matrixTemp[i][0] != null) {
-							try {
-								if (!matrixTemp[i][0].equals(matrixNew[i][0])) {
-									String s = AllPeople.setName(matrixNew[i][0]);
-									persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
-								}
-
-								if (!matrixTemp[i][1].equals(matrixNew[i][1])) {
-									String s = AllPeople.setSurname(matrixNew[i][0]);
-									persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
-								}
-								if (!matrixTemp[i][2].equals(matrixNew[i][2])) {
-									String s = AllPeople.setEmail(matrixNew[i][0]);
-									persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
-								}
-								if (!matrixTemp[i][3].equals(matrixNew[i][3])) {
-									String s = AllPeople.setPhonenumber(Integer.parseInt(matrixNew[i][0]));
-									persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
-								}
-								if (!matrixTemp[i][4].equals(matrixNew[i][4])) {
-									String s = AllPeople.setAMKA(Integer.parseInt(matrixNew[i][0]));
-									persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
-								}
-								if (!matrixTemp[i][5].equals(matrixNew[i][5])) {
-									String s = VictimContact.setConfirmed_id(Integer.parseInt(matrixNew[i][0]));
-									persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
-								}
-								if (!matrixTemp[i][6].equals(matrixNew[i][6])) {
-									String s = VictimContact.setVictim_relationship(matrixNew[i][0]);
-									persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
-								}
-								if (!matrixTemp[i][7].equals(matrixNew[i][7])) {
-									String s = VictimContact.setDanger(matrixNew[i][0]);
-									persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
-								}
-							} catch (NumberFormatException e1) {
-								e1.printStackTrace();
-								System.out.println("In Method: Submit(Line 568)\nException: " + e1.getMessage());
-							} catch (Exception e1) {
-								e1.printStackTrace();
-								System.out.println("In Metho2d: Submit(Line 568)\nException: " + e1.getMessage());
+				for (int i = 0; i < 10; i++) {
+					if (matrixTemp[i][0] != null) {
+						try {
+							if (!matrixTemp[i][0].equals(matrixNew[i][0])) {
+								String s = AllPeople.setName(matrixNew[i][0]);
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
 							}
-						} else {
-							break;
-						}
-					}
-					matrixNew = null;
-					matrixTemp = null;
-					idToDelete = null;
-					dispose();
-					new Message("Your personal information has been submited successfully. Thank you!", 120);
-				}
 
+							if (!matrixTemp[i][1].equals(matrixNew[i][1])) {
+								String s = AllPeople.setSurname(matrixNew[i][0]);
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+							}
+							if (!matrixTemp[i][2].equals(matrixNew[i][2])) {
+								String s = AllPeople.setEmail(matrixNew[i][0]);
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+							}
+							if (!matrixTemp[i][3].equals(matrixNew[i][3])) {
+								String s = AllPeople.setPhonenumber(Integer.parseInt(matrixNew[i][0]));
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+							}
+							if (!matrixTemp[i][4].equals(matrixNew[i][4])) {
+								String s = AllPeople.setAMKA(Integer.parseInt(matrixNew[i][0]));
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+							}
+							if (!matrixTemp[i][5].equals(matrixNew[i][5])) {
+								String s = VictimContact.setConfirmed_id(Integer.parseInt(matrixNew[i][0]));
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+							}
+							if (!matrixTemp[i][6].equals(matrixNew[i][6])) {
+								String s = VictimContact.setVictim_relationship(matrixNew[i][0]);
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+							}
+							if (!matrixTemp[i][7].equals(matrixNew[i][7])) {
+								String s = VictimContact.setDanger(matrixNew[i][0]);
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+							}
+							JOptionPane.showMessageDialog(null, "Updated Successfully");
+						} catch (NumberFormatException e1) {
+							e1.printStackTrace();
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					} else {
+						break;
+					}
+				}
+				numberTemp = 0;
+				numberNew = 0;
+				matrixNew = null;
+				matrixTemp = null;
+				idToDelete = null;
+				dispose();
+				new Message("Your personal information has been submited successfully. Thank you!", 120);
 			}
 		});
 		buttonSub.setBounds(10, 386, 245, 45);
+		Image imgSubmit = new ImageIcon(this.getClass().getResource("submit.png")).getImage();
 		buttonSub.setIcon(new ImageIcon(imgSubmit));
 		panel.add(buttonSub);
 
 		JButton buttonCancel = new JButton("Cancel");
 		buttonCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				numberTemp = 0;
+				numberNew = 0;
+				matrixNew = null;
+				matrixTemp = null;
+				idToDelete = null;
 				dispose();
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
@@ -534,16 +530,17 @@ public class EditVictimContact extends JFrame {
 			}
 		});
 		buttonCancel.setBounds(10, 450, 240, 45);
+		Image imgCancel = new ImageIcon(this.getClass().getResource("cancel.png")).getImage();
 		buttonCancel.setIcon(new ImageIcon(imgCancel));
 		panel.add(buttonCancel);
 	}
 
 	public void dataBase() throws Exception {
-		int count_1 = persondao.check("victim_contacts");
-		for (int i = 1; i <= count_1; i++) {
+		int count = persondao.check("victim_contacts");
+		for (int i = 1; i <= count; i++) {
 			VictimContact victim = (VictimContact) persondao.showAll("victim_contacts", i);
 			if (victim == null) {
-				count_1++;
+				count++;
 			} else {
 				row[0] = victim.name;
 				row[1] = victim.surname;

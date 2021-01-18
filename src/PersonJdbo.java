@@ -15,7 +15,7 @@ public class PersonJdbo {
 			String password = "K@ter1n@";
 			connection = DriverManager.getConnection(url + db, user, password);
 			if (connection != null) {
-				System.out.println("Successfully connected to the database");
+				// System.out.println("Successfully connected to the database");
 			}
 		} catch (Exception e) {
 			System.out.println("In Method: PersonJdbo.connect\nException: " + e.getMessage());
@@ -60,7 +60,8 @@ public class PersonJdbo {
 						confirmed_id, victim_relationship, danger);
 				statement.close();
 				connection.close();
-				System.out.println("Successfully got the person with the id=" + id + " from " + fromClass);
+				// System.out.println("Successfully got the person with the id=" + id + " from "
+				// + fromClass);
 				return victimContact;
 			} else {
 				String area = resultSet.getString("area");
@@ -72,7 +73,8 @@ public class PersonJdbo {
 						street_number, zip, active_status);
 				statement.close();
 				connection.close();
-				System.out.println("Successfully got the person with the id=" + id + " from " + fromClass);
+				// System.out.println("Successfully got the person with the id=" + id + " from "
+				// + fromClass);
 				return confirmed;
 			}
 
@@ -213,5 +215,36 @@ public class PersonJdbo {
 			System.out.println("In Method: PersonJdbo.check\nException: " + e.getMessage());
 		}
 		return i;
+	}
+
+	public boolean constraints(String text, String type, int length) {
+		boolean result = (text.length() <= length);
+		if (type.equals("int")) {
+			try {
+				Integer.parseInt(text);
+			} catch (Exception e) {
+				result = false;
+			}
+		}
+		return result;
+	}
+	
+	public boolean checkAMKA(String tempAMKA) {
+		PersonJdbo persondao = new PersonJdbo();
+		try {
+			persondao.connect();
+			String query = "SELECT * FROM confirmed";
+			Statement statement = persondao.connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(query);
+			while (resultSet.next()) {
+				int AMKA = resultSet.getInt("AMKA");
+				if (AMKA == Integer.parseInt(tempAMKA)) {
+					return true; // return true if finds same AMKA
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("In Method: Platform.checkAMKA\nException: " + e.getMessage());
+		}
+		return false;
 	}
 }
