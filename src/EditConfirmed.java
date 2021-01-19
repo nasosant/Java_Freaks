@@ -48,7 +48,6 @@ public class EditConfirmed extends JFrame {
 	protected static int numberDel = -1;
 	protected static int numberNew = -1;
 	protected static int numberTemp = -1;
-	boolean flag = false; // to svino?????
 	protected JPanel panel;
 	// Label
 	protected JLabel lblName;
@@ -60,7 +59,6 @@ public class EditConfirmed extends JFrame {
 	protected JLabel lblStreet;
 	protected JLabel lblStreetNumber;
 	protected JLabel lblZip;
-	protected JLabel lblActiveStatus;
 	// Label Images
 	protected JLabel labelNameImg;
 	protected JLabel labelSurNameImg;
@@ -71,11 +69,8 @@ public class EditConfirmed extends JFrame {
 	protected JLabel labelStreetImg;
 	protected JLabel labelStreetNumberImg;
 	protected JLabel labelZipImg;
-	protected JLabel labelActiveStatusImg;
 
 	protected JScrollPane scrollPane;
-	protected JRadioButton checkBoxYes;
-	protected JRadioButton checkBoxNo;
 	protected PersonJdbo persondao;
 
 	public EditConfirmed() throws Exception {
@@ -89,7 +84,7 @@ public class EditConfirmed extends JFrame {
 
 	public void draw() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1315, 546);
+		setBounds(100, 100, 1330, 573);
 		setTitle("Edit Confirmed Cases");
 		setResizable(false);
 		contentPane = new JPanel();
@@ -100,7 +95,7 @@ public class EditConfirmed extends JFrame {
 
 		panel = new JPanel();
 		panel.setBackground(new Color(176, 196, 222));
-		panel.setBounds(0, 0, 1309, 517);
+		panel.setBounds(0, 0, 1315, 537);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -149,11 +144,6 @@ public class EditConfirmed extends JFrame {
 		lblZip.setBounds(11, 293, 46, 14);
 		panel.add(lblZip);
 
-		lblActiveStatus = new JLabel("Active Status");
-		lblActiveStatus.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblActiveStatus.setBounds(10, 323, 88, 24);
-		panel.add(lblActiveStatus);
-
 		nameText = new JTextField();
 		nameText.setBounds(128, 52, 160, 20);
 		panel.add(nameText);
@@ -199,16 +189,8 @@ public class EditConfirmed extends JFrame {
 		zipText.setBounds(129, 295, 160, 20);
 		panel.add(zipText);
 
-		checkBoxYes = new JRadioButton("Yes");
-		checkBoxYes.setBounds(125, 322, 53, 23);
-		panel.add(checkBoxYes);
-
-		checkBoxNo = new JRadioButton("No");
-		checkBoxNo.setBounds(192, 322, 97, 23);
-		panel.add(checkBoxNo);
-
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(298, 52, 1002, 396);
+		scrollPane.setBounds(298, 52, 991, 396);
 		panel.add(scrollPane);
 
 		JLabel lblNewLabel_1 = new JLabel("Here you can edit every person's information.");
@@ -253,12 +235,6 @@ public class EditConfirmed extends JFrame {
 		labelAreaImg.setIcon(new ImageIcon(imgArea));
 		labelAreaImg.setBounds(42, 203, 25, 25);
 		panel.add(labelAreaImg);
-
-		labelActiveStatusImg = new JLabel("");
-		Image imgActiveStatus = new ImageIcon(this.getClass().getResource("activeStatus.png")).getImage();
-		labelActiveStatusImg.setIcon(new ImageIcon(imgActiveStatus));
-		labelActiveStatusImg.setBounds(94, 322, 25, 25);
-		panel.add(labelActiveStatusImg);
 
 		labelZipImg = new JLabel("");
 		Image imgZip = new ImageIcon(this.getClass().getResource("zip.png")).getImage();
@@ -360,8 +336,7 @@ public class EditConfirmed extends JFrame {
 				if (nameText.getText().equals("") || surnameText.getText().equals("") || emailText.getText().equals("")
 						|| phoneNumberText.getText().equals("") || ssnText.getText().equals("")
 						|| areaText.getText().equals("") || streetText.getText().equals("")
-						|| streetNumberText.getText().equals("") || zipText.getText().equals("")
-						|| (!checkBoxYes.isSelected() && !checkBoxNo.isSelected())) {
+						|| streetNumberText.getText().equals("") || zipText.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Please Fill Complete Information");
 				} else if (unvalidAMKA) {
 					JOptionPane.showMessageDialog(null, "Please Enter A Valid SSN");
@@ -444,7 +419,7 @@ public class EditConfirmed extends JFrame {
 				zipText.setText("");
 			}
 		});
-		btnUpdate.setBounds(298, 459, 230, 25);
+		btnUpdate.setBounds(298, 459, 230, 30);
 		Image imgUpdate = new ImageIcon(this.getClass().getResource("update.png")).getImage();
 		btnUpdate.setIcon(new ImageIcon(imgUpdate));
 		panel.add(btnUpdate);
@@ -463,7 +438,7 @@ public class EditConfirmed extends JFrame {
 				zipText.setText("");
 			}
 		});
-		btnClear.setBounds(1069, 459, 230, 25);
+		btnClear.setBounds(1059, 459, 230, 30);
 		Image imgClear = new ImageIcon(this.getClass().getResource("clear.png")).getImage();
 		btnClear.setIcon(new ImageIcon(imgClear));
 		panel.add(btnClear);
@@ -482,7 +457,7 @@ public class EditConfirmed extends JFrame {
 
 			}
 		});
-		btnDelete.setBounds(684, 459, 230, 25);
+		btnDelete.setBounds(684, 459, 230, 30);
 		Image imgDelete = new ImageIcon(this.getClass().getResource("delete.png")).getImage();
 		btnDelete.setIcon(new ImageIcon(imgDelete));
 		panel.add(btnDelete);
@@ -505,7 +480,7 @@ public class EditConfirmed extends JFrame {
 					}
 				}
 				for (int i = 0; i < 10; i++) {
-					if (matrixTemp[i][0] != null) {
+					if (matrixNew[i][0] != null) {
 						try {
 							if (!matrixTemp[i][0].equals(matrixNew[i][0])) {
 								String s = AllPeople.setName(matrixNew[i][0]);
@@ -568,7 +543,7 @@ public class EditConfirmed extends JFrame {
 				matrixTemp = null;
 				idToDelete = null;
 				dispose();
-				new Message("Your personal information has been submited successfully. Thank you!", 120);
+				new Message("Your personal information has been submited successfully. Thank you!", 120, 40);
 			}
 		});
 		buttonSub.setBounds(10, 375, 245, 45);
@@ -597,7 +572,7 @@ public class EditConfirmed extends JFrame {
 				});
 			}
 		});
-		buttonCancel.setBounds(10, 439, 240, 45);
+		buttonCancel.setBounds(10, 444, 245, 45);
 		Image imgCancel = new ImageIcon(this.getClass().getResource("cancel.png")).getImage();
 		buttonCancel.setIcon(new ImageIcon(imgCancel));
 		panel.add(buttonCancel);

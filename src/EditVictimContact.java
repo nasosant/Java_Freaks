@@ -51,7 +51,6 @@ public class EditVictimContact extends JFrame {
 	protected static int numberDel = -1;
 	protected static int numberNew = -1;
 	protected static int numberTemp = -1;
-	boolean flag = false; // to svino?????
 	protected JPanel panel;
 	// Label
 	protected JLabel lblName;
@@ -86,7 +85,7 @@ public class EditVictimContact extends JFrame {
 
 	public void draw() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1315, 535);
+		setBounds(100, 100, 1326, 544);
 		setTitle("Edit Victim Contact");
 		setResizable(false);
 		contentPane = new JPanel();
@@ -103,82 +102,82 @@ public class EditVictimContact extends JFrame {
 
 		lblName = new JLabel("Name");
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblName.setBounds(1, 52, 45, 24);
+		lblName.setBounds(5, 52, 45, 24);
 		panel.add(lblName);
 
 		lblSurname = new JLabel("Surname");
 		lblSurname.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSurname.setBounds(1, 82, 63, 24);
+		lblSurname.setBounds(5, 87, 63, 24);
 		panel.add(lblSurname);
 
 		lblEmail = new JLabel("Email");
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblEmail.setBounds(2, 113, 45, 24);
+		lblEmail.setBounds(5, 122, 45, 24);
 		panel.add(lblEmail);
 
 		lblPhoneNumber = new JLabel("Phone Number");
 		lblPhoneNumber.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPhoneNumber.setBounds(2, 143, 98, 24);
+		lblPhoneNumber.setBounds(5, 157, 98, 24);
 		panel.add(lblPhoneNumber);
 
 		lblSsn = new JLabel("SSN");
 		lblSsn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSsn.setBounds(2, 173, 45, 24);
+		lblSsn.setBounds(5, 192, 45, 24);
 		panel.add(lblSsn);
 
 		lblConfirmedId = new JLabel("Confirmed Id");
 		lblConfirmedId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblConfirmedId.setBounds(2, 203, 79, 24);
+		lblConfirmedId.setBounds(5, 227, 79, 24);
 		panel.add(lblConfirmedId);
 
 		lblVictimRelationship = new JLabel("Victim Relationship");
 		lblVictimRelationship.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblVictimRelationship.setBounds(2, 233, 112, 24);
+		lblVictimRelationship.setBounds(5, 262, 112, 24);
 		panel.add(lblVictimRelationship);
 
 		lblDanger = new JLabel("Danger");
 		lblDanger.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDanger.setBounds(1, 263, 63, 22);
+		lblDanger.setBounds(5, 297, 63, 22);
 		panel.add(lblDanger);
 
 		nameText = new JTextField();
-		nameText.setBounds(140, 52, 149, 20);
+		nameText.setBounds(145, 56, 140, 20);
 		panel.add(nameText);
 		nameText.setColumns(10);
 
 		surnameText = new JTextField();
 		surnameText.setColumns(10);
-		surnameText.setBounds(140, 82, 149, 20);
+		surnameText.setBounds(145, 91, 140, 20);
 		panel.add(surnameText);
 
 		emailText = new JTextField();
 		emailText.setColumns(10);
-		emailText.setBounds(141, 113, 148, 20);
+		emailText.setBounds(145, 126, 139, 20);
 		panel.add(emailText);
 
 		phoneNumberText = new JTextField();
 		phoneNumberText.setColumns(10);
-		phoneNumberText.setBounds(141, 143, 148, 20);
+		phoneNumberText.setBounds(145, 161, 139, 20);
 		panel.add(phoneNumberText);
 
 		ssnText = new JTextField();
 		ssnText.setColumns(10);
-		ssnText.setBounds(141, 175, 148, 20);
+		ssnText.setBounds(145, 196, 139, 20);
 		panel.add(ssnText);
 
 		confirmed_idText = new JTextField();
 		confirmed_idText.setColumns(10);
-		confirmed_idText.setBounds(141, 205, 148, 20);
+		confirmed_idText.setBounds(145, 231, 139, 20);
 		panel.add(confirmed_idText);
 
 		victimRelationship = new JTextField();
 		victimRelationship.setColumns(10);
-		victimRelationship.setBounds(141, 235, 148, 20);
+		victimRelationship.setBounds(145, 266, 139, 20);
 		panel.add(victimRelationship);
 
 		danger = new JTextField();
 		danger.setColumns(10);
-		danger.setBounds(141, 265, 148, 20);
+		danger.setBounds(145, 300, 139, 20);
 		panel.add(danger);
 
 		scrollPane = new JScrollPane();
@@ -196,48 +195,48 @@ public class EditVictimContact extends JFrame {
 		labelNameImg = new JLabel("");
 		Image imgName = new ImageIcon(this.getClass().getResource("name.png")).getImage();
 		labelNameImg.setIcon(new ImageIcon(imgName));
-		labelNameImg.setBounds(45, 52, 25, 25);
+		labelNameImg.setBounds(49, 52, 25, 25);
 		panel.add(labelNameImg);
 
 		labelSurNameImg = new JLabel("");
 		Image imgSurName = new ImageIcon(this.getClass().getResource("name.png")).getImage();
 		labelSurNameImg.setIcon(new ImageIcon(imgSurName));
-		labelSurNameImg.setBounds(65, 82, 25, 25);
+		labelSurNameImg.setBounds(75, 87, 25, 25);
 		panel.add(labelSurNameImg);
 
 		labelEmailImg = new JLabel("");
 		Image imgEmail = new ImageIcon(this.getClass().getResource("email.png")).getImage();
 		labelEmailImg.setIcon(new ImageIcon(imgEmail));
-		labelEmailImg.setBounds(45, 113, 25, 25);
+		labelEmailImg.setBounds(49, 121, 25, 25);
 		panel.add(labelEmailImg);
 
 		labelPhoneImg = new JLabel("");
 		Image imgPhone = new ImageIcon(this.getClass().getResource("phone.png")).getImage();
 		labelPhoneImg.setIcon(new ImageIcon(imgPhone));
-		labelPhoneImg.setBounds(98, 143, 25, 25);
+		labelPhoneImg.setBounds(110, 156, 25, 25);
 		panel.add(labelPhoneImg);
 
 		labelAmkaImg = new JLabel("");
 		Image imgAmka = new ImageIcon(this.getClass().getResource("amka.png")).getImage();
 		labelAmkaImg.setIcon(new ImageIcon(imgAmka));
-		labelAmkaImg.setBounds(38, 172, 25, 25);
+		labelAmkaImg.setBounds(38, 191, 25, 25);
 		panel.add(labelAmkaImg);
 
 		labelDangerImg = new JLabel("");
 		Image imgDanger = new ImageIcon(this.getClass().getResource("danger.png")).getImage();
-		labelDangerImg.setBounds(50, 263, 25, 25);
+		labelDangerImg.setBounds(63, 297, 25, 25);
 		labelDangerImg.setIcon(new ImageIcon(imgDanger));
 		panel.add(labelDangerImg);
 
 		labelRelationshipImg = new JLabel("");
 		Image imgRelationship = new ImageIcon(this.getClass().getResource("relationship.png")).getImage();
-		labelRelationshipImg.setBounds(115, 232, 25, 25);
+		labelRelationshipImg.setBounds(119, 262, 25, 25);
 		labelRelationshipImg.setIcon(new ImageIcon(imgRelationship));
 		panel.add(labelRelationshipImg);
 
 		labelIdImg = new JLabel("");
 		Image imgId = new ImageIcon(this.getClass().getResource("conId.png")).getImage();
-		labelIdImg.setBounds(83, 202, 25, 25);
+		labelIdImg.setBounds(98, 226, 25, 25);
 		labelIdImg.setIcon(new ImageIcon(imgId));
 		panel.add(labelIdImg);
 
@@ -455,7 +454,7 @@ public class EditVictimContact extends JFrame {
 					}
 				}
 				for (int i = 0; i < 10; i++) {
-					if (matrixTemp[i][0] != null) {
+					if (matrixNew[i][0] != null) {
 						try {
 							if (!matrixTemp[i][0].equals(matrixNew[i][0])) {
 								String s = AllPeople.setName(matrixNew[i][0]);
@@ -515,7 +514,7 @@ public class EditVictimContact extends JFrame {
 				matrixTemp = null;
 				idToDelete = null;
 				dispose();
-				new Message("Your personal information has been submited successfully. Thank you!", 120);
+				new Message("Your personal information has been submited successfully. Thank you!", 120, 40);
 			}
 		});
 		buttonSub.setBounds(10, 386, 245, 45);
@@ -544,7 +543,7 @@ public class EditVictimContact extends JFrame {
 				});
 			}
 		});
-		buttonCancel.setBounds(10, 450, 240, 45);
+		buttonCancel.setBounds(10, 451, 245, 45);
 		Image imgCancel = new ImageIcon(this.getClass().getResource("cancel.png")).getImage();
 		buttonCancel.setIcon(new ImageIcon(imgCancel));
 		panel.add(buttonCancel);

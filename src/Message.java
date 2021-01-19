@@ -20,13 +20,13 @@ public class Message extends JFrame implements ActionListener {
 	protected static JButton buttonExitNew;
 	protected static JButton buttonCancel;
 
-	public Message(String message, int bound) {
+	public Message(String message, int boundm, int boundi) {
 		obj = new Registration();
 
 		label = new JLabel("");
 		Image img = new ImageIcon(this.getClass().getResource("success.png")).getImage();
 		label.setIcon(new ImageIcon(img));
-		label.setBounds(30, 30, 60, 40);
+		label.setBounds(boundi, 30, 60, 40);
 
 		labelHomePageImg = new JLabel("");
 		Image imgPhone = new ImageIcon(this.getClass().getResource("homePage.png")).getImage();
@@ -36,7 +36,7 @@ public class Message extends JFrame implements ActionListener {
 		panel = new JPanel();
 
 		success = new JLabel(message);
-		success.setBounds(bound, 40, 400, 25);
+		success.setBounds(boundm, 40, 400, 25);
 		panel.add(success);
 
 		buttonHomePageNew = new JButton("Home Page");

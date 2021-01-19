@@ -51,7 +51,7 @@ public class Cured_PassedAway extends JFrame {
 		setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
-		// panel.setBackground(new Color(176, 196, 222));
+		panel.setBackground(new Color(176, 196, 222));
 		panel.setBounds(0, 0, 1092, 452);
 		contentPane.add(panel);
 		panel.setLayout(null);

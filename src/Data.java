@@ -36,7 +36,7 @@ public class Data extends JFrame {
 
 	public Data() throws Exception {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1458, 800);
+		setBounds(100, 100, 1456, 775);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Data");
@@ -47,12 +47,12 @@ public class Data extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(176, 196, 222));
-		panel.setBounds(0, 0, 1452, 769);
+		panel.setBounds(0, 0, 1442, 739);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 49, 760, 630);
+		scrollPane.setBounds(10, 48, 700, 627);
 		panel.add(scrollPane);
 
 		JLabel lblNewLabel = new JLabel("Confirmed Cases");
@@ -99,7 +99,7 @@ public class Data extends JFrame {
 				new PrintMenu();
 			}
 		});
-		btnNewButton.setBounds(629, 690, 223, 54);
+		btnNewButton.setBounds(605, 686, 223, 33);
 		panel.add(btnNewButton);
 
 		labelEditCon = new JLabel("");
@@ -123,12 +123,12 @@ public class Data extends JFrame {
 			}
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton_1.setBounds(275, 690, 223, 54);
+		btnNewButton_1.setBounds(10, 686, 223, 33);
 		btnNewButton_1.setIcon(new ImageIcon(imgEditCon));
 		panel.add(btnNewButton_1);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(780, 49, 660, 630);
+		scrollPane_1.setBounds(720, 48, 700, 627);
 		panel.add(scrollPane_1);
 
 		// Victim Contact
@@ -181,7 +181,7 @@ public class Data extends JFrame {
 			}
 		});
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton_1_1.setBounds(961, 690, 223, 54);
+		btnNewButton_1_1.setBounds(1197, 686, 223, 33);
 		btnNewButton_1_1.setIcon(new ImageIcon(imgEditVictim));
 		panel.add(btnNewButton_1_1);
 

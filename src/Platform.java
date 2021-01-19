@@ -18,10 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JCheckBox;
 
-import java.sql.*;
-import javax.swing.JToggleButton;
 import javax.swing.JRadioButton;
 
 public class Platform extends JFrame {
@@ -44,7 +41,7 @@ public class Platform extends JFrame {
 	protected static JLabel labelChangeUserImg;
 	protected static DefaultTableModel model;
 	protected static Object[] row = new Object[10];
-	protected Confirmed[] con = new Confirmed[2];
+	protected Confirmed[] con = new Confirmed[10];
 	static Object[] column = { "Name", "Surname", "Email", "Phone Number", "SSN", "Area", "Street", "Street Number",
 			"Zip", "Active Status" };
 	protected final static Object[] row_1 = new Object[8];
@@ -77,7 +74,6 @@ public class Platform extends JFrame {
 	protected JLabel labelStreetNumberImg;
 	protected JLabel labelZipImg;
 	protected JLabel labelActiveStatusImg;
-	private boolean flagAdd = true;
 
 	public Platform() throws Exception {
 		persondao = new PersonJdbo();
@@ -89,7 +85,7 @@ public class Platform extends JFrame {
 
 	public void draw() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1315, 535);
+		setBounds(100, 100, 1308, 538);
 		setTitle("Personal information");
 		setResizable(false);
 		contentPane = new JPanel();
@@ -100,7 +96,7 @@ public class Platform extends JFrame {
 
 		panel = new JPanel();
 		panel.setBackground(new Color(176, 196, 222));
-		panel.setBounds(10, 0, 1309, 506);
+		panel.setBounds(2, 2, 1299, 506);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -251,7 +247,7 @@ public class Platform extends JFrame {
 							"You Can Not Add more Than " + con.length + " People At A Time! Press Submit.");
 				} else {
 					number++;
-					int checkForNull = 0; // Elegxos egkyrothtas
+					int checkForNull = 0;
 					if (persondao.constraints(nameText.getText(), "String", 50)) {
 						row[0] = nameText.getText();
 						checkForNull++;
@@ -459,14 +455,14 @@ public class Platform extends JFrame {
 						e1.printStackTrace();
 					}
 					try {
-						// Communication.sendMailToConfirmedCases((String) row[2]);
+						Communication.sendMailToConfirmedCases((String) row[2]);
 					} catch (Exception e2) {
 						System.out.println(e2.getMessage());
 						System.out.println(e2.getCause());
 					}
 
 					dispose();
-					new Message("Your personal information has been submited successfully. Thank you!", 120);
+					new Message("Your personal information has been submited successfully. Thank you!", 120, 40);
 				}
 
 			}
