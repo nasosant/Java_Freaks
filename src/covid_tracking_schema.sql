@@ -2,8 +2,6 @@
 -- DROP DATABASE covid_tracking;
 USE covid_tracking;
 
-DROP TABLE low_danger;
-DROP TABLE high_danger;
 DROP TABLE victim_contacts;
 DROP TABLE deceased;
 DROP TABLE cured;
@@ -50,20 +48,6 @@ CREATE TABLE victim_contacts(
 	victim_relationship VARCHAR(50) NOT NULL,
     danger VARCHAR(4) NOT NULL,
 	CONSTRAINT FK_victim_contacts_confirmed_id FOREIGN KEY (confirmed_id) REFERENCES confirmed (id)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE
-);
- 
-CREATE TABLE high_danger(
-	id INT PRIMARY KEY,
-	CONSTRAINT FK_high_danger_id FOREIGN KEY (id) REFERENCES victim_contacts (id)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE
-);
- 
-CREATE TABLE low_danger(
-	id INT PRIMARY KEY,
-	CONSTRAINT FK_low_danger_id FOREIGN KEY (id) REFERENCES victim_contacts (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
