@@ -38,7 +38,6 @@ public class EditConfirmed extends JFrame {
 	protected static JTextField zipText;
 	protected JPanel contentPane;
 	protected JTable table;
-	protected static JLabel labelChangeUserImg;
 	protected static DefaultTableModel model;
 	protected static Object[] column = { "Name", "Surname", "Email", "Phone Number", "SSN", "Area", "Street",
 			"Street Number", "Zip", "Active Status", "Id" };
@@ -49,7 +48,7 @@ public class EditConfirmed extends JFrame {
 	protected static int numberDel = -1;
 	protected static int numberNew = -1;
 	protected static int numberTemp = -1;
-	boolean flag = false;
+	boolean flag = false; // to svino?????
 	protected JPanel panel;
 	// Label
 	protected JLabel lblName;
@@ -350,8 +349,8 @@ public class EditConfirmed extends JFrame {
 					unvalidAMKA = true;
 				} else {
 					// Check for same AMKA in temporary UpdateList
-					for (int i = 0; i < numberTemp; i++) {
-						if (matrixTemp[i][4].equals(tempAMKA)) {
+					for (int i = 0; i <= numberNew; i++) {
+						if (matrixTemp[i][4].equals(tempAMKA) && !matrixTemp[numberTemp][4].equals(tempAMKA)) {
 							unvalidAMKA = true;
 							break;
 						}
@@ -384,7 +383,8 @@ public class EditConfirmed extends JFrame {
 						if (persondao.constraints(emailText.getText(), "String", 50)) {
 							checkForNull++;
 						}
-						if (persondao.constraints(phoneNumberText.getText(), "int", 10)) {
+						if (persondao.constraints(phoneNumberText.getText(), "int", 10)
+								&& phoneNumberText.getText().length() == 10) {
 							checkForNull++;
 						}
 						if (persondao.constraints(areaText.getText(), "String", 50)) {
@@ -393,7 +393,7 @@ public class EditConfirmed extends JFrame {
 						if (persondao.constraints(streetText.getText(), "String", 50)) {
 							checkForNull++;
 						}
-						if (persondao.constraints(streetNumberText.getText(), "int", 1000)) {
+						if (persondao.constraints(streetNumberText.getText(), "int", Integer.MAX_VALUE)) {
 							checkForNull++;
 						}
 						if (persondao.constraints(zipText.getText(), "int", 5)) {
@@ -433,6 +433,15 @@ public class EditConfirmed extends JFrame {
 						matrixTemp[numberTemp][k] = null;
 					}
 				}
+				nameText.setText("");
+				surnameText.setText("");
+				emailText.setText("");
+				phoneNumberText.setText("");
+				ssnText.setText("");
+				areaText.setText("");
+				streetText.setText("");
+				streetNumberText.setText("");
+				zipText.setText("");
 			}
 		});
 		btnUpdate.setBounds(298, 459, 230, 25);
@@ -544,6 +553,15 @@ public class EditConfirmed extends JFrame {
 						break;
 					}
 				}
+				nameText.setText("");
+				surnameText.setText("");
+				emailText.setText("");
+				phoneNumberText.setText("");
+				ssnText.setText("");
+				areaText.setText("");
+				streetText.setText("");
+				streetNumberText.setText("");
+				zipText.setText("");
 				numberTemp = 0;
 				numberNew = 0;
 				matrixNew = null;

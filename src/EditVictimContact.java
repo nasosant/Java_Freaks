@@ -41,7 +41,6 @@ public class EditVictimContact extends JFrame {
 	protected static JTextField danger;
 	protected JPanel contentPane;
 	protected JTable table;
-	protected static JLabel labelChangeUserImg;
 	protected static DefaultTableModel model;
 	protected Object[] column = { "Name", "Surname", "Email", "Phone Number", "SSN", "Confirmed Id",
 			"Victim Relationship", "Danger", "Id" };
@@ -52,7 +51,7 @@ public class EditVictimContact extends JFrame {
 	protected static int numberDel = -1;
 	protected static int numberNew = -1;
 	protected static int numberTemp = -1;
-	boolean flag = false;
+	boolean flag = false; // to svino?????
 	protected JPanel panel;
 	// Label
 	protected JLabel lblName;
@@ -74,8 +73,6 @@ public class EditVictimContact extends JFrame {
 	protected JLabel labelDangerImg;
 
 	protected JScrollPane scrollPane;
-	protected JCheckBox checkBoxYes;
-	protected JCheckBox checkBoxNo;
 	protected PersonJdbo persondao;
 
 	public EditVictimContact() throws Exception {
@@ -312,7 +309,7 @@ public class EditVictimContact extends JFrame {
 				} else {
 					// Check for same AMKA in temporary UpdateList
 					for (int i = 0; i < numberTemp; i++) {
-						if (matrixTemp[i][4].equals(tempAMKA)) {
+						if (matrixTemp[i][4].equals(tempAMKA) && !matrixTemp[numberTemp][4].equals(tempAMKA)) {
 							unvalidAMKA = true;
 							break;
 						}
@@ -344,7 +341,8 @@ public class EditVictimContact extends JFrame {
 						if (persondao.constraints(emailText.getText(), "String", 50)) {
 							checkForNull++;
 						}
-						if (persondao.constraints(phoneNumberText.getText(), "int", 10)) {
+						if (persondao.constraints(phoneNumberText.getText(), "int", 10)
+								&& phoneNumberText.getText().length() == 10) {
 							checkForNull++;
 						}
 						if (persondao.constraints(confirmed_idText.getText(), "int", Integer.MAX_VALUE)) {
@@ -356,7 +354,7 @@ public class EditVictimContact extends JFrame {
 						if (persondao.constraints(dangerText.getText(), "String", 4)) {
 							checkForNull++;
 						}
-						if (checkForNull == 8) {
+						if (checkForNull == 7) {
 							model.setValueAt(surnameText.getText(), i, 1);
 							model.setValueAt(nameText.getText(), i, 0);
 							model.setValueAt(emailText.getText(), i, 2);
@@ -388,6 +386,14 @@ public class EditVictimContact extends JFrame {
 						matrixTemp[numberTemp][k] = null;
 					}
 				}
+				nameText.setText("");
+				surnameText.setText("");
+				emailText.setText("");
+				phoneNumberText.setText("");
+				ssnText.setText("");
+				confirmed_idText.setText("");
+				victim_relationshipText.setText("");
+				dangerText.setText("");
 			}
 		});
 		btnUpdate.setBounds(294, 465, 230, 30);
@@ -494,6 +500,15 @@ public class EditVictimContact extends JFrame {
 						break;
 					}
 				}
+				nameText.setText("");
+				surnameText.setText("");
+				emailText.setText("");
+				phoneNumberText.setText("");
+				ssnText.setText("");
+				areaText.setText("");
+				streetText.setText("");
+				streetNumberText.setText("");
+				zipText.setText("");
 				numberTemp = 0;
 				numberNew = 0;
 				matrixNew = null;

@@ -270,7 +270,8 @@ public class Platform extends JFrame {
 					} else {
 						emailText.setText("");
 					}
-					if (persondao.constraints(phoneNumberText.getText(), "int", 10)) {
+					if (persondao.constraints(phoneNumberText.getText(), "int", 10)
+							&& phoneNumberText.getText().length() == 10) {
 						row[3] = phoneNumberText.getText();
 						checkForNull++;
 					} else {
@@ -291,13 +292,13 @@ public class Platform extends JFrame {
 					} else {
 						streetText.setText("");
 					}
-					if (persondao.constraints(streetNumberText.getText(), "int", 10)) {
+					if (persondao.constraints(streetNumberText.getText(), "int", Integer.MAX_VALUE)) {
 						row[7] = streetNumberText.getText();
 						checkForNull++;
 					} else {
 						streetNumberText.setText("");
 					}
-					if (persondao.constraints(zipText.getText(), "int", 10)) {
+					if (persondao.constraints(zipText.getText(), "int", 5)) {
 						row[8] = zipText.getText();
 						checkForNull++;
 					} else {
