@@ -1,5 +1,3 @@
-package Covid_tracking;
-
 import Covid_tracking.Communication;
 
 import javax.mail.*;
@@ -116,8 +114,7 @@ public class ReceiveMail {
 			}
 
 			if (world.equals("L")) {
-                danger = "High";
-
+				danger = "Low";
 			}
 			break;
 		case (3):
@@ -126,19 +123,20 @@ public class ReceiveMail {
 		case (2):
 			name = world;
 			break;
-        case (4):
-            email = world;
-            break;
-            case (5):
-                phonenumber = world;
-                break;
-            case (6) :
-                AMKA = world;
-            case (7) :
-                victim_relationship = world;
-
-
-        }
+		case (4):
+			email = world;
+			break;
+		case (5):
+			phonenumber = world;
+			break;
+		case (6):
+			AMKA = world;
+			break;
+		case (7):
+			victim_relationship = world;
+		PersonJdbo persondao = new PersonJdbo();
+		persondao.addVictimContact(new VictimContact(name, surname, email, Integer.parseInt(phonenumber), Integer.parseInt(AMKA), victim_relationship, danger));
+		}
 
 	}
 

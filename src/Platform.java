@@ -181,7 +181,7 @@ public class Platform extends JFrame {
 
 		streetNumberText = new JTextField();
 		streetNumberText.setColumns(10);
-		streetNumberText.setBounds(129, 295, 160, 20);
+		streetNumberText.setBounds(129, 265, 160, 20);
 		panel.add(streetNumberText);
 
 		lblNewLabel_6 = new JLabel("Zip");
@@ -191,7 +191,7 @@ public class Platform extends JFrame {
 
 		zipText = new JTextField();
 		zipText.setColumns(10);
-		zipText.setBounds(129, 265, 160, 20);
+		zipText.setBounds(129, 295, 160, 20);
 		panel.add(zipText);
 
 		lblNewLabel_7 = new JLabel("Active Status");
@@ -225,7 +225,10 @@ public class Platform extends JFrame {
 					unvalidAMKA = true;
 				} else {
 					// Check for same AMKA in temporary AddList
-					for (int i = 0; i < number; i++) {
+					for (int i = 0; i < con.length; i++) {
+						if (con[i] == null) {
+							break;
+						}
 						if (con[i].AMKA == Integer.parseInt(tempAMKA)) {
 							unvalidAMKA = true;
 							break;
@@ -343,51 +346,87 @@ public class Platform extends JFrame {
 		JButton btnUpdate = new JButton("Change");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String tempAMKA = ssnText.getText();
-				boolean unvalidAMKA = false;
-				// Check for a valid AMKA
-				if (persondao.constraints(tempAMKA, "int", 9) == false || tempAMKA.length() != 9) {
-					unvalidAMKA = true;
-				} else {
-					// Check for same AMKA in temporary AddList
-					for (int i = 0; i < con.length; i++) {
-						if (con[i].AMKA == Integer.parseInt(tempAMKA)) {
-							unvalidAMKA = true;
-							break;
-						}
-						if (con[i + 1] == null) {
-							break;
-						}
-					}
-				}
-
-				if (unvalidAMKA) {
-					JOptionPane.showMessageDialog(null, "Please Enter A Valid SSN");
-					ssnText.setText("");
-				} else {
-					int i = table.getSelectedRow();
-					if (i >= 0) {
-						model.setValueAt(nameText.getText(), i, 0);
-						model.setValueAt(surnameText.getText(), i, 1);
-						model.setValueAt(emailText.getText(), i, 2);
-						model.setValueAt(phoneNumberText.getText(), i, 3);
-						model.setValueAt(tempAMKA, i, 4);
-						model.setValueAt(areaText.getText(), i, 5);
-						model.setValueAt(streetText.getText(), i, 6);
-						model.setValueAt(streetNumberText.getText(), i, 7);
-						model.setValueAt(zipText.getText(), i, 8);
-						if (checkBoxYes.isSelected()) {
-							row[9] = true;
-							model.setValueAt(true, i, 9);
-						} else if (checkBoxNo.isSelected()) {
-							row[9] = false;
-							model.setValueAt(false, i, 9);
-						}
-
-						JOptionPane.showMessageDialog(null, "Updated Successfully");
+				int rowOfOld = table.getSelectedRow();
+				if (rowOfOld >= 0) {
+					String oldAMKA = model.getValueAt(rowOfOld, 4).toString();
+					String tempAMKA = ssnText.getText();
+					boolean unvalidAMKA = false;
+					// Check for a valid AMKA
+					if (persondao.constraints(tempAMKA, "int", 9) == false || tempAMKA.length() != 9) {
+						unvalidAMKA = true;
 					} else {
-						JOptionPane.showMessageDialog(null, "Please Select a Row First");
+						// Check for same AMKA in temporary AddList
+						for (int i = 0; i < con.length; i++) {
+							if (con[i].AMKA == Integer.parseInt(tempAMKA) && !oldAMKA.equals(tempAMKA)) {
+								unvalidAMKA = true;
+								break;
+							}
+							if (con[i + 1] == null) {
+								break;
+							}
+						}
 					}
+					if (nameText.getText().equals("") || surnameText.getText().equals("")
+							|| emailText.getText().equals("") || phoneNumberText.getText().equals("")
+							|| ssnText.getText().equals("") || areaText.getText().equals("")
+							|| streetText.getText().equals("") || streetNumberText.getText().equals("")
+							|| zipText.getText().equals("")
+							|| (!checkBoxYes.isSelected() && !checkBoxNo.isSelected())) {
+						JOptionPane.showMessageDialog(null, "Please Fill Complete Information");
+					} else if (persondao.checkAMKA(tempAMKA) || unvalidAMKA) {
+						JOptionPane.showMessageDialog(null, "Please Enter A Valid SSN");
+						ssnText.setText("");
+					} else {
+						model.setValueAt(nameText.getText(), rowOfOld, 0);
+						model.setValueAt(surnameText.getText(), rowOfOld, 1);
+						model.setValueAt(emailText.getText(), rowOfOld, 2);
+						model.setValueAt(phoneNumberText.getText(), rowOfOld, 3);
+						model.setValueAt(tempAMKA, rowOfOld, 4);
+						model.setValueAt(areaText.getText(), rowOfOld, 5);
+						model.setValueAt(streetText.getText(), rowOfOld, 6);
+						model.setValueAt(streetNumberText.getText(), rowOfOld, 7);
+						model.setValueAt(zipText.getText(), rowOfOld, 8);
+						if (persondao.constraints(nameText.getText(), "String", 50)) {
+							con[rowOfOld].name = nameText.getText();
+						}
+						if (persondao.constraints(surnameText.getText(), "String", 50)) {
+							con[rowOfOld].surname = surnameText.getText();
+						}
+						if (persondao.constraints(emailText.getText(), "String", 50)) {
+							con[rowOfOld].email = emailText.getText();
+						}
+						if (persondao.constraints(phoneNumberText.getText(), "int", 10)
+								&& phoneNumberText.getText().length() == 10) {
+							con[rowOfOld].phonenumber = Integer.parseInt(phoneNumberText.getText());
+						}
+
+						con[rowOfOld].AMKA = Integer.parseInt(tempAMKA);
+
+						if (persondao.constraints(areaText.getText(), "String", 50)) {
+							con[rowOfOld].area = areaText.getText();
+						}
+						if (persondao.constraints(streetText.getText(), "String", 50)) {
+							con[rowOfOld].street = streetText.getText();
+						}
+						if (persondao.constraints(streetNumberText.getText(), "int", Integer.MAX_VALUE)) {
+							con[rowOfOld].street_number = Integer.parseInt(streetNumberText.getText());
+						}
+						if (persondao.constraints(zipText.getText(), "String", 50)) {
+							con[rowOfOld].zip = Integer.parseInt(zipText.getText());
+						}
+						nameText.setText("");
+						surnameText.setText("");
+						emailText.setText("");
+						phoneNumberText.setText("");
+						ssnText.setText("");
+						areaText.setText("");
+						streetText.setText("");
+						streetNumberText.setText("");
+						zipText.setText("");
+						JOptionPane.showMessageDialog(null, "Updated Successfully");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Please Select a Row First");
 				}
 			}
 		});
@@ -420,7 +459,26 @@ public class Platform extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int k = table.getSelectedRow();
 				if (k >= 0) {
+					con[k] = null;
+					for (int i = k; i < con.length; i++) {
+						if (con[i + 1] != null) {
+							con[i] = con[i + 1];
+						} else {
+							con[i] = null;
+							number--;
+							break;
+						}
+					}
 					model.removeRow(k);
+					nameText.setText("");
+					surnameText.setText("");
+					emailText.setText("");
+					phoneNumberText.setText("");
+					ssnText.setText("");
+					areaText.setText("");
+					streetText.setText("");
+					streetNumberText.setText("");
+					zipText.setText("");
 					JOptionPane.showMessageDialog(null, "Informations Deleted Successfully");
 				} else {
 					JOptionPane.showMessageDialog(null, "Please Select a Row First");
@@ -455,7 +513,7 @@ public class Platform extends JFrame {
 						e1.printStackTrace();
 					}
 					try {
-						Communication.sendMailToConfirmedCases((String) row[2]);
+						// Communication.sendMailToConfirmedCases((String) row[2]);
 					} catch (Exception e2) {
 						System.out.println(e2.getMessage());
 						System.out.println(e2.getCause());

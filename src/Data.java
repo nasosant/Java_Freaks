@@ -25,9 +25,9 @@ public class Data extends JFrame {
 	protected Object[] column = { "Id", "Name", "Surname", "Email", "Phone Number", "SSN", "Address", "Has Covid" };
 	protected final static Object[] row = new Object[8];
 	protected static DefaultTableModel model_1;
-	protected Object[] column_1 = { "Id", "Name", "Surname", "Email", "Phone Number", "SSN", "Confirmed Id",
-			"Victim Relationship", "Danger" };
-	protected final static Object[] row_1 = new Object[9];
+	protected Object[] column_1 = { "Id", "Name", "Surname", "Email", "Phone Number", "SSN", "Victim Relationship",
+			"Danger" };
+	protected final static Object[] row_1 = new Object[8];
 	private JTable table_1;
 	private JLabel labelEditCon;
 	private JLabel labelEditVictim;
@@ -153,9 +153,8 @@ public class Data extends JFrame {
 				row_1[3] = victim.email;
 				row_1[4] = victim.phonenumber;
 				row_1[5] = victim.AMKA;
-				row_1[6] = victim.confirmed_id;
-				row_1[7] = victim.victim_relationship;
-				row_1[8] = victim.danger;
+				row_1[6] = victim.victim_relationship;
+				row_1[7] = victim.danger;
 				model_1.addRow(row_1);
 			}
 		}

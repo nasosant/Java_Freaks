@@ -29,9 +29,6 @@ public class EditConfirmed extends JFrame {
 	protected static JTextField emailText;
 	protected static JTextField phoneNumberText;
 	protected static JTextField ssnText;
-	protected static JTextField confirmed_idText;
-	protected static JTextField victim_relationshipText;
-	protected static JTextField dangerText;
 	protected static JTextField areaText;
 	protected static JTextField streetText;
 	protected static JTextField streetNumberText;
@@ -326,9 +323,17 @@ public class EditConfirmed extends JFrame {
 				} else {
 					// Check for same AMKA in temporary UpdateList
 					for (int i = 0; i <= numberNew; i++) {
-						if (matrixTemp[i][4].equals(tempAMKA) && !matrixTemp[numberTemp][4].equals(tempAMKA)) {
-							unvalidAMKA = true;
-							break;
+						try {
+							// ---------------------------------------------------------------------------------------------------
+							System.out.println(tempAMKA);
+							System.out.println(matrixTemp[i][4]);
+							System.out.println(matrixTemp[numberTemp][4]);
+							if (matrixTemp[i][4].equals(tempAMKA) && !matrixTemp[numberTemp][4].equals(tempAMKA)) {
+								unvalidAMKA = true;
+								break;
+							}
+						} catch (Exception e1) {
+							System.out.println("");
 						}
 					}
 				}
@@ -470,7 +475,6 @@ public class EditConfirmed extends JFrame {
 					for (int i = 0; i < idToDelete.length; i++) {
 						try {
 							persondao.removePerson(idToDelete[i], "confirmed");
-							JOptionPane.showMessageDialog(null, "Deleted Successfully");
 						} catch (Exception e1) {
 							System.out.println("In Method: EditConfirmed.DeleteButton\nException: " + e1.getMessage());
 						}
@@ -518,7 +522,6 @@ public class EditConfirmed extends JFrame {
 								String s = Confirmed.setZip(Integer.parseInt(matrixNew[i][8]));
 								persondao.alterTables(Integer.parseInt(matrixTemp[i][9]), "confirmed", s);
 							}
-							JOptionPane.showMessageDialog(null, "Updated Successfully");
 						} catch (NumberFormatException e1) {
 							e1.printStackTrace();
 						} catch (Exception e1) {
@@ -543,7 +546,7 @@ public class EditConfirmed extends JFrame {
 				matrixTemp = null;
 				idToDelete = null;
 				dispose();
-				new Message("Your personal information has been submited successfully. Thank you!", 120, 40);
+				new Message("The information has been submited successfully. Thank you!", 120, 40);
 			}
 		});
 		buttonSub.setBounds(10, 375, 245, 45);

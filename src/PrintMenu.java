@@ -179,7 +179,12 @@ public class PrintMenu extends JFrame implements ActionListener {
 				}
 			});
 		} else if (e.getSource() == buttonEmail) {
-			// dispose();
+			dispose();
+			try {
+				ReceiveMail.receiveMail();
+			} catch (Exception e1) {
+				e1.getStackTrace();
+			}​​
 		}
 	}
 }

@@ -32,19 +32,12 @@ public class EditVictimContact extends JFrame {
 	protected static JTextField confirmed_idText;
 	protected static JTextField victim_relationshipText;
 	protected static JTextField dangerText;
-	protected static JTextField areaText;
-	protected static JTextField streetText;
-	protected static JTextField streetNumberText;
-	protected static JTextField zipText;
-	protected static JTextField confirmedId;
-	protected static JTextField victimRelationship;
-	protected static JTextField danger;
 	protected JPanel contentPane;
 	protected JTable table;
 	protected static DefaultTableModel model;
-	protected Object[] column = { "Name", "Surname", "Email", "Phone Number", "SSN", "Confirmed Id",
+	protected Object[] column = { "Name", "Surname", "Email", "Phone Number", "SSN",
 			"Victim Relationship", "Danger", "Id" };
-	protected final static Object[] row = new Object[9];
+	protected final static Object[] row = new Object[8];
 	protected String[][] matrixNew = new String[10][8];
 	protected String[][] matrixTemp = new String[10][8];
 	protected int[] idToDelete = new int[10];
@@ -170,15 +163,15 @@ public class EditVictimContact extends JFrame {
 		confirmed_idText.setBounds(145, 231, 139, 20);
 		panel.add(confirmed_idText);
 
-		victimRelationship = new JTextField();
-		victimRelationship.setColumns(10);
-		victimRelationship.setBounds(145, 266, 139, 20);
-		panel.add(victimRelationship);
+		victim_relationshipText = new JTextField();
+		victim_relationshipText.setColumns(10);
+		victim_relationshipText.setBounds(145, 266, 139, 20);
+		panel.add(victim_relationshipText);
 
-		danger = new JTextField();
-		danger.setColumns(10);
-		danger.setBounds(145, 300, 139, 20);
-		panel.add(danger);
+		dangerText = new JTextField();
+		dangerText.setColumns(10);
+		dangerText.setBounds(145, 300, 139, 20);
+		panel.add(dangerText);
 
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(295, 52, 1005, 402);
@@ -274,16 +267,13 @@ public class EditVictimContact extends JFrame {
 				ssnText.setText(model.getValueAt(i, 4).toString());
 				matrixTemp[numberTemp][4] = model.getValueAt(i, 4).toString();
 
-				confirmed_idText.setText(model.getValueAt(i, 5).toString());
+				victim_relationshipText.setText(model.getValueAt(i, 5).toString());
 				matrixTemp[numberTemp][5] = model.getValueAt(i, 5).toString();
 
-				victim_relationshipText.setText(model.getValueAt(i, 6).toString());
+				dangerText.setText(model.getValueAt(i, 6).toString());
 				matrixTemp[numberTemp][6] = model.getValueAt(i, 6).toString();
 
-				dangerText.setText(model.getValueAt(i, 7).toString());
 				matrixTemp[numberTemp][7] = model.getValueAt(i, 7).toString();
-
-				matrixTemp[numberTemp][8] = model.getValueAt(i, 8).toString();
 			}
 		});
 		scrollPane.setViewportView(table);
@@ -317,8 +307,7 @@ public class EditVictimContact extends JFrame {
 				// some others checks ....
 				if (nameText.getText().equals("") || surnameText.getText().equals("") || emailText.getText().equals("")
 						|| phoneNumberText.getText().equals("") || ssnText.getText().equals("")
-						|| confirmed_idText.getText().equals("") || victim_relationshipText.getText().equals("")
-						|| dangerText.getText().equals("")) {
+						|| victim_relationshipText.getText().equals("") || dangerText.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Please Fill Complete Information");
 				} else if (unvalidAMKA) {
 					JOptionPane.showMessageDialog(null, "Please Enter A Valid SSN");
@@ -344,9 +333,6 @@ public class EditVictimContact extends JFrame {
 								&& phoneNumberText.getText().length() == 10) {
 							checkForNull++;
 						}
-						if (persondao.constraints(confirmed_idText.getText(), "int", Integer.MAX_VALUE)) {
-							checkForNull++;
-						}
 						if (persondao.constraints(victim_relationshipText.getText(), "String", 50)) {
 							checkForNull++;
 						}
@@ -359,18 +345,16 @@ public class EditVictimContact extends JFrame {
 							model.setValueAt(emailText.getText(), i, 2);
 							model.setValueAt(phoneNumberText.getText(), i, 3);
 							model.setValueAt(tempAMKA, i, 4);
-							model.setValueAt(confirmed_idText.getText(), i, 5);
-							model.setValueAt(victim_relationshipText.getText(), i, 6);
-							model.setValueAt(dangerText.getText(), i, 7);
+							model.setValueAt(victim_relationshipText.getText(), i, 5);
+							model.setValueAt(dangerText.getText(), i, 6);
 
 							matrixNew[numberNew][0] = nameText.getText();
 							matrixNew[numberNew][1] = surnameText.getText();
 							matrixNew[numberNew][2] = emailText.getText();
 							matrixNew[numberNew][3] = phoneNumberText.getText();
 							matrixNew[numberNew][4] = tempAMKA;
-							matrixNew[numberNew][5] = confirmed_idText.getText();
-							matrixNew[numberNew][6] = victim_relationshipText.getText();
-							matrixNew[numberNew][7] = dangerText.getText();
+							matrixNew[numberNew][5] = victim_relationshipText.getText();
+							matrixNew[numberNew][6] = dangerText.getText();
 						} else {
 							JOptionPane.showMessageDialog(null, "Enter Valid Information");
 							numberNew--;
@@ -381,7 +365,7 @@ public class EditVictimContact extends JFrame {
 					}
 				}
 				if (numberNew != numberTemp) {
-					for (int k = 0; k < 9; k++) {
+					for (int k = 0; k < 8; k++) {
 						matrixTemp[numberTemp][k] = null;
 					}
 				}
@@ -390,7 +374,6 @@ public class EditVictimContact extends JFrame {
 				emailText.setText("");
 				phoneNumberText.setText("");
 				ssnText.setText("");
-				confirmed_idText.setText("");
 				victim_relationshipText.setText("");
 				dangerText.setText("");
 			}
@@ -408,7 +391,6 @@ public class EditVictimContact extends JFrame {
 				emailText.setText("");
 				phoneNumberText.setText("");
 				ssnText.setText("");
-				confirmed_idText.setText("");
 				victim_relationshipText.setText("");
 				dangerText.setText("");
 			}
@@ -424,11 +406,18 @@ public class EditVictimContact extends JFrame {
 				int k = table.getSelectedRow();
 				if (k >= 0) {
 					numberDel++;
-					idToDelete[numberDel] = Integer.parseInt(model.getValueAt(k, 10).toString());
+					idToDelete[numberDel] = Integer.parseInt(model.getValueAt(k, 8).toString());
 					model.removeRow(k);
 				} else {
 					JOptionPane.showMessageDialog(null, "Please Select a Row First");
 				}
+				nameText.setText("");
+				surnameText.setText("");
+				emailText.setText("");
+				phoneNumberText.setText("");
+				ssnText.setText("");
+				victim_relationshipText.setText("");
+				dangerText.setText("");
 			}
 		});
 		btnDelete.setBounds(672, 465, 230, 30);
@@ -443,8 +432,7 @@ public class EditVictimContact extends JFrame {
 				if (numberDel > -1) {
 					for (int i = 0; i < idToDelete.length; i++) {
 						try {
-							persondao.removePerson(idToDelete[i], "confirmed");
-							JOptionPane.showMessageDialog(null, "Deleted Successfully");
+							persondao.removePerson(idToDelete[i], "victim_contacts");
 						} catch (Exception e1) {
 							System.out.println("In Method: EditConfirmed.DeleteButton\nException: " + e1.getMessage());
 						}
@@ -460,7 +448,6 @@ public class EditVictimContact extends JFrame {
 								String s = AllPeople.setName(matrixNew[i][0]);
 								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
 							}
-
 							if (!matrixTemp[i][1].equals(matrixNew[i][1])) {
 								String s = AllPeople.setSurname(matrixNew[i][0]);
 								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
@@ -478,18 +465,13 @@ public class EditVictimContact extends JFrame {
 								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
 							}
 							if (!matrixTemp[i][5].equals(matrixNew[i][5])) {
-								String s = VictimContact.setConfirmed_id(Integer.parseInt(matrixNew[i][0]));
-								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
-							}
-							if (!matrixTemp[i][6].equals(matrixNew[i][6])) {
 								String s = VictimContact.setVictim_relationship(matrixNew[i][0]);
 								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
 							}
-							if (!matrixTemp[i][7].equals(matrixNew[i][7])) {
+							if (!matrixTemp[i][6].equals(matrixNew[i][6])) {
 								String s = VictimContact.setDanger(matrixNew[i][0]);
 								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
 							}
-							JOptionPane.showMessageDialog(null, "Updated Successfully");
 						} catch (NumberFormatException e1) {
 							e1.printStackTrace();
 						} catch (Exception e1) {
@@ -504,17 +486,15 @@ public class EditVictimContact extends JFrame {
 				emailText.setText("");
 				phoneNumberText.setText("");
 				ssnText.setText("");
-				areaText.setText("");
-				streetText.setText("");
-				streetNumberText.setText("");
-				zipText.setText("");
+				victim_relationshipText.setText("");
+				dangerText.setText("");
 				numberTemp = 0;
 				numberNew = 0;
 				matrixNew = null;
 				matrixTemp = null;
 				idToDelete = null;
 				dispose();
-				new Message("Your personal information has been submited successfully. Thank you!", 120, 40);
+				new Message("The information has been submited successfully. Thank you!", 120, 40);
 			}
 		});
 		buttonSub.setBounds(10, 386, 245, 45);
@@ -561,10 +541,9 @@ public class EditVictimContact extends JFrame {
 				row[2] = victim.email;
 				row[3] = victim.phonenumber;
 				row[4] = victim.AMKA;
-				row[5] = victim.confirmed_id;
-				row[6] = victim.victim_relationship;
-				row[7] = victim.danger;
-				row[8] = victim.vid;
+				row[5] = victim.victim_relationship;
+				row[6] = victim.danger;
+				row[7] = victim.vid;
 				model.addRow(row);
 			}
 		}
