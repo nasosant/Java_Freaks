@@ -1,6 +1,3 @@
-
-import Covid_tracking.Communication;
-
 import javax.mail.*;
 import javax.mail.Message;
 import java.io.BufferedReader;
@@ -90,7 +87,7 @@ public class ReceiveMail {
 					}
 				}
 
-				for (int i = 1; i < wordCount; i++) {
+				for (int i = 1; i <= wordCount; i++) {
 					try {
 						String helper = sc.next();
 
@@ -109,50 +106,51 @@ public class ReceiveMail {
 
 	public static void AnalyseW(String world, int a) {
 		switch (a) {
-			case (1):
-				if (world.equals("H")) {
-					danger = "High";
-				}
+		case (1):
+			if (world.equals("H")) {
+				danger = "High";
+			}
 
-				if (world.equals("L")) {
-					danger = "Low";
-				}
-				break;
-			case (3):
-				surname = world;
-				break;
-			case (2):
-				name = world;
-				break;
-			case (4):
-				email = world;
-				if (danger.equals("High")) {
-					try {
-						Communication.sendMailToHighDangerContacts(email);
-					} catch (Exception e) {
-						System.out.println(e.getMessage());
-					}
-				} else
-					try {
-						Communication.sendMailtoLowDangerContacts(email);
-					} catch (Exception e) {
-						System.out.println(e.getMessage());
-					}
-				break;
-			case (5):
-				phonenumber = world;
-				break;
-			case (6):
-				AMKA = world;
-				break;
-			case (7):
-				victim_relationship = world;
-				PersonJdbo persondao = new PersonJdbo();
+			if (world.equals("L")) {
+				danger = "Low";
+			}
+			break;
+		case (3):
+			surname = world;
+			break;
+		case (2):
+			name = world;
+			break;
+		case (4):
+			email = world;
+			if (danger.equals("High")) {
 				try {
-					persondao.addVictimContact(new VictimContact(name, surname, email, Integer.parseInt(phonenumber), Integer.parseInt(AMKA), victim_relationship, danger));
-				} catch (Exception e){
+					Communication.sendMailToHighDangerContacts(email);
+				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
+			} else
+				try {
+					Communication.sendMailtoLowDangerContacts(email);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+			break;
+		case (5):
+			phonenumber = world;
+			break;
+		case (6):
+			AMKA = world;
+			break;
+		case (7):
+			victim_relationship = world;
+			PersonJdbo persondao = new PersonJdbo();
+			try {
+				persondao.addVictimContact(new VictimContact(name, surname, email, Integer.parseInt(phonenumber),
+						Integer.parseInt(AMKA), victim_relationship, danger));
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 

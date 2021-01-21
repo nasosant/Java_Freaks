@@ -29,14 +29,13 @@ public class EditVictimContact extends JFrame {
 	protected static JTextField emailText;
 	protected static JTextField phoneNumberText;
 	protected static JTextField ssnText;
-	protected static JTextField confirmed_idText;
 	protected static JTextField victim_relationshipText;
 	protected static JTextField dangerText;
 	protected JPanel contentPane;
 	protected JTable table;
 	protected static DefaultTableModel model;
-	protected Object[] column = { "Name", "Surname", "Email", "Phone Number", "SSN",
-			"Victim Relationship", "Danger", "Id" };
+	protected Object[] column = { "Name", "Surname", "Email", "Phone Number", "SSN", "Victim Relationship", "Danger",
+			"Id" };
 	protected final static Object[] row = new Object[8];
 	protected String[][] matrixNew = new String[10][8];
 	protected String[][] matrixTemp = new String[10][8];
@@ -51,7 +50,6 @@ public class EditVictimContact extends JFrame {
 	protected JLabel lblEmail;
 	protected JLabel lblPhoneNumber;
 	protected JLabel lblSsn;
-	protected JLabel lblConfirmedId;
 	protected JLabel lblVictimRelationship;
 	protected JLabel lblDanger;
 	// Label Images
@@ -60,7 +58,6 @@ public class EditVictimContact extends JFrame {
 	protected JLabel labelEmailImg;
 	protected JLabel labelPhoneImg;
 	protected JLabel labelAmkaImg;
-	protected JLabel labelIdImg;
 	protected JLabel labelRelationshipImg;
 	protected JLabel labelDangerImg;
 
@@ -118,19 +115,14 @@ public class EditVictimContact extends JFrame {
 		lblSsn.setBounds(5, 192, 45, 24);
 		panel.add(lblSsn);
 
-		lblConfirmedId = new JLabel("Confirmed Id");
-		lblConfirmedId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblConfirmedId.setBounds(5, 227, 79, 24);
-		panel.add(lblConfirmedId);
-
 		lblVictimRelationship = new JLabel("Victim Relationship");
 		lblVictimRelationship.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblVictimRelationship.setBounds(5, 262, 112, 24);
+		lblVictimRelationship.setBounds(5, 227, 112, 24);
 		panel.add(lblVictimRelationship);
 
 		lblDanger = new JLabel("Danger");
 		lblDanger.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDanger.setBounds(5, 297, 63, 22);
+		lblDanger.setBounds(5, 262, 63, 22);
 		panel.add(lblDanger);
 
 		nameText = new JTextField();
@@ -158,19 +150,14 @@ public class EditVictimContact extends JFrame {
 		ssnText.setBounds(145, 196, 139, 20);
 		panel.add(ssnText);
 
-		confirmed_idText = new JTextField();
-		confirmed_idText.setColumns(10);
-		confirmed_idText.setBounds(145, 231, 139, 20);
-		panel.add(confirmed_idText);
-
 		victim_relationshipText = new JTextField();
 		victim_relationshipText.setColumns(10);
-		victim_relationshipText.setBounds(145, 266, 139, 20);
+		victim_relationshipText.setBounds(146, 231, 139, 20);
 		panel.add(victim_relationshipText);
 
 		dangerText = new JTextField();
 		dangerText.setColumns(10);
-		dangerText.setBounds(145, 300, 139, 20);
+		dangerText.setBounds(145, 265, 139, 20);
 		panel.add(dangerText);
 
 		scrollPane = new JScrollPane();
@@ -217,21 +204,16 @@ public class EditVictimContact extends JFrame {
 
 		labelDangerImg = new JLabel("");
 		Image imgDanger = new ImageIcon(this.getClass().getResource("danger.png")).getImage();
-		labelDangerImg.setBounds(63, 297, 25, 25);
+		labelDangerImg.setBounds(62, 262, 25, 25);
 		labelDangerImg.setIcon(new ImageIcon(imgDanger));
 		panel.add(labelDangerImg);
 
 		labelRelationshipImg = new JLabel("");
 		Image imgRelationship = new ImageIcon(this.getClass().getResource("relationship.png")).getImage();
-		labelRelationshipImg.setBounds(119, 262, 25, 25);
+		labelRelationshipImg.setBounds(120, 227, 25, 25);
 		labelRelationshipImg.setIcon(new ImageIcon(imgRelationship));
 		panel.add(labelRelationshipImg);
-
-		labelIdImg = new JLabel("");
 		Image imgId = new ImageIcon(this.getClass().getResource("conId.png")).getImage();
-		labelIdImg.setBounds(98, 226, 25, 25);
-		labelIdImg.setIcon(new ImageIcon(imgId));
-		panel.add(labelIdImg);
 
 		JLabel labelEditImg = new JLabel("");
 		Image imgEdit = new ImageIcon(this.getClass().getResource("edit.png")).getImage();
