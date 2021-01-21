@@ -182,9 +182,9 @@ public class PrintMenu extends JFrame implements ActionListener {
 			dispose();
 			try {
 				ReceiveMail.receiveMail();
-			} catch (Exception e1) {
-				e1.getStackTrace();
-			}​​
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 }

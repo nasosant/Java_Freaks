@@ -1,3 +1,4 @@
+
 import Covid_tracking.Communication;
 
 import javax.mail.*;
@@ -108,36 +109,51 @@ public class ReceiveMail {
 
 	public static void AnalyseW(String world, int a) {
 		switch (a) {
-		case (1):
-			if (world.equals("H")) {
-				danger = "High";
-			}
+			case (1):
+				if (world.equals("H")) {
+					danger = "High";
+				}
 
-			if (world.equals("L")) {
-				danger = "Low";
-			}
-			break;
-		case (3):
-			surname = world;
-			break;
-		case (2):
-			name = world;
-			break;
-		case (4):
-			email = world;
-			break;
-		case (5):
-			phonenumber = world;
-			break;
-		case (6):
-			AMKA = world;
-			break;
-		case (7):
-			victim_relationship = world;
-		PersonJdbo persondao = new PersonJdbo();
-		persondao.addVictimContact(new VictimContact(name, surname, email, Integer.parseInt(phonenumber), Integer.parseInt(AMKA), victim_relationship, danger));
+				if (world.equals("L")) {
+					danger = "Low";
+				}
+				break;
+			case (3):
+				surname = world;
+				break;
+			case (2):
+				name = world;
+				break;
+			case (4):
+				email = world;
+				if (danger.equals("High")) {
+					try {
+						Communication.sendMailToHighDangerContacts(email);
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+				} else
+					try {
+						Communication.sendMailtoLowDangerContacts(email);
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+				break;
+			case (5):
+				phonenumber = world;
+				break;
+			case (6):
+				AMKA = world;
+				break;
+			case (7):
+				victim_relationship = world;
+				PersonJdbo persondao = new PersonJdbo();
+				try {
+					persondao.addVictimContact(new VictimContact(name, surname, email, Integer.parseInt(phonenumber), Integer.parseInt(AMKA), victim_relationship, danger));
+				} catch (Exception e){
+					System.out.println(e.getMessage());
+				}
 		}
-
 	}
 
 	public static void email() {
