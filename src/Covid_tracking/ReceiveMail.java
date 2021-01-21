@@ -18,9 +18,9 @@ public class ReceiveMail {
 	public static String name;
 	public static String surname;
 	public static String email;
-	public static int phonenumber;
-	public static int AMKA;
-	public static int confirmed_id;
+	public static String phonenumber;
+	public static String AMKA;
+	public static String confirmed_id;
 	public static String victim_relationship;
 	public static String danger;
 
@@ -112,22 +112,33 @@ public class ReceiveMail {
 		switch (a) {
 		case (1):
 			if (world.equals("H")) {
-				danger = 'High'
+				danger = "High";
 			}
 
 			if (world.equals("L")) {
-				VicContacts[VicCount][0] = "L";
+                danger = "High";
 
 			}
 			break;
 		case (3):
-			VicContacts[VicCount][2] = world;
-			VicCount = VicCount + 1;
+			surname = world;
 			break;
 		case (2):
-			VicContacts[VicCount][1] = world;
+			name = world;
 			break;
-		}
+        case (4):
+            email = world;
+            break;
+            case (5):
+                phonenumber = world;
+                break;
+            case (6) :
+                AMKA = world;
+            case (7) :
+                victim_relationship = world;
+
+
+        }
 
 	}
 
