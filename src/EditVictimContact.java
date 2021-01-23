@@ -75,7 +75,7 @@ public class EditVictimContact extends JFrame {
 
 	public void draw() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1326, 544);
+		setBounds(100, 100, 1328, 554);
 		setTitle("Edit Victim Contact");
 		setResizable(false);
 		contentPane = new JPanel();
@@ -86,7 +86,7 @@ public class EditVictimContact extends JFrame {
 
 		panel = new JPanel();
 		panel.setBackground(new Color(176, 196, 222));
-		panel.setBounds(0, 0, 1309, 506);
+		panel.setBounds(0, 0, 1309, 514);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
