@@ -32,6 +32,7 @@ public class PrintMenu extends JFrame implements ActionListener {
 	private JLabel labelCuredPassedAway;
 	private JButton buttonEmail;
 	private JLabel labelEmail;
+	private JLabel labelSuccess;
 
 	PrintMenu() {
 		draw();
@@ -113,10 +114,14 @@ public class PrintMenu extends JFrame implements ActionListener {
 		buttonHelp.setIcon(new ImageIcon(imgHelp));
 		buttonHelp.addActionListener(this);
 
+		labelSuccess = new JLabel("");
+		labelSuccess.setBounds(180, 210, 190, 25);
+		panel.add(labelSuccess);
+
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Menu");
 		this.setLayout(null);
-		this.setSize(500, 265);
+		this.setSize(500, 275);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
@@ -129,6 +134,8 @@ public class PrintMenu extends JFrame implements ActionListener {
 		this.add(labelVirus);
 		this.add(buttonData);
 		this.add(buttonEmail);
+		this.add(labelSuccess);
+
 	}
 
 	@Override
@@ -179,9 +186,9 @@ public class PrintMenu extends JFrame implements ActionListener {
 				}
 			});
 		} else if (e.getSource() == buttonEmail) {
-			dispose();
 			try {
 				ReceiveMail.receiveMail();
+				labelSuccess.setText("The email send successfully!");
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
