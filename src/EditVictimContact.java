@@ -19,7 +19,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JCheckBox;
 
 public class EditVictimContact extends JFrame {
 
@@ -255,7 +254,7 @@ public class EditVictimContact extends JFrame {
 				dangerText.setText(model.getValueAt(i, 6).toString());
 				matrixTemp[numberTemp][6] = model.getValueAt(i, 6).toString();
 
-				matrixTemp[numberTemp][7] = model.getValueAt(i, 7).toString();
+				matrixTemp[numberTemp][7] = model.getValueAt(i, 7).toString(); // id
 			}
 		});
 		scrollPane.setViewportView(table);
@@ -279,10 +278,14 @@ public class EditVictimContact extends JFrame {
 					unvalidAMKA = true;
 				} else {
 					// Check for same AMKA in temporary UpdateList
-					for (int i = 0; i < numberTemp; i++) {
-						if (matrixTemp[i][4].equals(tempAMKA) && !matrixTemp[numberTemp][4].equals(tempAMKA)) {
-							unvalidAMKA = true;
-							break;
+					for (int i = 0; i <= numberNew; i++) {
+						try {
+							if (matrixTemp[i][4].equals(tempAMKA) && !matrixTemp[numberTemp][4].equals(tempAMKA)) {
+								unvalidAMKA = true;
+								break;
+							}
+						} catch (Exception e1) {
+							System.out.println("---------------TO BGAZEI----------");
 						}
 					}
 				}
@@ -321,7 +324,7 @@ public class EditVictimContact extends JFrame {
 						if (persondao.constraints(dangerText.getText(), "String", 4)) {
 							checkForNull++;
 						}
-						if (checkForNull == 7) {
+						if (checkForNull == 6) {
 							model.setValueAt(surnameText.getText(), i, 1);
 							model.setValueAt(nameText.getText(), i, 0);
 							model.setValueAt(emailText.getText(), i, 2);
@@ -388,7 +391,7 @@ public class EditVictimContact extends JFrame {
 				int k = table.getSelectedRow();
 				if (k >= 0) {
 					numberDel++;
-					idToDelete[numberDel] = Integer.parseInt(model.getValueAt(k, 8).toString());
+					idToDelete[numberDel] = Integer.parseInt(model.getValueAt(k, 7).toString());
 					model.removeRow(k);
 				} else {
 					JOptionPane.showMessageDialog(null, "Please Select a Row First");
@@ -428,31 +431,31 @@ public class EditVictimContact extends JFrame {
 						try {
 							if (!matrixTemp[i][0].equals(matrixNew[i][0])) {
 								String s = AllPeople.setName(matrixNew[i][0]);
-								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][7]), "victim_contacts", s);
 							}
 							if (!matrixTemp[i][1].equals(matrixNew[i][1])) {
-								String s = AllPeople.setSurname(matrixNew[i][0]);
-								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+								String s = AllPeople.setSurname(matrixNew[i][1]);
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][7]), "victim_contacts", s);
 							}
 							if (!matrixTemp[i][2].equals(matrixNew[i][2])) {
-								String s = AllPeople.setEmail(matrixNew[i][0]);
-								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+								String s = AllPeople.setEmail(matrixNew[i][2]);
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][7]), "victim_contacts", s);
 							}
 							if (!matrixTemp[i][3].equals(matrixNew[i][3])) {
-								String s = AllPeople.setPhonenumber(Integer.parseInt(matrixNew[i][0]));
-								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+								String s = AllPeople.setPhonenumber(Integer.parseInt(matrixNew[i][3]));
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][7]), "victim_contacts", s);
 							}
 							if (!matrixTemp[i][4].equals(matrixNew[i][4])) {
-								String s = AllPeople.setAMKA(Integer.parseInt(matrixNew[i][0]));
-								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+								String s = AllPeople.setAMKA(Integer.parseInt(matrixNew[i][4]));
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][7]), "victim_contacts", s);
 							}
 							if (!matrixTemp[i][5].equals(matrixNew[i][5])) {
-								String s = VictimContact.setVictim_relationship(matrixNew[i][0]);
-								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+								String s = VictimContact.setVictim_relationship(matrixNew[i][5]);
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][7]), "victim_contacts", s);
 							}
 							if (!matrixTemp[i][6].equals(matrixNew[i][6])) {
-								String s = VictimContact.setDanger(matrixNew[i][0]);
-								persondao.alterTables(Integer.parseInt(matrixTemp[i][8]), "victim_contacts", s);
+								String s = VictimContact.setDanger(matrixNew[i][6]);
+								persondao.alterTables(Integer.parseInt(matrixTemp[i][7]), "victim_contacts", s);
 							}
 						} catch (NumberFormatException e1) {
 							e1.printStackTrace();
