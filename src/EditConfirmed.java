@@ -324,16 +324,12 @@ public class EditConfirmed extends JFrame {
 					// Check for same AMKA in temporary UpdateList
 					for (int i = 0; i <= numberNew; i++) {
 						try {
-							// ---------------------------------------------------------------------------------------------------
-							System.out.println(tempAMKA);
-							System.out.println(matrixTemp[i][4]);
-							System.out.println(matrixTemp[numberTemp][4]);
 							if (matrixTemp[i][4].equals(tempAMKA) && !matrixTemp[numberTemp][4].equals(tempAMKA)) {
 								unvalidAMKA = true;
 								break;
 							}
 						} catch (Exception e1) {
-							System.out.println("");
+							System.out.println("---------------TO BGAZEI----------");
 						}
 					}
 				}

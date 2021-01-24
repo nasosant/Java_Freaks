@@ -84,7 +84,6 @@ public class Registration implements ActionListener {
 		// Getting the user name and the password entered by the user
 		String user = userText.getText();
 		String password = passwordText.getText();
-		System.out.println(user + ", " + password);
 		// Checking if the username and the password are equaled to the right ones and
 		// making and obj of PrintMenu() class.
 		if (user.contentEquals("n") && password.contentEquals("n")) {
