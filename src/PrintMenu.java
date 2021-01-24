@@ -113,10 +113,10 @@ public class PrintMenu extends JFrame implements ActionListener {
 		buttonHelp.setBounds(325, 2, 150, 25);
 		buttonHelp.setIcon(new ImageIcon(imgHelp));
 		buttonHelp.addActionListener(this);
-
+		
 		labelSuccess = new JLabel("");
 		labelSuccess.setBounds(180, 210, 190, 25);
-		panel.add(labelSuccess);
+	    panel.add(labelSuccess);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Menu");
@@ -135,7 +135,7 @@ public class PrintMenu extends JFrame implements ActionListener {
 		this.add(buttonData);
 		this.add(buttonEmail);
 		this.add(labelSuccess);
-
+		
 	}
 
 	@Override
